@@ -1,0 +1,164 @@
+@charset "UTF-8";
+@import "reset";
+@import "mixin";
+
+/*def.scss by RE:*/
+
+.hide{
+	display: none;
+}
+body{
+	min-width:1200px;
+	background:#454545;
+	color:#ccc;
+	line-height: 1.5;
+	font-size: 12px;
+}
+input,select{
+	padding:5px;
+	&#importUrl{
+		width:250px;
+	}
+	&.perInput{
+		margin: 0 5px;
+		width: 5em;
+	}
+	&.levelInput{
+		margin:0 5px;
+		width: 4em;
+	}
+	&.pointInput{
+		width: 7em;
+	}
+}
+button{
+
+	padding:6px 5px;
+	border-radius: 3px;
+	min-width:120px;
+	border: none;
+	background:#888;
+	font-weight: bold;
+	font-size: 12px;
+	color:#fff;
+	cursor:pointer;
+	letter-spacing:1px;
+	&:hover{
+		background:#777;
+	
+	}
+}
+a{
+	color:#cc33cc;
+	&:hover{
+		text-decoration: none;
+	}
+}
+h1{
+	padding:5px 10px;
+	background:#000;
+	color:#eee;
+	box-shadow: 0 1px 2px 1px #777;
+	font-size: 18px;
+	font-weight: bold;
+}
+.mainContents{
+	padding:20px;
+}
+.howto{
+	position: fixed;
+	top:10px;
+	right:20px;
+}
+.inputArea{
+	margin-bottom: 20px;
+	.sup{
+		font-size: 10px;
+		color:#aaa;
+		letter-spacing: 2px;
+	}
+}
+h2{
+	margin-top: 20px;
+	margin-bottom: 10px;
+	padding-left: 10px;
+	border-left: 5px solid #ccc;
+	font-size: 16px;
+	font-weight: bold;
+}
+.subContents{
+	@extend %clearfix;
+}
+.dataWraiten{
+	@extend %clearfix;
+	margin-bottom: 20px;
+	float:left;
+	dl{
+		margin-right: 20px;
+		width: 150px;
+		float:left;
+	}
+	dt{
+		padding-top: 6px;
+		width: 60px;
+		float:left;
+		clear:both;
+	}
+	dd{
+		font-size: 18px;
+		font-weight: bold;
+		padding-left: 70px;
+		padding-bottom: 3px;
+		border-bottom: 1px dashed #666;
+		text-align: right;
+	}
+}
+.mathWrap{
+	// margin-top: -35px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	float:left;
+	background:rgba(55,55,55,0.5);
+	border-radius: 3px;
+	padding:20px;
+	span{
+		font-size: 18px;
+		margin-right: 5px;
+		margin-left: 5px;
+	}
+	.mathInput{
+		margin-bottom: 5px;
+	}
+	.mathGenre{
+		margin-bottom: 5px;
+	}
+	.levelInput{
+		margin-bottom: 5px;
+	}
+}
+
+.dataOutput{
+	font-size: 10px;
+	@extend %clearfix;
+	.hotOutput,.oldOutput{
+		margin:10px;
+		float:left;
+	}
+	ul{
+		padding-left:10px;
+		ul{
+			padding-left: 20px;
+		}
+	}
+}
+.graph{
+	margin-top: 10px;
+	height:400px;
+	background: #999;
+}
+footer{
+	border-top: 1px solid #222;
+	margin-top: 30px;
+	padding:5px 15px 5px 5px;
+	text-align:right;
+}
