@@ -3,6 +3,11 @@ $(function(){
 		hot:[]
 		,old:[]
 	};
+	/*
+		大元の形はskillDataとして、
+		hot/oldをkeyにした版、スキル対象曲のみ版を作成して
+		機能に合わせてループしやすいようにしたい
+	*/
 	var skillTotalDetailData={
 		total:0
 		,hotTotal:0
@@ -11,6 +16,9 @@ $(function(){
 		,hotAverage:0
 		,oldAverage:0
 	}
+	/*
+		rankの項が必要
+	*/
 	var urlCookie = $.cookie('url');
 	console.log('1cookie | '+urlCookie)
 	if(urlCookie != null || urlCookie != undefined ){
@@ -24,6 +32,7 @@ $(function(){
 		skillData.xxx.point => int*100
 		skillData.xxx.rank => str
 	*/
+	fixedOverlayAddHeight()
 
 	//データインポート
 	dataImport()
@@ -34,10 +43,30 @@ $(function(){
 	//達成率計算
 	mathPerOfSongFunc()
 
+
+	function fixedOverlayAddHeight(){
+		var wh = $(window).height()
+		$('.attentionLoadWrap').height(wh)
+	}
+
+	//データインポート
 	function dataImport(){
 		var url = ''
 		$('#importBtn').submit(function(){
 			url = $('#importUrl').val();
+			//データ初期化
+			skillData ={
+				hot:[]
+				,old:[]
+			};
+			skillTotalDetailData={
+				total:0
+				,hotTotal:0
+				,oldTotal:0
+				,average:0
+				,hotAverage:0
+				,oldAverage:0
+			}
 
 			//cookie処理
 			$.cookie('url',url,{expires:30});
@@ -48,18 +77,18 @@ $(function(){
 			if(url != ''){
 				$.ajax({
 					type:'GET'
+					,async:true
 					,url:url
 					,dataType:'html'
 					,cache:false
 					,success:function(res){
-						$('#importedData').append(res.responseText).find('meta , link , div , title , style , br , img').remove()
-						.end().find('table').eq(0).remove().end().eq(1).remove().eq(4).remove();
+						$('#importedData').empty().html(res.responseText)
 					}
 					,complete:function(data){
 
 						// //不要Node削除
-						// $('#importedData')
-						// $('#importedData').find('table').eq(0).remove().end().eq(1).remove().eq(4).remove();
+						$('#importedData').find('meta , link , div , title , style , br , img').remove()
+						.end().find('table').eq(0).remove().end().eq(1).remove().eq(4).remove();
 
 						//データ化
 						$('#importedData').find('table').eq(0).find('tr').each(function(i,d){
@@ -263,5 +292,103 @@ $(function(){
 				$('#mathOutput4').text(result)
 			}
 		})
+	}
+	//グラフ　分布図1
+	$('#graphType1').on('click',function(){
+		var datas = {
+			hot:[]
+			,old:[]
+		}
+		$.each(skillData.hot,function(i,d){
+			datas.hot[i] = {
+				name:d.title
+				,x:d.level / 100
+				,y:d.point / 100
+
+			}
+		})
+		$.each(skillData.old,function(i,d){
+			datas.old[i] = {
+				name:d.title
+				,x:d.level / 100
+				,y:d.point / 100
+			}
+		})
+		console.log('datas--------------------------')
+		console.log(datas)
+		graphTypeSamp(datas)
+	})
+	function graphTypeSamp(datas){
+
+
+		$('#graph').highcharts({
+			chart:{
+				type:'scatter'
+				,zoomType:'xy'
+			}
+			,title: {
+				text:'sample'
+			}
+			,subtitle:{
+				text:'subsample'
+			}
+			,xAxis:{
+				title:{
+					enabled: true
+					,title:'point'
+				}
+				,startOnTick:true
+				,endOnTick:true
+				,showLastLavel:true
+			}
+			,yAxis:{
+				title:{
+					text:'level'
+				}
+			}
+			,legend:{
+				layout:'vertical'
+				,align:'left'
+				,verticalAlign:'top'
+				,x:10
+				,y:10
+				,floating:true
+				,backgroundColor:('#ccc')
+				,borderWidth:2
+			},
+			plotOptions:{
+				scatter:{
+					marker:{
+						radius:10
+						,states:{
+							hover:{
+								enabled:true
+								,lineColor:'rgb(100,100,100)'
+							}
+						}
+					}
+					,states:{
+						hover:{
+							marker:{
+								enabled:true
+							}
+						}
+					}
+					,tooltip:{
+						headerFormat:'{series.name} | {point.key}<br>'
+						,pointFormat:'Point{point.x}:Lv{point.y}'
+					}
+				}
+			},
+			series:[{
+				name:'HOT'
+				,color:'rgba(233,83,83,.5)'
+				,data:datas.hot
+			},{
+				name:'OLD'
+				,color:'rgba(119, 152, 191, .5)'
+				,data:datas.old
+			}]
+		});
 	}
 })

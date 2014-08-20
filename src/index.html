@@ -2,25 +2,42 @@
 <html lang="ja">
 <head>
 	<meta charset="utf8">
-	<title>ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze</title>
-	<meta name="description" content="GITADORA OD の スキル解析や計算をサポートするWEBサイトです。">
-	<meta name="keywords" content="スキル,計算,解析,上達,GITADORA,GITADORA OD,ギタドラ,Drummania,GUITAR FREAKS">
-	<meta property="og:title" content="ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze">
+	<title>ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze - ギタドラ スキルアナライズ</title>
+	<meta name="description" content="GITADORA OD Skill Analyze は GITADORA OD の スキル解析や計算をサポートしてスキル アナライズします。">
+	<meta name="keywords" content="スキル,計算,解析,アナライズ,上達,GITADORA,GITADORA OD,ギタドラ,Drummania,GUITAR FREAKS">
+	<meta property="og:title" content="ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze | ギタドラ スキルアナライズ">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="http://gitadoraodanalyze.web.fc2.com/">
 	<meta property="og:image" content="">
-	<meta property="og:description" content="PS3/PS Vita　専用ソフト『ドラゴンズクラウン』のスキルシミュレーターです">
-	<meta property="og:site_name" content="ドラゴンズクラウン　スキルシミューレーター">
+	<meta property="og:description" content="GITADORA OD Skill Analyze は GITADORA OD の スキル解析や計算をサポートしてスキル アナライズします。">
+	<meta property="og:site_name" content="ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze - ギタドラ スキルアナライズ">
 	<link rel="stylesheet" href="./css/def.css">
 	<script src="./js/jquery.js"></script>
 	<script src="./js/jquery.xdomainajax.js"></script>
 	<script src="./js/jquery.cookie.js"></script>
+	<script src="./js/graph/highcharts.js"></script>
 	<script src="./js/def.js"></script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=true;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-53924048-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
 </head>
 <body>
+	<div class="attentionLoadWrap" style="display:none;">
+		<div class="attentionLoad">
+			<p>読込完了まで少々お待ち下さい</p>
+		</div>
+	</div>
 	<h1>GITADORA OD SKill Analyze</h1>
+	<p class="pageCopy">GITADORA OD Skill Analyze は GITADORA OD の スキル解析や計算をサポートしてスキル アナライズします。</p>
 	<div class="mainContents">
-		<p class="howto"><a href="howToArea">※使い方ガイド</a></p>
+		<p class="howto"><a href="#howToArea">※使い方ガイド</a></p>
 		<div class="inputArea">
 			<form action="#" id="importBtn">
 				<input type="text" placeholder="http://xv-s.heteml.jp/skill/gdod.php?uid=g4053" id="importUrl">
@@ -78,10 +95,11 @@
 			</div>
 		</section>
 		<section>
-			<h2>データ見解図 作成途中</h2>
+			<h2>データ見解図 作成途中 (Lvボタンで仮実装のものをみれます。) </h2>
 			<button id="graphType1">Lv</button>
 			<button id="graphType2">スキル</button>
 			<button id="graphType3">ランク</button>
+			<button id="graphToggle">軸反転</button>
 			<div id="graph" class="graph"></div>
 		</section>
 		<div id="dataOutput" class="dataOutput"></div>
@@ -105,24 +123,36 @@
 			</div>
 			<h2>更新履歴</h2>
 			<ul>
+				<li>08/19 : グラフ作成中</li>
+				<li>08/19 : やることリストを設置</li>
+				<li>08/19 : ajax時読込み反映が不安定だった現象を恐らく解消</li>
 				<li>08/19 : 計算系作成</li>
 				<li>08/18 : データ参照まわり作成</li>
 				<li>08/17 : GITADORA OD Skill Analyzeプロジェクトキックオフ</li>
+			</ul>
+			<h2>今後予定（やるやらないは未確定）</h2>
+			<ul>
+				<li>達成率計算B実装（Lv,Combo,Pearfect入力により達成率吐き出し）</li>
+				<li>達成率計算C実装（Lv,達成率入力により大凡のCombo、Perfect吐き出し）</li>
+				<li>ポイント計算B実装（上げたいポイント数から入力した曲数で１曲あたりｎポイント上げる必要があるのか）</li>
+				<li>グラフA実装（達成*Lvの分布図）</li>
+				<li>グラフB実装（ポイント*Lvの分布図）</li>
+				<li>グラフC実装（達成*ポイントの分布図）</li>
+				<li>グラフD実装（ランクの円グラフ）</li>
+				<li>グラフE実装（ランク＞Lvのドーナツグラフ）</li>
+				<li>曲一覧をbemaniWikiから引っ張ってくる？</li>
+				<li>曲一覧にレベルフィルター</li>
+				<li>xv-s.heteml.jp様のavgページへの適切な導線を作成</li>
+				<li>変なハッシュやパラメータがつかないようにする。。。</li>
+				<li>スマホ閲覧最適化</li>
+				<li>ソースリファクタリング</li>
+				<li>SNSボタン設置。T/G</li>
+				<li>デザイン調整</li>
 			</ul>
 		</aside>
 	</div>
 	<footer>
 		copyright by wiz_rein | twitter id => wiz_rein
 	</footer>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-53924048-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 </body>
 </html>
