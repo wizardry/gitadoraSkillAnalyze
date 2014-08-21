@@ -7,6 +7,9 @@
 .hide{
 	display: none;
 }
+.did{
+	text-decoration: line-through;
+}
 html,body{
 	min-height:100%;
 }
@@ -49,6 +52,13 @@ button{
 	&:hover{
 		background:#777;
 	
+	}
+	&.current{
+		background:#333;
+	}
+	&.disable{
+		background:#666;
+		color:#999;
 	}
 }
 a{
@@ -186,7 +196,20 @@ h2{
 		}
 	}
 }
+.graphWrap{
+	.graphHeader{
+		@extend %clearfix;
+		margin-bottom: 10px;
+	}
+	.btnArea{
+		float:right;
+	}
+	.controlArea{
+		float:left;
+	}
+}
 .graph{
+	clear:both;
 	margin-top: 10px;
 	height:400px;
 	background: #999;

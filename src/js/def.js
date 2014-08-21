@@ -43,6 +43,9 @@ $(function(){
 	//達成率計算
 	mathPerOfSongFunc()
 
+	//グラフ描画周り
+	graphFunc()
+
 
 	function fixedOverlayAddHeight(){
 		var wh = $(window).height()
@@ -216,7 +219,6 @@ $(function(){
 		var minP;
 		var wannaP;
 		var type;
-		var result;
 
 		$('#mathInput1,#mathInput2,#genre').change(function(){
 			var minP = parseInt($('#mathInput1').val())*100;
@@ -293,33 +295,163 @@ $(function(){
 			}
 		})
 	}
-	//グラフ　分布図1
-	$('#graphType1').on('click',function(){
-		var datas = {
-			hot:[]
-			,old:[]
+	
+	function graphFunc(){
+		var axisToggle = false;
+		var targetToggle = true;
+		var type;
+		var graphData;
+		var xKey = '';
+		var yKey = '';
+
+		//各current処理
+		$('.btnArea button').on('click',function(){
+			if(!$(this).hasClass('disalbe')){//データインポート前は反応しない　未実装
+				$(this).closest('.btnArea').find('.current').removeClass('current')
+				$(this).addClass('current')
+			}
+		})
+		$('.controlArea button').on('click',function(){
+			$(this).toggleClass('current')
+		})
+
+		//フラグまわり制御
+		$('#axisToggle').click(function(){
+			axisToggle = !axisToggle
+			console.log('axisToggle | '+axisToggle)
+			$('.btnArea').find('.current').click()
+		})
+		$('#inTargetToggle').click(function(){
+			targetToggle = !targetToggle
+			console.log('targetToggle | '+targetToggle)
+			$('.btnArea').find('.current').click()
+		})
+
+		//Lv×Point
+		$('#graphType1').click(function(){
+			type = 'type1';
+			xKey = 'Point';
+			yKey = 'Lv';
+			keys = graphKeyTitle(xKey,yKey)
+			graphData = []//初期化
+			graphData = graphDrawFunc(type);
+			graphDrawing(graphData,keys[0],keys[1])
+		})
+		//Point×達成率
+		$('#graphType2').click(function(){
+			type = 'type2';
+			xKey = '達成率';
+			yKey = 'Point';
+			keys = graphKeyTitle(xKey,yKey)
+			graphData = []//初期化
+			graphData = graphDrawFunc(type);
+			graphDrawing(graphData,keys[0],keys[1])
+		})
+		//Lv×達成率
+		$('#graphType3').click(function(){
+			type = 'type3';
+			xKey = 'Lv';
+			yKey = '達成率';
+			keys = graphKeyTitle(xKey,yKey)
+			graphData = []//初期化
+			graphData = graphDrawFunc(type);
+			graphDrawing(graphData,keys[0],keys[1])
+		})
+		$('#graphType4,graphType5').click(function(){
+			alert('未実装')
+		})
+		//Lv×ランク
+		/*
+		$('#graphType4').click(function(){
+			type = 'type4';
+			xKey = 'ランク';
+			yKey = 'Lv';
+			keys = graphKeyTitle(xKey,yKey)
+			graphData = []//初期化
+			graphData = graphDrawFunc(type);
+			graphDrawing(graphData,keys[0],keys[1])
+		})
+		*/
+
+
+		function graphKeyTitle(xKey,yKey){
+			if(axisToggle){
+				return [xKey,yKey]
+			}else{
+				return [yKey,xKey]
+			}
 		}
-		$.each(skillData.hot,function(i,d){
-			datas.hot[i] = {
-				name:d.title
-				,x:d.level / 100
-				,y:d.point / 100
-
+		function graphDrawFunc(type){
+			var datas = {
+				hot:[]
+				,old:[]
 			}
-		})
-		$.each(skillData.old,function(i,d){
-			datas.old[i] = {
-				name:d.title
-				,x:d.level / 100
-				,y:d.point / 100
+			if(type == 'type1'){
+				$.each(skillData.hot,function(i,d){
+					graphDataGen(d,i,datas.hot,'type1')
+				})
+				$.each(skillData.old,function(i,d){
+					graphDataGen(d,i,datas.old,'type1')
+				})
+			}else if(type == 'type2'){
+				$.each(skillData.hot,function(i,d){
+					graphDataGen(d,i,datas.hot,'type2')
+				})
+				$.each(skillData.old,function(i,d){
+					graphDataGen(d,i,datas.old,'type2')
+				})
+			}else if(type == 'type3'){
+				$.each(skillData.hot,function(i,d){
+					graphDataGen(d,i,datas.hot,'type3')
+				})
+				$.each(skillData.old,function(i,d){
+					graphDataGen(d,i,datas.old,'type3')
+				})
+			}else if(type == 'type4'){
+				$.each(skillData.hot,function(i,d){
+					graphDataGen(d,i,datas.hot,'type4')
+				})
+				$.each(skillData.old,function(i,d){
+					graphDataGen(d,i,datas.old,'type4')
+				})
 			}
-		})
-		console.log('datas--------------------------')
-		console.log(datas)
-		graphTypeSamp(datas)
-	})
-	function graphTypeSamp(datas){
+			function graphDataGen(d,i,data,type){
+				if(i>24 && targetToggle){
+					return false;
+				}
+				var axisData=[]
+				data[i] ={
+					name:''
+					,x:0
+					,y:0
+				}
+				if(type == 'type1'){
+					axisData[0] = d.level / 100
+					axisData[1] = d.point / 100
+				}else if(type == 'type2'){
+					axisData[0] = d.per / 100
+					axisData[1] = d.point / 100
+				}else if(type == 'type3'){
+					axisData[0] = d.level / 100
+					axisData[1] = d.per / 100
+				}else if(type == 'type4'){
+					axisData[0] = d.level / 100
+					axisData[1] = d.rank / 100
+				}
+				data[i].name = d.title;
+				if(axisToggle){
+					data[i].x = axisData[0]
+					data[i].y = axisData[1]
+				}else{
+					data[i].x = axisData[1]
+					data[i].y = axisData[0]
+				}
+			}
+			return datas;
+		}
+	}
 
+	function graphDrawing(datas,xKey,yKey){
 
 		$('#graph').highcharts({
 			chart:{
@@ -327,15 +459,15 @@ $(function(){
 				,zoomType:'xy'
 			}
 			,title: {
-				text:'sample'
+				text:yKey+' × '+ xKey
 			}
 			,subtitle:{
-				text:'subsample'
+				text:''
 			}
 			,xAxis:{
 				title:{
 					enabled: true
-					,title:'point'
+					,title:xKey
 				}
 				,startOnTick:true
 				,endOnTick:true
@@ -343,12 +475,12 @@ $(function(){
 			}
 			,yAxis:{
 				title:{
-					text:'level'
+					text:yKey
 				}
 			}
 			,legend:{
 				layout:'vertical'
-				,align:'left'
+				,align:'right'
 				,verticalAlign:'top'
 				,x:10
 				,y:10
@@ -376,7 +508,7 @@ $(function(){
 					}
 					,tooltip:{
 						headerFormat:'{series.name} | {point.key}<br>'
-						,pointFormat:'Point{point.x}:Lv{point.y}'
+						,pointFormat:xKey+'{point.x} | '+yKey+'{point.y}'
 					}
 				}
 			},
