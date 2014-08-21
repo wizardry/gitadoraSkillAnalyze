@@ -25,7 +25,7 @@
 
 	  ga('create', 'UA-53924048-1', 'auto');
 	  ga('send', 'pageview');
-
+		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 	</script>
 </head>
 <body>
@@ -95,12 +95,23 @@
 			</div>
 		</section>
 		<section>
-			<h2>データ見解図 作成途中 (Lvボタンで仮実装のものをみれます。) </h2>
-			<button id="graphType1">Lv</button>
-			<button id="graphType2">スキル</button>
-			<button id="graphType3">ランク</button>
-			<button id="graphToggle">軸反転</button>
-			<div id="graph" class="graph"></div>
+			<h2>データ見解図</h2>
+			<div class="graphWrap">
+				<div class="graphHeader">
+					<div class="btnArea">
+						<button id="graphType1">Lv×Point</button>
+						<button id="graphType2">Point×達成率</button>
+						<button id="graphType3">Lv×達成率</button>
+						<button id="graphType4" class="disable">Lv×ランク</button>
+						<button id="graphType5" class="disable">ランク</button>
+					</div>
+					<div class="controlArea">
+						<button id="axisToggle">軸反転</button>
+						<button id="inTargetToggle" class="current">対象曲に絞る</button>
+					</div>
+				</div>
+				<div id="graph" class="graph"></div>
+			</div>
 		</section>
 		<div id="dataOutput" class="dataOutput"></div>
 		<div id="importedData" class="hide"></div>
@@ -123,6 +134,9 @@
 			</div>
 			<h2>更新履歴</h2>
 			<ul>
+				<li>08/21 : グラフ（達成*Lvの散布図）実装しました</li>
+				<li>08/21 : グラフB（ポイント*Lvの散布図）実装しました</li>
+				<li>08/21 : グラフB（達成*ポイントの散布図）実装しました</li>
 				<li>08/19 : グラフ作成中</li>
 				<li>08/19 : やることリストを設置</li>
 				<li>08/19 : ajax時読込み反映が不安定だった現象を恐らく解消</li>
@@ -135,9 +149,9 @@
 				<li>達成率計算B実装（Lv,Combo,Pearfect入力により達成率吐き出し）</li>
 				<li>達成率計算C実装（Lv,達成率入力により大凡のCombo、Perfect吐き出し）</li>
 				<li>ポイント計算B実装（上げたいポイント数から入力した曲数で１曲あたりｎポイント上げる必要があるのか）</li>
-				<li>グラフA実装（達成*Lvの分布図）</li>
-				<li>グラフB実装（ポイント*Lvの分布図）</li>
-				<li>グラフC実装（達成*ポイントの分布図）</li>
+				<li class="did">8/21グラフA実装（達成*Lvの散布図）</li>
+				<li class="did">8/21グラフB実装（ポイント*Lvの散布図）</li>
+				<li class="did">8/21グラフC実装（達成*ポイントの散布図）</li>
 				<li>グラフD実装（ランクの円グラフ）</li>
 				<li>グラフE実装（ランク＞Lvのドーナツグラフ）</li>
 				<li>曲一覧をbemaniWikiから引っ張ってくる？</li>
@@ -149,6 +163,7 @@
 				<li>SNSボタン設置。T/G</li>
 				<li>デザイン調整</li>
 			</ul>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="wiz_rein" data-lang="ja" data-count="none">ツイート</a>
 		</aside>
 	</div>
 	<footer>
