@@ -11,12 +11,14 @@
 	<meta property="og:image" content="">
 	<meta property="og:description" content="GITADORA OD Skill Analyze は GITADORA OD の スキル解析や計算をサポートしてスキル アナライズします。">
 	<meta property="og:site_name" content="ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze - ギタドラ スキルアナライズ">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="./css/def.css">
 	<script src="./js/jquery.js"></script>
 	<script src="./js/jquery.xdomainajax.js"></script>
 	<script src="./js/jquery.cookie.js"></script>
 	<script src="./js/graph/highcharts.js"></script>
 	<script src="./js/def.js"></script>
+	<script src="./js/sp.js"></script>
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -42,6 +44,7 @@
 			<form action="#" id="importBtn">
 				<input type="text" placeholder="http://xv-s.heteml.jp/skill/gdod.php?uid=g4053" id="importUrl">
 				<button type="submit">インポート</button>
+				<span id="ajaxSup" class="ajaxSup"></span>
 			</form>
 			<p class="sup"><a target="_blank" href="http://xv-s.heteml.jp/skill/">GuitarFreaks & DrumMania Skill Simulator</a>のURLを入力してください。</p>
 		</div>
@@ -65,6 +68,13 @@
 					<dd id="detailOldAvg">null</dd>
 				</dl>
 			</div>
+			<nav class="spNavi" id="spNavi">
+				<ul>
+					<li class="current">電卓</li>
+					<li>グラフ</li>
+					<li>その他</li>
+				</ul>
+			</nav>
 			<div class="mathWrap">
 				<div class="mathInput">
 					<select name="" id="genre" class="mathGenre">
@@ -94,7 +104,7 @@
 				</div>
 			</div>
 		</section>
-		<section>
+		<section id="graphSection">
 			<h2>データ見解図</h2>
 			<div class="graphWrap">
 				<div class="graphHeader">
@@ -122,6 +132,12 @@
 				<li><a target="_blank" href="http://www.konami.jp/bemani/gfdm/gitadora/">公式</a></li>
 				<li><a target="_blank" href="http://p.eagate.573.jp/game/gfdm/gitadora/p/cont/">公式e-amu</a></li>
 			</ul>
+			<br>
+			<p>他こんなのもつくってました。</p>
+			<ul>
+				<li><a href="http://dragonscrown.web.fc2.com/">ドラゴンズクラウン　スキルシミューレーター</a></li>
+				<li><a href="http://mh4hakkutsu.web.fc2.com/">発掘装備 一覧 | モンスターハンター4 </a></li>
+			</ul>
 			<h2>推奨環境など</h2>
 			<ul>
 				<li>モニター：1200px以上</li>
@@ -129,11 +145,39 @@
 				<li>JavaScript必須</li>
 			</ul>
 			<h2>使い方ガイド</h2>
-			<div id="howToArea">
-				<p>作成途中</p>
+			<div id="howToArea" class="howToArea">
+				<h3>当サイトを利用するまでの手順</h3>
+				<ol>
+					<li><a target="_blank" href="http://xv-s.heteml.jp/skill/">GuitarFreaks & DrumMania Skill Simulator</a> こちらのユーザー登録を行い、スキル状況を入力して下さい。</li>
+					<li>曲情報入力画面上部にある「スキル公開用URL」か、ユーザー検索から自分のページへ行き、URLをコピーしてください。</li>
+					<li>当サイト上部にある入力フィールドにURLをペーストし、インポートボタンをクリック、タップして下さい。</li>
+					<li>成功した場合「データ詳細」に数値が反映されます。データ反映後各コンテンツがそのデータに応じて機能します。</li>
+				</ol>
+				<h3>電卓系のヒント</h3>
+				<ul>
+					<li>機能は名前などつけていないため、文章から読み取って下さい･･･</li>
+					<li>一部はデータインポート無しでも機能しますが、一部はデータインポートでないと機能しません。</li>
+				</ul>
+				<h3>グラフについてのヒント</h3>
+				<ul>
+					<li>軸反転 でx軸とy軸を反転できます。</li>
+					<li>対象曲に絞るを外すとスキル対象外を含む登録データ全ての情報をグラフに描画します。</li>
+					<li>右上にあるHOT/OLDをクリックすることで片側のみを有効にすることが可能です。</li>
+					<li>グラフ内をドラッグすることで拡大表示することが出来ます。</li>
+					<li>マーカーをタップもしくはマウスオーバーすることにより、簡易的な曲情報が見れます。</li>
+					<li>
+						例えばLv×Point にした場合、左側下部は高達成下限なので、放置でよい曲である可能性が高いです。<br>
+						しかし、左側上部は特攻気味で詰める余地が残されています。<br>
+						左下の曲を増やしつつ、右側は中～上に動かすように詰めていくのが理想形となります。<br>
+					</li>
+				</ul>
 			</div>
 			<h2>更新履歴</h2>
 			<ul>
+				<li>08/25 : 使い方ガイド簡易版を作成しました。</li>
+				<li>08/24 : データインポート開始をわかりやすくしました。</li>
+				<li>08/24 : URLにゴミがつくのを一部修正しました。</li>
+				<li>08/24 : スマホ表示を簡易的に調整しました。</li>
 				<li>08/21 : グラフ（達成*Lvの散布図）実装しました</li>
 				<li>08/21 : グラフB（ポイント*Lvの散布図）実装しました</li>
 				<li>08/21 : グラフB（達成*ポイントの散布図）実装しました</li>
