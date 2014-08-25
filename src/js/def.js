@@ -78,6 +78,7 @@ $(function(){
 
 			console.log('#importUrl | ' + url)
 			if(url != ''){
+				$('#ajaxSup').text('読み込みを開始します。')
 				$.ajax({
 					type:'GET'
 					,async:true
@@ -88,7 +89,9 @@ $(function(){
 						$('#importedData').empty().html(res.responseText)
 					}
 					,complete:function(data){
-
+						$('#ajaxSup').text('読み込みを完了しました。').fadeOut(500,function(){
+							$('#ajaxSup').text().show()
+						})
 						// //不要Node削除
 						$('#importedData').find('meta , link , div , title , style , br , img').remove()
 						.end().find('table').eq(0).remove().end().eq(1).remove().eq(4).remove();
@@ -111,7 +114,9 @@ $(function(){
 					}
 				})
 			}
+			return false;
 		})
+		
 
 	}
 

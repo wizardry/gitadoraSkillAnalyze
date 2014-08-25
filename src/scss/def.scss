@@ -2,8 +2,26 @@
 @import "reset";
 @import "mixin";
 
-/*def.scss by RE:*/
+//メディアクエリーズ
+$sp : 'max-width:680px';
+$pc : 'min-width:681px';
 
+
+/*
+sample
+	@media screen and ($sp){
+		.hoge{
+	
+		}
+	}
+
+*/
+/*def.scss by RE:*/
+.adingoFluctOverlay{
+	display: none;
+	visibility: hidden;
+	/*ad*/
+}
 .hide{
 	display: none;
 }
@@ -14,11 +32,18 @@ html,body{
 	min-height:100%;
 }
 body{
-	min-width:1200px;
 	background:#454545;
 	color:#ccc;
 	line-height: 1.5;
 	font-size: 12px;
+	font-adjust:100%;
+	font-family:sans-serif;
+	@media screen and ($sp){
+		min-width:100%;
+	}
+	@media screen and ($pc){
+		min-width:1200px;
+	}
 }
 input,select{
 	padding:5px;
@@ -60,6 +85,15 @@ button{
 		background:#666;
 		color:#999;
 	}
+	@media screen and ($sp){
+		box-sizing:border-box;
+		-webkit-box-sizing:border-box;
+		font-size: 12px;
+		margin: 5px auto;
+		display:block;
+		width: 100%;
+
+	}
 }
 a{
 	color:#cc33cc;
@@ -74,10 +108,18 @@ h1{
 	box-shadow: 0 1px 2px 1px #777;
 	font-size: 18px;
 	font-weight: bold;
+	@media screen and ($sp){
+		font-size: 13px;
+	}
 }
 .pageCopy{
 	text-align: right;
 	padding-top: 5px;
+	@media screen and ($sp){
+		padding:5px 10px;
+		font-size: 11px;
+		text-align: left;
+	}
 }
 .attentionLoadWrap{
 	width: 100%;
@@ -106,6 +148,9 @@ h1{
 }
 .mainContents{
 	padding:0 20px 20px;
+	@media screen and ($sp){
+		padding: 10px;
+	}
 }
 .howto{
 	position: fixed;
@@ -113,7 +158,11 @@ h1{
 	right:20px;
 	padding:5px;
 	background:#000;
-	border-radius: 3px
+	border-radius: 3px;
+	@media screen and ($sp){
+		font-size: 11px;
+		line-height: 1;
+	}
 }
 .inputArea{
 	margin-bottom: 20px;
@@ -122,6 +171,7 @@ h1{
 		color:#aaa;
 		letter-spacing: 2px;
 	}
+
 }
 h2{
 	margin-top: 20px;
@@ -130,6 +180,43 @@ h2{
 	border-left: 5px solid #ccc;
 	font-size: 16px;
 	font-weight: bold;
+	@media screen and ($sp){
+		padding-bottom: 3px;
+		font-size: 13px;
+		border-bottom: 1px solid #ccc;
+	}
+}
+.spNavi{
+	@extend %clearfix;
+	display: none;
+	@media screen and ($sp){
+		margin:0 -5px 20px;
+		display: block;
+		li{
+			box-sizing:border-box;
+			-webkit-box-sizing:border-box;
+			border-left: 1px solid #333;
+			border-bottom: 1px solid #333;
+			padding: 10px;
+			background:#ccc;
+			color:#000;
+			float:left;
+			width: 33%;
+			text-align: center;
+			&:first-child{
+				border-top-left-radius: 3px;
+				border-bottom-left-radius: 3px;
+			}
+			&:last-child{
+				border-top-right-radius: 3px;
+				border-bottom-right-radius: 3px;
+			}
+			&.current{
+				background:#777;
+				color:#fff;
+			}
+		}
+	}
 }
 .subContents{
 	@extend %clearfix;
@@ -157,6 +244,13 @@ h2{
 		border-bottom: 1px dashed #666;
 		text-align: right;
 	}
+	@media screen and ($sp){
+		float:none;
+		dl{
+			width: 100%;
+		}
+
+	}
 }
 .mathWrap{
 	// margin-top: -35px;
@@ -180,11 +274,20 @@ h2{
 	.levelInput{
 		margin-bottom: 5px;
 	}
+	@media screen and ($sp){
+		float:none;
+		margin-right: 0;
+		padding: 10px;
+
+	}
 }
 
 .dataOutput{
 	font-size: 10px;
 	@extend %clearfix;
+	@media screen and ($sp){
+		display: none;
+	}
 	.hotOutput,.oldOutput{
 		margin:10px;
 		float:left;
@@ -207,6 +310,14 @@ h2{
 	.controlArea{
 		float:left;
 	}
+	@media screen and ($sp){
+		.graph{
+			width:640px;
+		}
+		.btnArea{
+			float:none;
+		}
+	}
 }
 .graph{
 	clear:both;
@@ -219,4 +330,24 @@ footer{
 	margin-top: 30px;
 	padding:5px 15px 5px 5px;
 	text-align:right;
+}
+.howToArea{
+	h3{
+		font-size: 13px;
+		font-weight: bold;
+		margin-top: 10px;
+		margin-bottom: 5px;
+	}
+	ol{
+		padding-left: 20px;
+		list-style:decimal;
+	}
+	ul{
+		padding-left: 20px;
+		list-style:disc;
+	}
+	li{
+		margin-bottom: 5px;
+		line-height: 1.3;
+	}
 }
