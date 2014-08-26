@@ -90,7 +90,7 @@ $(function(){
 					}
 					,complete:function(data){
 						$('#ajaxSup').text('読み込みを完了しました。').fadeOut(500,function(){
-							$('#ajaxSup').text().show()
+							$('#ajaxSup').text('').show()
 						})
 						// //不要Node削除
 						$('#importedData').find('meta , link , div , title , style , br , img').remove()
