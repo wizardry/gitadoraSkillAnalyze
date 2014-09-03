@@ -111,6 +111,9 @@ $(function(){
 						//配列描画
 						arrayOutputFunc()
 
+						//Lv×Point
+						$('#graphType1').click()
+
 					}
 				})
 			}
@@ -335,8 +338,8 @@ $(function(){
 		//Lv×Point
 		$('#graphType1').click(function(){
 			type = 'type1';
-			xKey = 'Point';
-			yKey = 'Lv';
+			xKey = 'Lv';
+			yKey = 'Point';
 			keys = graphKeyTitle(xKey,yKey)
 			graphData = []//初期化
 			graphData = graphDrawFunc(type);
