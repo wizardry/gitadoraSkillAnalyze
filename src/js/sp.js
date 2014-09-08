@@ -17,14 +17,14 @@ $(function(){
 			wh = $(window).width()
 			var eq = $('#spNavi').find('.current').index()
 			if(eq == 0){
-				$('.mathWrap').show();
+				$('.calcContents').show();
 				$('#graphSection,aside').hide();
 			}else if(eq == 1){
 				$('#graphSection').show();
-				$('.mathWrap,aside').hide();
+				$('.calcContents,aside').hide();
 			}else if(eq == 2){
 				$('aside').show();
-				$('#graphSection,.mathWrap').hide();
+				$('#graphSection,.calcContents').hide();
 			}
 				
 		}
@@ -32,7 +32,7 @@ $(function(){
 		if(wh < spSize){
 			currentSet()
 		}else{
-			$('#graphSection,.mathWrap,aside').show();
+			$('#graphSection,.calcContents,aside').show();
 		}
 
 		$('#spNavi li').on(click,function(){
@@ -44,7 +44,7 @@ $(function(){
 			if(wh < spSize){
 				currentSet()
 			}else{
-				$('#graphSection,.mathWrap,aside').show();
+				$('#graphSection,.calcContents,aside').show();
 			}
 		})
 
