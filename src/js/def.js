@@ -43,6 +43,15 @@ $(function(){
 	//達成率計算
 	mathPerOfSongFunc()
 
+	//目標上昇ポイントと単曲あたりの上昇ポイント
+	mathWannaIncreasePoint()
+
+	//Lv,Combo,Pearfect入力により達成率吐き出し）
+	mathRateGoal()
+
+	//Lv,達成率入力により大凡のCombo、Perfect吐き出し
+	mathRateWanna()
+
 	//グラフ描画周り
 	graphFunc()
 
@@ -303,7 +312,90 @@ $(function(){
 			}
 		})
 	}
-	
+
+	//目標上昇ポイントを単曲に割って1曲当りnpt上げる必要があるか
+	function mathWannaIncreasePoint(){
+		var wannaP,range,result;
+		$('#mathInput6,#genre2').change(function(){
+			wannaP = parseInt($('#mathInput6').val())*100;
+			range = $('#genre2').val()
+			console.log(wannaP +'~'+ range)
+			if(range != 0){
+				result = (wannaP / 25) / 100
+				$('#mathOutput5').text(result)
+			}else{
+				result = (wannaP / 50) / 100
+				$('#mathOutput5').text(result)
+			}
+		})
+	}
+
+	//Lv,Combo,Pearfect入力により達成率吐き出し）
+	function mathRateGoal(){
+		var lv,combo,perfect,great,result1,result2;
+		var kariCalc1,kariCalc2;
+		$('#mathInput7,#mathInput8,#mathInput9').change(function(){
+			if($('#mathInput8').val().match(/[^0-9]/)){
+				alert('入力が不正です。')
+				return false;
+
+			}else if($('#mathInput8').val() > 100){
+				alert('入力が不正です。')
+				return false;
+
+			}
+			if($('#mathInput9').val().match(/[^0-9]/)){
+				alert('入力が不正です。')
+				return false;
+
+			}else if($('#mathInput9').val() > 100){
+				alert('入力が不正です。')
+				return false;
+			}
+			lv = parseInt($('#mathInput7').val())*100
+			combo = parseInt($('#mathInput8').val())
+			perfect = parseInt($('#mathInput9').val())
+			great = 100 - perfect;
+			if(great > 5){
+				great = 5
+			}
+			kariCalc1 = (perfect*85) + (great*25)
+			kariCalc2 = (combo*15)
+			console.log(kariCalc1 + ' | ' +kariCalc2)
+			
+			result1=(kariCalc1+kariCalc2)/100
+			result2=(lv*20*(result1/100))/100
+			$('#mathOutput6').text(result1)
+			$('#mathOutput7').text(result2)
+
+		})
+
+	}
+	//Lv,達成率入力により大凡のCombo、Perfect吐き出し
+	function mathRateWanna(){
+		var lv,combo,perfect,great,rate,result1,result2;
+		var kariCalc1,kariCalc2;
+		$('#mathInput10,#mathInput11').change(function(){
+			if($('#mathInput8').val() > 10){
+				alert('入力が不正です。')
+				return false;
+
+			}
+			if($('#mathInput9').val() > 100){
+				alert('入力が不正です。')
+				return false;
+			}
+			lv = parseInt($('#mathInput10').val())*100
+			rate = parseInt($('#mathInput11').val())*100
+			
+			$('#mathOutput8').text('結構な数字')
+			$('#mathOutput9').text('殆どのノーツをとった')
+			$('#mathOutput10').text('すごい')
+			$('#mathOutput11').text('作成途中だよ;p')
+
+		})
+	}
+
 	function graphFunc(){
 		var axisToggle = false;
 		var targetToggle = true;

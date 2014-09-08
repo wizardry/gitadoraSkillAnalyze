@@ -103,15 +103,6 @@
 					更新曲数は<span id="mathOutput3">null</span>曲です。
 				</div>
 			</div>
-			<div class="mathWrap">
-				<div class="mathInput">
-					レベル<input type="number" placeholder="7.00" id="mathInput4" class="levelInput">の曲を<br>
-					<input type="number" placeholder="90.56" id="mathInput5" class="perInput">%でクリアすると
-				</div>
-				<div class="mathOutput">
-					単曲スキルは<span id="mathOutput4">null</span>ptです。
-				</div>
-			</div>
 		</section>
 		<section id="graphSection">
 			<h2>データ見解図</h2>
@@ -130,6 +121,56 @@
 					</div>
 				</div>
 				<div id="graph" class="graph"></div>
+			</div>
+		</section>
+		<section class="calcContents">
+			<h2>そのた電卓</h2>
+			<div class="mathWrap">
+				<div class="mathInput">
+					<input type="number" id="mathInput6" class="pointInput" placeholder="1000.00">
+					pt上げるには<br>
+					<select name="" id="genre2" class="mathGenre">
+						<option value="0">すべての曲</option>
+						<option value="1">新曲</option>
+						<option value="2">旧曲</option>
+					</select>
+					を対象にした場合1曲当たり
+				</div>
+				<div class="mathOutput">
+					<span id="mathOutput5">null</span>pt上げる必要がある。
+				</div>
+			</div>
+			<div class="mathWrap">
+				<div class="mathInput">
+					レベル<input type="number" placeholder="7.00" id="mathInput4" class="levelInput">の曲を<br>
+					<input type="number" placeholder="90.56" id="mathInput5" class="perInput">%でクリアすると
+				</div>
+				<div class="mathOutput">
+					単曲スキルは<span id="mathOutput4">null</span>ptです。
+				</div>
+			</div>
+			<div class="mathWrap">
+				<div class="mathInput">
+					レベル<input type="number" placeholder="7.00" id="mathInput7" class="levelInput"><br>
+					コンボ(%)<input type="number" placeholder="48" id="mathInput8" class="levelInput">%<br>
+					perfect(%)<input type="number" placeholder="98" id="mathInput9" class="levelInput">%<br>
+				</div>
+				<div class="mathOutput">
+					達成率はおおよそ<span id="mathOutput6">null</span>% <br>
+					スキルポイントはだいたい<span id="mathOutput7">null</span>ptです。
+				</div>
+			</div>
+			<div class="mathWrap">
+				<div class="mathInput">
+					レベル<input type="number" placeholder="7.00" id="mathInput10" class="levelInput"><br>
+					達成率<input type="number" placeholder="48" id="mathInput11" class="levelInput">%<br>
+				</div>
+				<div class="mathOutput">
+					目標リザルトはおおよそコンボ<span id="mathOutput8">null</span>%<br>
+					パーフェクトはだいたい<span id="mathOutput9">null</span>%となり、<br>
+					スキルポイントは<span id="mathOutput10">null</span>ptです。
+					<p id="mathOutput11"></pspan>
+				</div>
 			</div>
 		</section>
 		<div id="dataOutput" class="dataOutput"></div>
@@ -183,6 +224,8 @@
 			</div>
 			<h2>更新履歴</h2>
 			<ul>
+				<li>09/09 : 達成率計算C実装</li>
+				<li>09/09 : スキルポイント計算B実装</li>
 				<li>09/03 : 仕事が忙しいので更新頻度さがります。</li>
 				<li>09/03 : インポート完了後にLv*Pointグラフを描画するようにしました。</li>
 				<li>09/03 : 表記入れ子を修正しました。</li>
@@ -191,39 +234,39 @@
 				<li>08/24 : URLにゴミがつくのを一部修正しました。</li>
 				<li>08/24 : スマホ表示を簡易的に調整しました。</li>
 				<li>08/21 : グラフ（達成*Lvの散布図）実装しました</li>
-				<li>08/21 : グラフB（ポイント*Lvの散布図）実装しました</li>
-				<li>08/21 : グラフB（達成*ポイントの散布図）実装しました</li>
+				<li>08/21 : グラフB（スキルポイント*Lvの散布図）実装しました</li>
+				<li>08/21 : グラフB（達成*スキルポイントの散布図）実装しました</li>
 				<li>08/19 : グラフ作成中</li>
 				<li>08/19 : やることリストを設置</li>
 				<li>08/19 : ajax時読込み反映が不安定だった現象を恐らく解消</li>
 				<li>08/19 : 計算系作成</li>
 				<li>08/18 : データ参照まわり作成</li>
-				<li>08/17 : GITADORA OD Skill Analyzeプロジェクトキックオフ</li>
+				<li>08/17 : <em>GITADORA OD Skill Analyze</em>プロジェクトキックオフ</li>
 			</ul>
 			<h2>今後予定（やるやらないは未確定）</h2>
 			<ul>
 				<li>達成率計算B実装（Lv,Combo,Pearfect入力により達成率吐き出し）</li>
-				<li>達成率計算C実装（Lv,達成率入力により大凡のCombo、Perfect吐き出し）</li>
-				<li>ポイント計算B実装（上げたいポイント数から入力した曲数で１曲あたりｎポイント上げる必要があるのか）</li>
+				<li class="did">達成率計算C実装（Lv,達成率入力により大凡のCombo、Perfect吐き出し）</li>
+				<li class="did">スキルポイント計算B実装（上げたいスキルポイント数から入力した曲数で１曲あたりｎポイント上げる必要があるのか）</li>
 				<li class="did">8/21グラフA実装（達成*Lvの散布図）</li>
-				<li class="did">8/21グラフB実装（ポイント*Lvの散布図）</li>
-				<li class="did">8/21グラフC実装（達成*ポイントの散布図）</li>
+				<li class="did">8/21グラフB実装（スキルポイント*Lvの散布図）</li>
+				<li class="did">8/21グラフC実装（達成*スキルポイントの散布図）</li>
 				<li>グラフD実装（ランクの円グラフ）</li>
 				<li>グラフE実装（ランク＞Lvのドーナツグラフ）</li>
 				<li>曲一覧をbemaniWikiから引っ張ってくる？</li>
 				<li>曲一覧にレベルフィルター</li>
 				<li>xv-s.heteml.jp様のavgページへの適切な導線を作成</li>
-				<li>変なハッシュやパラメータがつかないようにする。。。</li>
-				<li>スマホ閲覧最適化</li>
+				<li class="did">変なハッシュやパラメータがつかないようにする。。。</li>
+				<li class="did">スマホ閲覧最適化</li>
 				<li>ソースリファクタリング</li>
-				<li>SNSボタン設置。T/G</li>
+				<li class="did">SNSボタン設置。T/G</li>
 				<li>デザイン調整</li>
 			</ul>
 			<a href="https://twitter.com/share" class="twitter-share-button" data-text="ギタドラ アナライズではGITADORA OrverDrive の スキル解析や計算をサポートします #ギタドラ" data-via="wiz_rein" data-lang="ja" data-count="none">ツイート</a>
 		</aside>
 	</div>
 	<footer>
-		copyright by wiz_rein | twitter id => wiz_rein
+		<em>GITADORA OverDrive Skill Analyze</em> copyright by wiz_rein | twitter id => wiz_rein
 	</footer>
 </body>
 </html>
