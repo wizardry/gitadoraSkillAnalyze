@@ -352,7 +352,7 @@ $(function(){
 				alert('入力が不正です。')
 				return false;
 			}
-			lv = parseInt($('#mathInput7').val())*100
+			lv = $('#mathInput7').val()*100
 			combo = parseInt($('#mathInput8').val())
 			perfect = parseInt($('#mathInput9').val())
 			great = 100 - perfect;
@@ -362,40 +362,16 @@ $(function(){
 			kariCalc1 = (perfect*85) + (great*25)
 			kariCalc2 = (combo*15)
 			console.log(kariCalc1 + ' | ' +kariCalc2)
-			
 			result1=(kariCalc1+kariCalc2)/100
-			result2=(lv*20*(result1/100))/100
+			console.log(result1 + ' , ' + lv +' , '  )
+			result2=((lv*result1)*20)/10000
+			result2=result2.toFixed(2)
 			$('#mathOutput6').text(result1)
 			$('#mathOutput7').text(result2)
 
 		})
 
 	}
-	//Lv,達成率入力により大凡のCombo、Perfect吐き出し
-	function mathRateWanna(){
-		var lv,combo,perfect,great,rate,result1,result2;
-		var kariCalc1,kariCalc2;
-		$('#mathInput10,#mathInput11').change(function(){
-			if($('#mathInput8').val() > 10){
-				alert('入力が不正です。')
-				return false;
-
-			}
-			if($('#mathInput9').val() > 100){
-				alert('入力が不正です。')
-				return false;
-			}
-			lv = parseInt($('#mathInput10').val())*100
-			rate = parseInt($('#mathInput11').val())*100
-			
-			$('#mathOutput8').text('結構な数字')
-			$('#mathOutput9').text('殆どのノーツをとった')
-			$('#mathOutput10').text('すごい')
-			$('#mathOutput11').text('作成途中だよ;p')
-
-		})
-	}
-
 	function graphFunc(){
 		var axisToggle = false;
 		var targetToggle = true;
@@ -460,19 +436,6 @@ $(function(){
 		$('#graphType4,graphType5').click(function(){
 			alert('未実装')
 		})
-		//Lv×ランク
-		/*
-		$('#graphType4').click(function(){
-			type = 'type4';
-			xKey = 'ランク';
-			yKey = 'Lv';
-			keys = graphKeyTitle(xKey,yKey)
-			graphData = []//初期化
-			graphData = graphDrawFunc(type);
-			graphDrawing(graphData,keys[0],keys[1])
-		})
-		*/
-
 
 		function graphKeyTitle(xKey,yKey){
 			if(axisToggle){
