@@ -112,8 +112,6 @@
 						<button id="graphType1">Lv×Point</button>
 						<button id="graphType2">Point×達成率</button>
 						<button id="graphType3">Lv×達成率</button>
-						<button id="graphType4" class="disable">Lv×ランク</button>
-						<button id="graphType5" class="disable">ランク</button>
 					</div>
 					<div class="controlArea">
 						<button id="axisToggle">軸反転</button>
@@ -158,18 +156,6 @@
 				<div class="mathOutput">
 					達成率はおおよそ<span id="mathOutput6">null</span>% <br>
 					スキルポイントはだいたい<span id="mathOutput7">null</span>ptです。
-				</div>
-			</div>
-			<div class="mathWrap">
-				<div class="mathInput">
-					レベル<input type="number" placeholder="7.00" id="mathInput10" class="levelInput"><br>
-					達成率<input type="number" placeholder="48" id="mathInput11" class="levelInput">%<br>
-				</div>
-				<div class="mathOutput">
-					目標リザルトはおおよそコンボ<span id="mathOutput8">null</span>%<br>
-					パーフェクトはだいたい<span id="mathOutput9">null</span>%となり、<br>
-					スキルポイントは<span id="mathOutput10">null</span>ptです。
-					<p id="mathOutput11"></pspan>
 				</div>
 			</div>
 		</section>
@@ -224,6 +210,8 @@
 			</div>
 			<h2>更新履歴</h2>
 			<ul>
+				<li>09/14 : 達成率計算Bが計算式Cフォームからできてしまうので実装中止しました。</li>
+				<li>09/13 : ランクグラフをペンディングにしました。</li>
 				<li>09/09 : 達成率計算C実装</li>
 				<li>09/09 : スキルポイント計算B実装</li>
 				<li>09/03 : 仕事が忙しいので更新頻度さがります。</li>
@@ -245,14 +233,14 @@
 			</ul>
 			<h2>今後予定（やるやらないは未確定）</h2>
 			<ul>
-				<li>達成率計算B実装（Lv,Combo,Pearfect入力により達成率吐き出し）</li>
+				<li class="did">達成率計算B実装（Lv,Combo,Pearfect入力により達成率吐き出し）</li>
 				<li class="did">達成率計算C実装（Lv,達成率入力により大凡のCombo、Perfect吐き出し）</li>
 				<li class="did">スキルポイント計算B実装（上げたいスキルポイント数から入力した曲数で１曲あたりｎポイント上げる必要があるのか）</li>
 				<li class="did">8/21グラフA実装（達成*Lvの散布図）</li>
 				<li class="did">8/21グラフB実装（スキルポイント*Lvの散布図）</li>
 				<li class="did">8/21グラフC実装（達成*スキルポイントの散布図）</li>
-				<li>グラフD実装（ランクの円グラフ）</li>
-				<li>グラフE実装（ランク＞Lvのドーナツグラフ）</li>
+				<li class="did">グラフD実装（ランクの円グラフ）</li>
+				<li class="did">グラフE実装（ランク＞Lvのドーナツグラフ）</li>
 				<li>曲一覧をbemaniWikiから引っ張ってくる？</li>
 				<li>曲一覧にレベルフィルター</li>
 				<li>xv-s.heteml.jp様のavgページへの適切な導線を作成</li>
