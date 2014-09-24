@@ -50,7 +50,7 @@ $(function(){
 	mathRateGoal()
 
 	//Lv,達成率入力により大凡のCombo、Perfect吐き出し
-	mathRateWanna()
+	// mathRateWanna()
 
 	//グラフ描画周り
 	graphFunc()
