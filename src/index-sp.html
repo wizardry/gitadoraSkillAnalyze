@@ -40,53 +40,41 @@
 	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 	</script>
 	<script>
-// デザイン調整用スクリプト PC独自なのでインラインに書いてしまう
 $(function(){
-	sideColHeighter()
-	menuBehavior()
-	$(window).resize(function(){
-		sideColHeighter()
-	})
-	function sideColHeighter(){
-		wh = $(window).height()
-		$('.sideCol').css({
-			height:wh - 40 + 'px'
-		})
-	}
-	function menuBehavior(){
-		$('#glovalNavi li').on('click',function(){
-			$('#glovalNavi li').removeClass('current')
-			$(this).addClass('current')
-			ancId = $(this).attr('id')
-			if(ancId = 'thisLink'){
-				location.href = $(this).find('a').attr('href')
-				return true
+	slideFunc()
+	function slideFunc(){
+		$('#upDatesOpen,#wannaListOpen').click(function(e){
+			elem = $(e.target)
+			flag = elem.closest('.slideWrap').hasClass('js-open')
+			if(!flag){
+				flag = elem.closest('.slideWrap').css({
+					overflow:'visible'
+					,height:'auto'
+				}).addClass('js-open');
+				elem.text('閉じる')
+			}else{
+				flag = elem.closest('.slideWrap').css({
+					overflow:'hidden'
+					,height:'100px'
+				}).removeClass('js-open');
+				elem.text('全て見る')
 			}
-			ancSec = ancId.replace('Anchor','')
-			pos = $('#'+ancSec).offset().top
-			console.log(pos)
-			$('body,html').stop().animate({
-				scrollTop:pos
-			},500)
-			return false
 		})
 	}
 })
 	</script>
 </head>
 <body>
-	<div class="wrapper pc">
+	<div class="wrapper sp">
 		<div class="sideCol">
-			<h1><span>GITADORA OD SKill Analyze</span></h1>
-			<p class="pageCopy">GITADORA OD Skill Analyze は GITADORA OD の スキル解析や計算をサポートしてスキル アナライズします。</p>
+			<h1><span>GITADORA OD SKill Analyze For SP VIEW</span></h1>
 			<nav id="glovalNavi">
 				<ul>
-					<li class="current" id="dataDetailSectionAnchor">データ詳細</li>
+					<li class="current" id="dataDetailSectionAnchor">データ</li>
 					<li id="graphDrawSectionAnchor">グラフ</li>
-					<li id="guideSectionAnchor">使い方ガイド</li>
+					<li id="guideSectionAnchor">使い方</li>
 					<li id="calcSectionAnchor">簡易電卓</li>
 					<li id="etcSectionAnchor">その他</li>
-					<li id="thisLink"><a href="http://gitadoraodanalyze.web.fc2.com/index-sp.html">スマホ版</a></li>
 				</ul>
 			</nav>
 			<!-- <p class="howto"><a href="#howToArea">※使い方ガイド</a></p> -->
@@ -99,20 +87,20 @@ $(function(){
 				</select>
 				<form action="#" id="importBtn">
 					<div class="val1" id="val1">
-						<select name="importType" id="importType">
+						<p class="sup"><a target="_blank" href="http://xv-s.heteml.jp/skill/">GuitarFreaks & DrumMania Skill Simulator</a>のユーザーIDを入力してください。</p>
+						<select name="importType" id="importType" class="importType">
 							<option value="g">GUITAR FREAKS</option>
 							<option value="d">DRUMMANIA</option>
 						</select>
 						<input type="text" placeholder="4053" id="importUrl1">
 						<button type="submit" onClick="javascript:_gaq.push(['_trackPageview', '/imported.html']);console.log('imported')">インポート</button>
 						<span id="ajaxSup1" class="ajaxSup"></span>
-						<p class="sup"><a target="_blank" href="http://xv-s.heteml.jp/skill/">GuitarFreaks & DrumMania Skill Simulator</a>のユーザーIDを入力してください。</p>
 					</div>
 					<div class="val2" id="val2">
+						<p class="sup"><a target="_blank" href="http://xv-s.heteml.jp/skill/">GuitarFreaks & DrumMania Skill Simulator</a>のURLを入力してください。</p>
 						<input type="text" placeholder="http://xv-s.heteml.jp/skill/gdod.php?uid=g4053" id="importUrl2">
 						<button type="submit" onClick="javascript:_gaq.push(['_trackPageview', '/imported.html']);console.log('imported')">インポート</button>
 						<span id="ajaxSup2" class="ajaxSup"></span>
-						<p class="sup"><a target="_blank" href="http://xv-s.heteml.jp/skill/">GuitarFreaks & DrumMania Skill Simulator</a>のURLを入力してください。</p>
 					</div>
 				</form>
 			</section>
@@ -142,16 +130,15 @@ $(function(){
 							<option value="0">すべての曲</option>
 							<option value="1">新曲</option>
 							<option value="2">旧曲</option>
-						</select>
-						から<br>
+						</select>から<br>
 						<input type="number" id="mathInput1" class="pointInput" placeholder="120.00">
-						pt以下の曲を
+						pt以下の曲を<br>
 						<input type="number" id="mathInput2" class="pointInput" placeholder="120.00">
 						に上げたと仮定すると...
 					</div>
 					<div class="mathOutput">
 						<span id="mathOutput1">null</span>pt上昇して<br>
-						<span id="mathOutput2">null</span>ptになります。　　
+						<span id="mathOutput2">null</span>ptになります。<br>
 						更新曲数は<span id="mathOutput3">null</span>曲です。
 					</div>
 				</div>
@@ -285,52 +272,59 @@ $(function(){
 					<li>iOS最新 保障端末、OS 無し</li>
 				</ul>
 				<h2><span>更新履歴</span></h2>
-				<ul class="updates">
-					<li>09/23 : ファビコン追加しました</li>
-					<li>09/14 : 達成率計算Bが計算式Cフォームからできてしまうので実装中止しました。</li>
-					<li>09/13 : ランクグラフをペンディングにしました。</li>
-					<li>09/09 : 達成率計算C実装</li>
-					<li>09/09 : スキルポイント計算B実装</li>
-					<li>09/03 : 仕事が忙しいので更新頻度さがります。</li>
-					<li>09/03 : インポート完了後にLv*Pointグラフを描画するようにしました。</li>
-					<li>09/03 : 表記入れ子を修正しました。</li>
-					<li>08/25 : 使い方ガイド簡易版を作成しました。</li>
-					<li>08/24 : データインポート開始をわかりやすくしました。</li>
-					<li>08/24 : URLにゴミがつくのを一部修正しました。</li>
-					<li>08/24 : スマホ表示を簡易的に調整しました。</li>
-					<li>08/21 : グラフ（達成*Lvの散布図）実装しました</li>
-					<li>08/21 : グラフB（スキルポイント*Lvの散布図）実装しました</li>
-					<li>08/21 : グラフB（達成*スキルポイントの散布図）実装しました</li>
-					<li>08/19 : グラフ作成中</li>
-					<li>08/19 : やることリストを設置</li>
-					<li>08/19 : ajax時読込み反映が不安定だった現象を恐らく解消</li>
-					<li>08/19 : 計算系作成</li>
-					<li>08/18 : データ参照まわり作成</li>
-					<li>08/17 : <em>GITADORA OD Skill Analyze</em>プロジェクトキックオフ</li>
-				</ul>
+				<div class="slideWrap">
+					<p class="openButton" id="upDatesOpen">全て見る</p>
+					<ul class="updates">
+						<li>09/23 : ファビコン追加しました</li>
+						<li>09/14 : 達成率計算Bが計算式Cフォームからできてしまうので実装中止しました。</li>
+						<li>09/13 : ランクグラフをペンディングにしました。</li>
+						<li>09/09 : 達成率計算C実装</li>
+						<li>09/09 : スキルポイント計算B実装</li>
+						<li>09/03 : 仕事が忙しいので更新頻度さがります。</li>
+						<li>09/03 : インポート完了後にLv*Pointグラフを描画するようにしました。</li>
+						<li>09/03 : 表記入れ子を修正しました。</li>
+						<li>08/25 : 使い方ガイド簡易版を作成しました。</li>
+						<li>08/24 : データインポート開始をわかりやすくしました。</li>
+						<li>08/24 : URLにゴミがつくのを一部修正しました。</li>
+						<li>08/24 : スマホ表示を簡易的に調整しました。</li>
+						<li>08/21 : グラフ（達成*Lvの散布図）実装しました</li>
+						<li>08/21 : グラフB（スキルポイント*Lvの散布図）実装しました</li>
+						<li>08/21 : グラフB（達成*スキルポイントの散布図）実装しました</li>
+						<li>08/19 : グラフ作成中</li>
+						<li>08/19 : やることリストを設置</li>
+						<li>08/19 : ajax時読込み反映が不安定だった現象を恐らく解消</li>
+						<li>08/19 : 計算系作成</li>
+						<li>08/18 : データ参照まわり作成</li>
+						<li>08/17 : <em>GITADORA OD Skill Analyze</em>プロジェクトキックオフ</li>
+					</ul>
+				</div>
 				<h2><span>今後予定（やるやらないは未確定）</span></h2>
-				<ul class="wannaList">
-					<li><span>曲一覧をbemaniWikiから引っ張ってくる？</span></li>
-					<li><span>曲一覧にレベルフィルター</span></li>
-					<li><span>ソースリファクタリング</span></li>
-					<li><span>デザイン調整</span></li>
-					<li><span>xv-s.heteml.jp様のavgページへの適切な導線を作成</span></li>
-					<li class="did"><span>達成率計算B実装（Lv,Combo,Pearfect入力により達成率吐き出し）</span></li>
-					<li class="did"><span>達成率計算C実装（Lv,達成率入力により大凡のCombo、Perfect吐き出し）</span></li>
-					<li class="did"><span>スキルポイント計算B実装（上げたいスキルポイント数から入力した曲数で１曲あたりｎポイント上げる必要があるのか）</span></li>
-					<li class="did"><span>8/21グラフA実装（達成*Lvの散布図）</span></li>
-					<li class="did"><span>8/21グラフB実装（スキルポイント*Lvの散布図）</span></li>
-					<li class="did"><span>8/21グラフC実装（達成*スキルポイントの散布図）</span></li>
-					<li class="did"><span>グラフD実装（ランクの円グラフ）</span></li>
-					<li class="did"><span>グラフE実装（ランク＞Lvのドーナツグラフ）</span></li>
-					<li class="did"><span>変なハッシュやパラメータがつかないようにする。。。</span></li>
-					<li class="did"><span>スマホ閲覧最適化</span></li>
-					<li class="did"><span>SNSボタン設置。T/G</span></li>
-				</ul>
+				<div class="slideWrap">
+					<p class="openButton" id="wannaListOpen">全て見る</p>
+					<ul class="wannaList">
+						<li><span>曲一覧をbemaniWikiから引っ張ってくる？</span></li>
+						<li><span>曲一覧にレベルフィルター</span></li>
+						<li><span>ソースリファクタリング</span></li>
+						<li><span>デザイン調整</span></li>
+						<li><span>xv-s.heteml.jp様のavgページへの適切な導線を作成</span></li>
+						<li class="did"><span>達成率計算B実装（Lv,Combo,Pearfect入力により達成率吐き出し）</span></li>
+						<li class="did"><span>達成率計算C実装（Lv,達成率入力により大凡のCombo、Perfect吐き出し）</span></li>
+						<li class="did"><span>スキルポイント計算B実装（上げたいスキルポイント数から入力した曲数で１曲あたりｎポイント上げる必要があるのか）</span></li>
+						<li class="did"><span>8/21グラフA実装（達成*Lvの散布図）</span></li>
+						<li class="did"><span>8/21グラフB実装（スキルポイント*Lvの散布図）</span></li>
+						<li class="did"><span>8/21グラフC実装（達成*スキルポイントの散布図）</span></li>
+						<li class="did"><span>グラフD実装（ランクの円グラフ）</span></li>
+						<li class="did"><span>グラフE実装（ランク＞Lvのドーナツグラフ）</span></li>
+						<li class="did"><span>変なハッシュやパラメータがつかないようにする。。。</span></li>
+						<li class="did"><span>スマホ閲覧最適化</span></li>
+						<li class="did"><span>SNSボタン設置。T/G</span></li>
+					</ul>
+				</div>
 				<div class="snsBtn">
 					<a href="https://twitter.com/share" class="twitter-share-button" data-text="ギタドラ アナライズではGITADORA OrverDrive の 
 					スキル解析や計算をサポートします #ギタドラ" data-via="wiz_rein" data-lang="ja" data-count="none">ツイート</a>
 				</div>
+				<p class="toTerminal" id="toPC"><a href="http://gitadoraodanalyze.web.fc2.com/">PC版</a></p>
 			</aside>
 		</div>
 	</div>
