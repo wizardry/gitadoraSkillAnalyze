@@ -20,9 +20,17 @@ $(function(){
 		rankの項が必要
 	*/
 	var urlCookie = $.cookie('url');
-	console.log('1cookie | '+urlCookie)
+	var cookiesData = []
 	if(urlCookie != null || urlCookie != undefined ){
-		$('#importUrl').val(urlCookie)
+		cookiesData[0] = urlCookie.split('.php?uid=')
+		cookiesData[1] = cookiesData[0].substr(1)
+		cookiesData[2] = cookiesData[0].substr(0,1)
+		console.log('1cookie | '+urlCookie)
+		console.log('cookiesData---------------------')
+		console.log(cookiesData)
+		$('#importUrl1').val(urlCookie)
+		$('#importType').val(cookiesData[2])
+		$('#importUrl2').val(cookiesData[1])
 	}
 
 	/*
@@ -61,11 +69,85 @@ $(function(){
 		$('.attentionLoadWrap').height(wh)
 	}
 
+	//UA判定してリダイレクトさせる
+	agentGadgeFunc()
+	function agentGadgeFunc(){
+		var ua = {};
+		ua.name = window.navigator.userAgent.toLowerCase();
+
+		ua.isiPhone = ua.name.indexOf('iphone') >= 0;
+		ua.isiPod = ua.name.indexOf('ipod') >= 0;
+		ua.isiOS = (ua.isiPhone || ua.isiPod || ua.isiPad);
+		ua.isAndroid = ua.name.indexOf('android') >= 0;
+
+		var url = window.location;
+		var path = url.href.split('/');
+		var fileName = path.pop();
+
+		var toPC = false
+
+		toPC = $.cookie('toPc');
+
+		//FILENAME判定
+		if(fileName == 'index.html' || fileName == '' ){
+			//UA判定
+			if(ua.isiPhone || ua.isiPod || ua.isiOS || ua.isAndroid){
+				//cookie判定
+				if(!toPC){
+					location.href = './index-sp.html'
+				}
+			}
+		}
+		$('#toPC').click(function(){
+			$.cookie('toPc',true,{expires:30});
+		})
+	}
+
+
+	//インポートまでの情報を制限する
+	importbefore(0)
+	function importbefore(i){
+		ids = [
+			'#dataDetailSectionAnchor'
+			,'#graphDrawSectionAnchor'
+			,'#dataDetailSection'
+			,'#graphDrawSection'
+		]
+		if(i == 0){
+			$.each(ids,function(i,d){
+				$(d).hide()
+			})
+		}else if(i == 1){
+			$.each(ids,function(i,d){
+				if($(d).is(':hidden')){
+					$(d).fadeIn(300)
+				}
+			})
+		}
+	}
+
+	//データインポート　○○で入力する
+	function selectTypeToggle(){
+		$('#importSelect').change(function(){
+			var showAreaid = '#val' + $(this).val()
+			$('#val1,#val2').hide()
+				$(showAreaid).stop().fadeIn(500)
+			
+		})
+	}
 	//データインポート
 	function dataImport(){
+		selectTypeToggle()
 		var url = ''
+		var selectFlag = 0;
 		$('#importBtn').submit(function(){
-			url = $('#importUrl').val();
+			selectFlag = $('#importSelect').val();
+			if(selectFlag == 1){
+				url = 'http://xv-s.heteml.jp/skill/gdod.php?uid='+$('#importType').val()+$('#importUrl1').val()
+			}else if(selectFlag == 2){
+				url = $('#importUrl2').val();
+			}
+			console.log(url)
 			//データ初期化
 			skillData ={
 				hot:[]
@@ -85,9 +167,13 @@ $(function(){
 			console.log($.cookie('url'))
 
 
-			console.log('#importUrl | ' + url)
 			if(url != ''){
-				$('#ajaxSup').text('読み込みを開始します。')
+				console.log(selectFlag)
+				if(selectFlag == 1){
+					$('#ajaxSup1').text('読み込みを開始します。')
+				}else if(selectFlag == 2){
+					$('#ajaxSup2').text('読み込みを開始します。')
+				}
 				$.ajax({
 					type:'GET'
 					,async:true
@@ -98,9 +184,17 @@ $(function(){
 						$('#importedData').empty().html(res.responseText)
 					}
 					,complete:function(data){
-						$('#ajaxSup').text('読み込みを完了しました。').fadeOut(500,function(){
-							$('#ajaxSup').text('').show()
-						})
+						if(selectFlag == 1){
+							$('#ajaxSup1').text('読み込みを完了しました。').fadeOut(500,function(){
+								$('#ajaxSup1').text('').show()
+							})
+						}else if(selectFlag == 2){
+							$('#ajaxSup2').text('読み込みを完了しました。').fadeOut(500,function(){
+								$('#ajaxSup2').text('').show()
+							})
+						}
+						//隠しているエリアを描画
+						importbefore(1)
 						// //不要Node削除
 						$('#importedData').find('meta , link , div , title , style , br , img').remove()
 						.end().find('table').eq(0).remove().end().eq(1).remove().eq(4).remove();
@@ -389,6 +483,11 @@ $(function(){
 		})
 		$('.controlArea button').on('click',function(){
 			$(this).toggleClass('current')
+			if($(this).hasClass('current')){
+				$(this).text('ON')
+			}else{
+				$(this).text('OFF')
+			}
 		})
 
 		//フラグまわり制御
