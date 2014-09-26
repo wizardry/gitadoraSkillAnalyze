@@ -378,6 +378,23 @@ aside{
 		top:20px;
 		right:20px;
 	}
+	.affiliateArea{
+		position: fixed;
+		bottom:20px;
+		left:20px;
+		z-index:1250;
+		p{
+			width: 175px;
+			img{
+				border: 1px solid #0ff;
+				border-radius: 5px;
+				width: 100%;
+				&:hover{
+					border-color: #0cc;
+				}
+			}
+		}
+	}
 }
 .toTerminal{
 	font-size: 12px;
@@ -398,6 +415,14 @@ aside{
 		}
 	}
 }
+#fc2_footer{
+	background: #111;
+	z-index: 1200;
+
+	 ~ img{
+		display: none;
+	}
+}
 .sp{
 	// $perWidth : 320px;
 	$perWidth : 100%;
@@ -406,6 +431,8 @@ aside{
 	width: $perWidth;
 	min-width:320px !important;
 	.sideCol{
+		box-sizing:border-box;
+		-webkit-box-sizing:border-box;
 		position: static;
 		padding:10px;
 		height:60px;
