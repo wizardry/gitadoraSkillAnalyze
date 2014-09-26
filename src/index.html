@@ -43,7 +43,6 @@
 // デザイン調整用スクリプト PC独自なのでインラインに書いてしまう
 $(function(){
 	sideColHeighter()
-	menuBehavior()
 	$(window).resize(function(){
 		sideColHeighter()
 	})
@@ -51,24 +50,6 @@ $(function(){
 		wh = $(window).height()
 		$('.sideCol').css({
 			height:wh - 40 + 'px'
-		})
-	}
-	function menuBehavior(){
-		$('#glovalNavi li').on('click',function(){
-			$('#glovalNavi li').removeClass('current')
-			$(this).addClass('current')
-			ancId = $(this).attr('id')
-			if(ancId = 'thisLink'){
-				location.href = $(this).find('a').attr('href')
-				return true
-			}
-			ancSec = ancId.replace('Anchor','')
-			pos = $('#'+ancSec).offset().top
-			console.log(pos)
-			$('body,html').stop().animate({
-				scrollTop:pos
-			},500)
-			return false
 		})
 	}
 })
@@ -329,8 +310,12 @@ $(function(){
 					<li class="did"><span>SNSボタン設置。T/G</span></li>
 				</ul>
 				<div class="snsBtn">
-					<a href="https://twitter.com/share" class="twitter-share-button" data-text="ギタドラ アナライズではGITADORA OrverDrive の 
-					スキル解析や計算をサポートします #ギタドラ" data-via="wiz_rein" data-lang="ja" data-count="none">ツイート</a>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-text="ギタドラ アナライズではGITADORA OrverDrive の スキル解析や計算をサポートします #ギタドラ" data-via="wiz_rein" data-lang="ja" data-count="none">ツイート</a>
+				</div>
+				<div class="affiliateArea">
+					<p>
+						<a href="http://www.amazon.co.jp/gp/product/B00I3LHM6S/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=B00I3LHM6S&linkCode=as2&tag=dcskillsim-22"><img border="0" src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00I3LHM6S&Format=_SL250_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=dcskillsim-22" ></a><img src="http://ir-jp.amazon-adsystem.com/e/ir?t=dcskillsim-22&l=as2&o=9&a=B00I3LHM6S" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+					</p>
 				</div>
 			</aside>
 		</div>

@@ -23,14 +23,15 @@ $(function(){
 	var cookiesData = []
 	if(urlCookie != null || urlCookie != undefined ){
 		cookiesData[0] = urlCookie.split('.php?uid=')
-		cookiesData[1] = cookiesData[0].substr(1)
-		cookiesData[2] = cookiesData[0].substr(0,1)
+		console.log(cookiesData[0])
+		cookiesData[1] = cookiesData[0][1].substr(1)
+		cookiesData[2] = cookiesData[0][1].substr(0,1)
 		console.log('1cookie | '+urlCookie)
 		console.log('cookiesData---------------------')
 		console.log(cookiesData)
-		$('#importUrl1').val(urlCookie)
+		$('#importUrl1').val(cookiesData[1])
 		$('#importType').val(cookiesData[2])
-		$('#importUrl2').val(cookiesData[1])
+		$('#importUrl2').val(urlCookie)
 	}
 
 	/*
@@ -63,6 +64,25 @@ $(function(){
 	//グラフ描画周り
 	graphFunc()
 
+	menuBehavior()
+	function menuBehavior(){
+		$('#glovalNavi li').on('click',function(){
+			$('#glovalNavi li').removeClass('current')
+			$(this).addClass('current')
+			ancId = $(this).attr('id')
+			if(ancId == 'thisLink'){
+				location.href = $(this).find('a').attr('href')
+				return true
+			}
+			ancSec = ancId.replace('Anchor','')
+			pos = $('#'+ancSec).offset().top
+			console.log(pos)
+			$('body,html').stop().animate({
+				scrollTop:pos
+			},500)
+			return false
+		})
+	}
 
 	function fixedOverlayAddHeight(){
 		var wh = $(window).height()
