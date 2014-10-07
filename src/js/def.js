@@ -23,12 +23,12 @@ $(function(){
 	var cookiesData = []
 	if(urlCookie != null || urlCookie != undefined ){
 		cookiesData[0] = urlCookie.split('.php?uid=')
-		console.log(cookiesData[0])
+		// console.log(cookiesData[0])
 		cookiesData[1] = cookiesData[0][1].substr(1)
 		cookiesData[2] = cookiesData[0][1].substr(0,1)
-		console.log('1cookie | '+urlCookie)
-		console.log('cookiesData---------------------')
-		console.log(cookiesData)
+		// console.log('1cookie | '+urlCookie)
+		// console.log('cookiesData---------------------')
+		// console.log(cookiesData)
 		$('#importUrl1').val(cookiesData[1])
 		$('#importType').val(cookiesData[2])
 		$('#importUrl2').val(urlCookie)
@@ -76,7 +76,7 @@ $(function(){
 			}
 			ancSec = ancId.replace('Anchor','')
 			pos = $('#'+ancSec).offset().top
-			console.log(pos)
+			// console.log(pos)
 			$('body,html').stop().animate({
 				scrollTop:pos
 			},500)
@@ -167,7 +167,7 @@ $(function(){
 			}else if(selectFlag == 2){
 				url = $('#importUrl2').val();
 			}
-			console.log(url)
+			// console.log(url)
 			//データ初期化
 			skillData ={
 				hot:[]
@@ -184,11 +184,11 @@ $(function(){
 
 			//cookie処理
 			$.cookie('url',url,{expires:30});
-			console.log($.cookie('url'))
+			// console.log($.cookie('url'))
 
 
 			if(url != ''){
-				console.log(selectFlag)
+				// console.log(selectFlag)
 				if(selectFlag == 1){
 					$('#ajaxSup1').text('読み込みを開始します。')
 				}else if(selectFlag == 2){
@@ -226,8 +226,8 @@ $(function(){
 						$('#importedData').find('table').eq(1).find('tr').each(function(i,d){
 							dataToDataFunc('old',d,i)
 						})
-						console.log('skillData ----------------------')
-						console.log(skillData)
+						// console.log('skillData ----------------------')
+						// console.log(skillData)
 						//詳細表示
 						detailWraitenFunc()
 
@@ -236,6 +236,9 @@ $(function(){
 
 						//Lv×Point
 						$('#graphType1').click()
+
+						//スキル上がるかもしれない曲
+						reccomendGenFunct()
 
 					}
 				})
@@ -283,8 +286,8 @@ $(function(){
 		$.each(skillData.hot,function(i,d){
 			//上位25曲以上あった場合省く
 			if(i > 24){
-				console.log('新曲下限')
-				console.log(d)
+				// console.log('新曲下限')
+				// console.log(d)
 				return false;
 			}
 			skillTotalDetailData.total += d.point;
@@ -292,8 +295,8 @@ $(function(){
 		})
 		$.each(skillData.old,function(i,d){
 			if(i > 24){
-				console.log('旧曲下限')
-				console.log(d)
+				// console.log('旧曲下限')
+				// console.log(d)
 				return false;
 			}
 			skillTotalDetailData.total += d.point;
@@ -303,11 +306,11 @@ $(function(){
 		skillTotalDetailData.hotAverage = parseInt(( skillTotalDetailData.hotTotal / 25 )) / 100
 		skillTotalDetailData.average = parseInt(( skillTotalDetailData.total / 50 )) / 100
 
-		console.log('skillTotalDetailData ----------------------')
-		console.log(skillTotalDetailData)
+		// console.log('skillTotalDetailData ----------------------')
+		// console.log(skillTotalDetailData)
 
 		//トータルスキルポイントなど詳細データを書き出す
-		$('#detailTotal').text( skillTotalDetailData.total/100 )
+		$('#detailTotal').text( (skillTotalDetailData.total/100).toFixed(2) )
 		$('#detailHotTotal').text( skillTotalDetailData.hotTotal/100 )
 		$('#detailOldTotal').text( skillTotalDetailData.oldTotal/100 )
 		$('#detailAvg').text( skillTotalDetailData.average )
@@ -316,7 +319,7 @@ $(function(){
 
 	}
 
-	//console.log確認するの面倒なのでhtmlに描画する
+	console.log確認するの面倒なのでhtmlに描画する
 	function arrayOutputFunc(){
 		var hotOutputNode,oldOutputNode;
 		hotOutputNode = '<h3>HOT枠</h3><ul>'
@@ -400,7 +403,7 @@ $(function(){
 			if(d.point > minP){
 				return true;
 			}else{
-				console.log('222 | '+wannaP+'|'+ $.isNumeric(d.point) )
+				// console.log('222 | '+wannaP+'|'+ $.isNumeric(d.point) )
 
 				result[0] += wannaP - d.point
 				result[1]++
@@ -419,9 +422,9 @@ $(function(){
 
 			if(lv != undefined || per != undefined){
 				result = ((lv*2) * per / 100000 )
-				console.log('250 |'+ (lv*2) )
-				console.log('251 |'+ per)
-				console.log('252 |'+result)
+				// console.log('250 |'+ (lv*2) )
+				// console.log('251 |'+ per)
+				// console.log('252 |'+result)
 				$('#mathOutput4').text(result)
 			}
 		})
@@ -433,7 +436,7 @@ $(function(){
 		$('#mathInput6,#genre2').change(function(){
 			wannaP = parseInt($('#mathInput6').val())*100;
 			range = $('#genre2').val()
-			console.log(wannaP +'~'+ range)
+			// console.log(wannaP +'~'+ range)
 			if(range != 0){
 				result = (wannaP / 25) / 100
 				$('#mathOutput5').text(result)
@@ -475,9 +478,9 @@ $(function(){
 			}
 			kariCalc1 = (perfect*85) + (great*25)
 			kariCalc2 = (combo*15)
-			console.log(kariCalc1 + ' | ' +kariCalc2)
+			// console.log(kariCalc1 + ' | ' +kariCalc2)
 			result1=(kariCalc1+kariCalc2)/100
-			console.log(result1 + ' , ' + lv +' , '  )
+			// console.log(result1 + ' , ' + lv +' , '  )
 			result2=((lv*result1)*20)/10000
 			result2=result2.toFixed(2)
 			$('#mathOutput6').text(result1)
@@ -513,12 +516,12 @@ $(function(){
 		//フラグまわり制御
 		$('#axisToggle').click(function(){
 			axisToggle = !axisToggle
-			console.log('axisToggle | '+axisToggle)
+			// console.log('axisToggle | '+axisToggle)
 			$('.btnArea').find('.current').click()
 		})
 		$('#inTargetToggle').click(function(){
 			targetToggle = !targetToggle
-			console.log('targetToggle | '+targetToggle)
+			// console.log('targetToggle | '+targetToggle)
 			$('.btnArea').find('.current').click()
 		})
 
@@ -704,5 +707,571 @@ $(function(){
 				,data:datas.old
 			}]
 		});
+	}
+
+	//スキルポイントが上がるかもしれない曲一覧
+	function reccomendGenFunct(){
+		var skillPoint = parseInt($('#detailTotal').text().slice(0,-5) + '00')
+		var urlUid = $('#importUrl2').val().split('udi=')
+		var gameType = '';
+			if( $('#importSelect').val() ==  1){
+				gameType = $('#importType').val()
+			}else{
+				gameType = urlUid[1].index(0)
+			}
+		threshold = [parseInt($('#detailHotAvg').text()),parseInt($('#detailOldAvg').text())]
+		avgRange = {
+			g:[{
+					skill:9000
+					,userId:180
+				},{
+					skill:8900
+					,userId:179
+				},{
+					skill:8800
+					,userId:178
+				},{
+					skill:8700
+					,userId:177
+				},{
+					skill:8600
+					,userId:176
+				},{
+					skill:8500
+					,userId:175
+				},{
+					skill:8400
+					,userId:174
+				},{
+					skill:8300
+					,userId:173
+				},{
+					skill:8200
+					,userId:172
+				},{
+					skill:8100
+					,userId:171
+				},{
+					skill:8000
+					,userId:170
+				},{
+					skill:7900
+					,userId:169
+				},{
+					skill:7800
+					,userId:168
+				},{
+					skill:7700
+					,userId:167
+				},{
+					skill:7600
+					,userId:166
+				},{
+					skill:7500
+					,userId:165
+				},{
+					skill:7400
+					,userId:164
+				},{
+					skill:7300
+					,userId:163
+				},{
+					skill:7200
+					,userId:162
+				},{
+					skill:7100
+					,userId:161
+				},{
+					skill:7000
+					,userId:160
+				},{
+					skill:6900
+					,userId:159
+				},{
+					skill:6800
+					,userId:158
+				},{
+					skill:6700
+					,userId:157
+				},{
+					skill:6600
+					,userId:156
+				},{
+					skill:6500
+					,userId:155
+				},{
+					skill:6400
+					,userId:154
+				},{
+					skill:6300
+					,userId:153
+				},{
+					skill:6200
+					,userId:152
+				},{
+					skill:6100
+					,userId:151
+				},{
+					skill:6000
+					,userId:150
+				},{
+					skill:5900
+					,userId:149
+				},{
+					skill:5800
+					,userId:148
+				},{
+					skill:5700
+					,userId:147
+				},{
+					skill:5600
+					,userId:146
+				},{
+					skill:5500
+					,userId:145
+				},{
+					skill:5400
+					,userId:144
+				},{
+					skill:5300
+					,userId:143
+				},{
+					skill:5200
+					,userId:142
+				},{
+					skill:5100
+					,userId:141
+				},{
+					skill:5000
+					,userId:140
+				},{
+					skill:4900
+					,userId:139
+				},{
+					skill:4800
+					,userId:138
+				},{
+					skill:4700
+					,userId:137
+				},{
+					skill:4600
+					,userId:136
+				},{
+					skill:4500
+					,userId:135
+				},{
+					skill:4400
+					,userId:134
+				},{
+					skill:4300
+					,userId:133
+				},{
+					skill:4200
+					,userId:132
+				},{
+					skill:4100
+					,userId:131
+				},{
+					skill:4000
+					,userId:130
+				},{
+					skill:3900
+					,userId:129
+				},{
+					skill:3800
+					,userId:128
+				},{
+					skill:3700
+					,userId:127
+				},{
+					skill:3600
+					,userId:126
+				},{
+					skill:3500
+					,userId:125
+				},{
+					skill:3400
+					,userId:124
+				},{
+					skill:3300
+					,userId:123
+				},{
+					skill:3200
+					,userId:122
+				},{
+					skill:3100
+					,userId:121
+				},{
+					skill:3000
+					,userId:120
+				}]
+			,d:[{
+					skill:9000
+					,userId:180
+				},{
+					skill:8900
+					,userId:179
+				},{
+					skill:8800
+					,userId:178
+				},{
+					skill:8700
+					,userId:177
+				},{
+					skill:8600
+					,userId:176
+				},{
+					skill:8500
+					,userId:175
+				},{
+					skill:8400
+					,userId:174
+				},{
+					skill:8300
+					,userId:173
+				},{
+					skill:8200
+					,userId:172
+				},{
+					skill:8100
+					,userId:171
+				},{
+					skill:8000
+					,userId:170
+				},{
+					skill:7900
+					,userId:169
+				},{
+					skill:7800
+					,userId:168
+				},{
+					skill:7700
+					,userId:167
+				},{
+					skill:7600
+					,userId:166
+				},{
+					skill:7500
+					,userId:165
+				},{
+					skill:7400
+					,userId:164
+				},{
+					skill:7300
+					,userId:163
+				},{
+					skill:7200
+					,userId:162
+				},{
+					skill:7100
+					,userId:161
+				},{
+					skill:7000
+					,userId:160
+				},{
+					skill:6900
+					,userId:159
+				},{
+					skill:6800
+					,userId:158
+				},{
+					skill:6700
+					,userId:157
+				},{
+					skill:6600
+					,userId:156
+				},{
+					skill:6500
+					,userId:155
+				},{
+					skill:6400
+					,userId:154
+				},{
+					skill:6300
+					,userId:153
+				},{
+					skill:6200
+					,userId:152
+				},{
+					skill:6100
+					,userId:151
+				},{
+					skill:6000
+					,userId:150
+				},{
+					skill:5900
+					,userId:149
+				},{
+					skill:5800
+					,userId:148
+				},{
+					skill:5700
+					,userId:147
+				},{
+					skill:5600
+					,userId:146
+				},{
+					skill:5500
+					,userId:145
+				},{
+					skill:5400
+					,userId:144
+				},{
+					skill:5300
+					,userId:143
+				},{
+					skill:5200
+					,userId:142
+				},{
+					skill:5100
+					,userId:141
+				},{
+					skill:5000
+					,userId:140
+				},{
+					skill:4900
+					,userId:139
+				},{
+					skill:4800
+					,userId:138
+				},{
+					skill:4700
+					,userId:137
+				},{
+					skill:4600
+					,userId:136
+				},{
+					skill:4500
+					,userId:135
+				},{
+					skill:4400
+					,userId:134
+				},{
+					skill:4300
+					,userId:133
+				},{
+					skill:4200
+					,userId:132
+				},{
+					skill:4100
+					,userId:131
+				},{
+					skill:4000
+					,userId:130
+				},{
+					skill:3900
+					,userId:129
+				},{
+					skill:3800
+					,userId:128
+				},{
+					skill:3700
+					,userId:127
+				},{
+					skill:3600
+					,userId:126
+				},{
+					skill:3500
+					,userId:125
+				},{
+					skill:3400
+					,userId:124
+				},{
+					skill:3300
+					,userId:123
+				},{
+					skill:3200
+					,userId:122
+				},{
+					skill:3100
+					,userId:121
+				},{
+					skill:3000
+					,userId:120
+			}]
+		}
+		avgId = [0,0]
+		if(gameType == 'g'){
+			avgEach(avgRange.g)
+		}else{
+			avgEach(avgRange.d)
+		}
+
+		function avgEach(data){
+			$.each(data,function(i,d){
+				if(d.skill == skillPoint + 100){
+					avgId[0] = d.userId
+				}else if(d.skill == skillPoint + 200){
+					avgId[1] = d.userId
+				}
+			})
+		}
+
+		urlAry = ['http://xv-s.heteml.jp/skill/cp_gdod.php?uid=',gameType,avgId[0],'&tg=',gameType,avgId[1]]
+		url = urlAry[0]+urlAry[1]+urlAry[2]+urlAry[3]+urlAry[4]+urlAry[5]
+		/*
+			urlAry[0] = path
+			urlAry[1],urlAry[4] = gameType
+			urlAry[2] = MySkillPointAvg
+			urlAry[3] = str
+			urlAry[5] = 1rankupSkillPointAvg
+		*/
+		var recData = {
+			hot:[]
+			,old:[]
+		}
+
+		debug={
+			skillPoint:skillPoint
+			,gameType:gameType
+			,threshold:threshold
+			,url:url
+			,urlUid:urlUid
+		}
+		// console.log(debug)
+		var init = function(){
+			if(skillPoint > 8900){
+				$('#reccomendLists').empty().text('そんな都合のいい曲はありません。')
+				return false
+			}else if(skillPoint < 100){
+				$('#reccomendLists').empty().text('まずはスキル対象枠を埋めましょう。')
+				return false
+			}
+
+			$.ajax({
+				type:'GET'
+				,async:true
+				,url:url
+				,dataType:'html'
+				,cache:false
+				,success:function(res){
+					$('#reccomendImport').empty().html(res.responseText)
+				}
+				,complete:function(data){
+					// console.log('reccomend Success')
+					$('#reccomendImport').find('meta , link , div , title , style , br , img').remove()
+					.end().find('table').eq(0).remove().end().eq(1).remove();
+
+					$('#reccomendImport').find('table').eq(0).attr('id','reccomendHot')
+					.end().eq(1).attr('id','reccomendOld');
+
+					$('#reccomendHot tr').each(function(i){
+						if(i==0 || i ==1){
+							return true
+						}
+						recData.hot.push({
+							title:$.trim($(this).find('td').eq(1).text())
+							,part:$.trim($(this).find('td').eq(2).text())
+						},{
+							title:$.trim($(this).find('td').eq(1).text())
+							,part:$.trim($(this).find('td').eq(6).text())
+						})
+					})
+					$('#reccomendOld tr').each(function(i){
+						if(i==0 || i ==1){
+							return true
+						}
+						recData.old.push({
+							title:$.trim($(this).find('td').eq(1).text())
+							,part:$.trim($(this).find('td').eq(2).text())
+						},{
+							title:$.trim($(this).find('td').eq(1).text())
+							,part:$.trim($(this).find('td').eq(6).text())
+						})
+					})
+
+					//重複データ削除
+					function recDataGen(data){
+						var recDataShadow=[];
+						var overlapCheck = []
+						$.each(data,function(i,d){
+
+							$.each(data,function(i2,d2){
+								if(i < i2 && d.title == d2.title && d.part == d2.part){
+									console.log(i +'|' + i2)
+									console.log(d +'|' + d2)
+									overlapCheck.push(i2)
+								}
+							})
+						})
+						$.each(overlapCheck,function(i,d){
+							delete data[d]
+						})
+
+						recDataShadow = $.extend(true,{},data);
+						data.length = 0;
+						$.each(recDataShadow,function(i,d){
+							if(d == undefined){
+								return true
+							}
+							data.push(d)
+						})
+
+					}
+					recDataGen(recData.hot)
+					recDataGen(recData.old)
+
+
+					//既に対象入りしている曲を省く
+					skillData2 = $.extend(true,{},skillData);
+
+					//対象入りに絞る
+					skillData2.hot.length = 25
+					skillData2.old.length = 25
+
+					//対象入りしている曲を省く　重複チェックとソース類似の為時間あればまとめてしまう。
+					function overlapFunc(eliminateList,data){
+						var dataShadow=[];
+						var overlapCheck = []
+						$.each(eliminateList,function(i,d){
+
+							$.each(data,function(i2,d2){
+								if(d.title == d2.title){
+									overlapCheck.push(i2)
+								}
+							})
+						})
+						$.each(overlapCheck,function(i,d){
+							delete data[d]
+						})
+
+						dataShadow = $.extend(true,{},data);
+						data.length = 0;
+						$.each(dataShadow,function(i,d){
+							if(d == undefined){
+								return true
+							}
+							data.push(d)
+						})
+					}
+					overlapFunc(skillData2.hot,recData.hot)
+					overlapFunc(skillData2.old,recData.old)
+
+					//表示をmax30件にする。
+					recData.hot.length = 30
+					recData.old.length = 30
+
+					var nodeHot = '<div class="recHotWrap"><h3>新曲枠</h3><ul>'
+					var nodeOld = '<div class="recOldWrap"><h3>旧曲枠</h3><ul>'
+					$.each(recData,function(masterKey,masterData){
+						var node = '';
+						$.each(masterData,function(i,d){
+							node += '<li>'+d.title+' <span class="part">'+d.part+'</span></li>'
+						})
+						node += '</ul></div>'
+						// console.log(masterKey + ' - masterKey')
+						if(masterKey == 'hot' ){
+							nodeHot += node
+						}else if(masterKey == 'old'){
+							nodeOld += node
+						}
+					})
+					var linknode = '<p class="sup">参照元はこちら：<a href="'+url+'" target="_blank">スキル '+(skillPoint + 100)+'、' + (skillPoint + 200) +'平均</a></p>'
+					$('#reccomendLists').empty().html(nodeHot + nodeOld + linknode)
+				}
+			})
+
+		}
+		init()
 	}
 })
