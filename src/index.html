@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 	<meta charset="utf8">
-	<title>ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze - ギタドラ スキルアナライズ</title>
+	<title>ギタドラ スキル計算サポートサイト GITADORA OD Skill Analyze - ギタドラ スキルアナライズ</title>
 	<meta name="description" content="GITADORA OD Skill Analyze は GITADORA OD の スキル解析や計算をサポートしてスキル アナライズします。">
 	<meta name="keywords" content="スキル,計算,解析,アナライズ,上達,GITADORA,GITADORA OD,ギタドラ,Drummania,GUITAR FREAKS">
 	<meta property="og:title" content="ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze | ギタドラ スキルアナライズ">
@@ -19,7 +19,7 @@
 	<script src="./js/jquery.cookie.js"></script>
 	<script src="./js/graph/highcharts.js"></script>
 	<script src="./js/def.js"></script>
-	<script src="./js/sp.js"></script>
+	<!--<script src="./js/sp.js"></script>-->
 	<script>
 	//ga
 	var _gaq = _gaq || [];
@@ -68,6 +68,7 @@ $(function(){
 					<li id="calcSectionAnchor">簡易電卓</li>
 					<li id="etcSectionAnchor">その他</li>
 					<li id="thisLink"><a href="http://gitadoraodanalyze.web.fc2.com/index-sp.html">スマホ版</a></li>
+					<li id="thisLink"><a href="http://gitadoraodanalyze.web.fc2.com/songlist.html">曲一覧</a></li>
 				</ul>
 			</nav>
 			<!-- <p class="howto"><a href="#howToArea">※使い方ガイド</a></p> -->
@@ -157,6 +158,15 @@ $(function(){
 						<div class="graphInnerWrap">
 							<div id="graph" class="graph"></div>
 						</div>
+					</div>
+				</div>
+				<div class="reccomendListWrap">
+					<h2><span>スキルポイントが上がるかもしれない曲一覧β</span></h2>
+					<div id="reccomendLists" class="reccomendLists">
+						
+					</div>
+					<div id="reccomendImport" class="hide">
+						
 					</div>
 				</div>
 			</section>
@@ -267,6 +277,10 @@ $(function(){
 				</ul>
 				<h2><span>更新履歴</span></h2>
 				<ul class="updates">
+					<li>09/30 : スキルポイントが上がるかもしれない曲一覧機能をβで実装しました。</li>
+					<li>09/30 : 曲一覧の一部表記ミスを修正しました。</li>
+					<li>09/30 : 曲一覧のフィルター機能を拡張しました。</li>
+					<li>09/29 : 曲一覧のページを作成しました</li>
 					<li>09/26 : 新デザインをあてました。</li>
 					<li>09/23 : ファビコン追加しました</li>
 					<li>09/14 : 達成率計算Bが計算式Cフォームからできてしまうので実装中止しました。</li>
@@ -292,10 +306,10 @@ $(function(){
 				</ul>
 				<h2><span>今後予定（やるやらないは未確定）</span></h2>
 				<ul class="wannaList">
-					<li><span>曲一覧をbemaniWikiから引っ張ってくる？</span></li>
-					<li><span>曲一覧にレベルフィルター</span></li>
 					<li><span>ソースリファクタリング</span></li>
-					<li><span>xv-s.heteml.jp様のavgページへの適切な導線を作成</span></li>
+					<li class="did"><span>xv-s.heteml.jp様のavgページへの適切な導線を作成</span></li>
+					<li class="did"><span>曲一覧にレベルフィルター</span></li>
+					<li class="did"><span>曲一覧をbemaniWikiから引っ張ってくる？</span></li>
 					<li class="did"><span>デザイン調整</span></li>
 					<li class="did"><span>達成率計算B実装（Lv,Combo,Pearfect入力により達成率吐き出し）</span></li>
 					<li class="did"><span>達成率計算C実装（Lv,達成率入力により大凡のCombo、Perfect吐き出し）</span></li>
