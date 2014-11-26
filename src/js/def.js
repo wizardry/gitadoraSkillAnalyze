@@ -204,15 +204,6 @@ $(function(){
 						$('#importedData').empty().html(res.responseText)
 					}
 					,complete:function(data){
-						if(selectFlag == 1){
-							$('#ajaxSup1').text('読み込みを完了しました。').fadeOut(500,function(){
-								$('#ajaxSup1').text('').show()
-							})
-						}else if(selectFlag == 2){
-							$('#ajaxSup2').text('読み込みを完了しました。').fadeOut(500,function(){
-								$('#ajaxSup2').text('').show()
-							})
-						}
 						//隠しているエリアを描画
 						importbefore(1)
 						// //不要Node削除
@@ -238,8 +229,8 @@ $(function(){
 						$('#graphType1').click()
 
 						//スキル上がるかもしれない曲
-						reccomendGenFunct()
-
+						reccomendGenFunct(selectFlag)
+						
 					}
 				})
 			}
@@ -319,7 +310,7 @@ $(function(){
 
 	}
 
-	console.log確認するの面倒なのでhtmlに描画する
+	// console.log確認するの面倒なのでhtmlに描画する
 	function arrayOutputFunc(){
 		var hotOutputNode,oldOutputNode;
 		hotOutputNode = '<h3>HOT枠</h3><ul>'
@@ -709,8 +700,20 @@ $(function(){
 		});
 	}
 
+	//読込完了後の処理。　ajaxによりあちこち移るので関数化
+	function roadFinish(selectFlag){
+		if(selectFlag == 1){
+			$('#ajaxSup1').text('読み込みを完了しました。').fadeOut(500,function(){
+				$('#ajaxSup1').text('').show()
+			})
+		}else if(selectFlag == 2){
+			$('#ajaxSup2').text('読み込みを完了しました。').fadeOut(500,function(){
+				$('#ajaxSup2').text('').show()
+			})
+		}
+	}
 	//スキルポイントが上がるかもしれない曲一覧
-	function reccomendGenFunct(){
+	function reccomendGenFunct(selectFlag){
 		var skillPoint = parseInt($('#detailTotal').text().slice(0,-5) + '00')
 		var urlUid = $('#importUrl2').val().split('udi=')
 		var gameType = '';
@@ -1188,8 +1191,8 @@ $(function(){
 
 							$.each(data,function(i2,d2){
 								if(i < i2 && d.title == d2.title && d.part == d2.part){
-									console.log(i +'|' + i2)
-									console.log(d +'|' + d2)
+									// console.log(i +'|' + i2)
+									// console.log(d +'|' + d2)
 									overlapCheck.push(i2)
 								}
 							})
@@ -1241,11 +1244,55 @@ $(function(){
 							if(d == undefined){
 								return true
 							}
+
+							//ソート用数値
+							if(d.part != ''){
+								d.level = parseInt(d.part.substr(0,4).replace('.',''))
+							}
+							
 							data.push(d)
 						})
 					}
 					overlapFunc(skillData2.hot,recData.hot)
 					overlapFunc(skillData2.old,recData.old)
+
+					var copyDataHot=[]
+					var copyDataOld=[]
+
+					$.each(recData.hot,function(i,d){
+						if(d.part != ''){
+							copyDataHot.push(d)
+						}
+					})
+					$.each(recData.old,function(i,d){
+						if(d.part != ''){
+							copyDataOld.push(d)
+						}
+					})
+					recData = {
+						hot:copyDataHot
+						,old:copyDataOld
+					}
+
+					// console.log(recData)
+					//レベルソートをかける
+					recData.hot = $.grep(recData.hot,function(e){
+						return e;
+					})
+					recData.old = $.grep(recData.old,function(e){
+						return e;
+					})
+					recData.hot = recData.hot.sort(function(a,b){
+						if(a.part != ''){
+							return b.level - a.level
+						}
+					})
+					recData.old = recData.old.sort(function(a,b){
+						if(a.part != ''){
+							return b.level - a.level
+						}
+					})
+					// console.log(recData)
 
 					//表示をmax30件にする。
 					recData.hot.length = 30
@@ -1268,6 +1315,9 @@ $(function(){
 					})
 					var linknode = '<p class="sup">参照元はこちら：<a href="'+url+'" target="_blank">スキル '+(skillPoint + 100)+'、' + (skillPoint + 200) +'平均</a></p>'
 					$('#reccomendLists').empty().html(nodeHot + nodeOld + linknode)
+
+					//読込完了処理
+					roadFinish(selectFlag)
 				}
 			})
 
