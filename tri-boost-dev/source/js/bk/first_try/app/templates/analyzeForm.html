@@ -1,0 +1,24 @@
+<section class="sectionBlock importArea">
+	<select name="importSelect" id="importSelect" class="importSelect">
+		<option value="1">IDで入力する</option>
+		<option value="2">URLで入力する</option>
+	</select>
+	<form action="#" id="importBtn">
+		<div class="val1" id="val1">
+			<select name="importType" id="importType">
+				<option value="g">GUITAR FREAKS</option>
+				<option value="d">DRUMMANIA</option>
+			</select>
+			<input type="text" placeholder="4053" id="importUrl1">
+			<button type="submit" onClick="javascript:_gaq.push(['_trackPageview', '/imported.html']);console.log('imported')">インポート</button>
+			<span id="ajaxSup1" class="ajaxSup"></span>
+			<p class="sup"><a target="_blank" href="http://xv-s.heteml.jp/skill/">GuitarFreaks & DrumMania Skill Simulator</a>のユーザーIDを入力してください。</p>
+		</div>
+		<div class="val2" id="val2">
+			<input type="text" placeholder="http://xv-s.heteml.jp/skill/gdod.php?uid=g4053" id="importUrl2">
+			<button type="submit" onClick="javascript:_gaq.push(['_trackPageview', '/imported.html']);console.log('imported')">インポート</button>
+			<span id="ajaxSup2" class="ajaxSup"></span>
+			<p class="sup"><a target="_blank" href="http://xv-s.heteml.jp/skill/">GuitarFreaks & DrumMania Skill Simulator</a>のURLを入力してください。</p>
+		</div>
+	</form>
+</section>

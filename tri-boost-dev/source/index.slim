@@ -1,0 +1,228 @@
+---
+title: HOME 
+path: ./
+---
+
+#masterView
+	#analyzeView
+		#analyzeFormView
+			form action="" id="analyzeForm"
+				select name="searchType" id="userData_searchType"
+					option value="1" selected="selected" IDで入力する
+					option value="2" URLで入力する
+
+				.js-formToggleWrapx
+					.js-formToggleVal2
+						p url
+						input type="text" name="getData" id="userData_url"
+					.js-formToggleVal1
+						p id
+						input type="text" name="getData" id="userData_id"
+						p part
+						select name="idType" id="userData_part"
+							option value="g" GUITARFREAKS
+							option value="d" DRUMMANIA
+				input type="submit" id="getDataTrigger"
+		#importData.hide style="display:none"importdata
+		#analyzeDataView
+			h2.sectionHeadline
+				span データ詳細
+			dl
+				dt 総合 Pt
+				dd#analyzeDataTotalPoint null
+				dt HOT Pt
+				dd#analyzeDataHotPoint null
+				dt OLD Pt
+				dd#analyzeDataOldPoint null
+			dl
+				dt 総合 .Avg
+				dd#analyzeDataTotalAvg
+				dt HOT .Avg
+				dd#analyzeDataHotAvg
+				dt OLD .Avg
+				dd#analyzeDataOldAvg
+
+		#analyzeCalcView
+			.mathInput
+				select name="" id="analyzeCalcFilter" class="mathGenre"
+					option value="0" すべての曲
+					option value="1" 新曲
+					option value="2" 旧曲
+				|から<br>
+				input type="number" id="analyzeCalcUnder" class="pointInput" placeholder="120.00"/
+				|pt以下の曲を
+				input type="number" id="analyzeCalcUpper" class="pointInput" placeholder="120.00"/
+				|に上げたと仮定すると...
+			.mathOutput
+				span#analyzeCalcDiffPoint null
+				|pt上昇して<br>
+				span#analyzeCalcResult null
+				|ptになります。<br>　　
+				|更新曲数は<span id="analyzeCalcMusicLength">null</span>曲です。
+
+		#analyzeGraphView
+			p#graphToggleTrigger.buttonBase.primaryButton グラフ
+			#analyzeGraphControls
+				.buttonGroup
+					ul#grapyTypeUi
+						li.current Lv×Point
+						li Point×達成率
+						li Lv×達成率
+				dl.buttonList
+					dt 対象曲に絞る
+					dd
+						span#limitUi.btnBase.settingButton.current ON
+				dl.buttonList
+					dt 軸反転
+					dd
+						span#reverseUi.btnBase.settingButton OFF
+				form.hide
+					select#graphType
+						option value="0" selected="selected" Lv×Point
+						option value="1" Point×達成率
+						option value="2" Lv×達成率
+					input [type="checkbox" id="limit" name="limit" value="1" checked]
+					input [type="checkbox" id="reverse" value="1" name="reverse"]
+
+			#analyzeGraphCanvas
+		#analyzeRecommendView
+			#recRes1.hide style="display:none;"
+			#recRes2.hide style="display:none;"
+			#recListWrap
+				#recListHot
+				#recListOld
+		#analyzeSubCalcView
+			section
+				h3 理想SPを単曲で計算する
+				.input
+					input#subCalcSingleAvgTotal [type='number' placeholder='1000']
+					|pt上げるには
+					select#subCalcSingleAvgFilter
+						option value="0" すべての曲
+						option value="1" 新曲
+						option value="2" 旧曲
+					|を対象にした場合1曲あたり
+				.output
+					span#subCalcSingleAvg null
+					|pt上げる必要がある
+			section
+				h3 Lv×達成率による簡易スキルポイント計算
+				.input
+					input#subCalcSkillMathLv [type="number" placeholder="7.00" min="1.00" max="9.99"]
+					|の曲を
+					input#subCalcSkillMathRate [type="number" placeholder="90.00" min="0.00" max="100"]
+					|%でクリアすると
+				.output
+					|単曲スキルは
+					#subCalcSkillMath null
+					|ptです。
+			section
+				h3 達成率計算
+				.input
+					ul
+						li
+							|レベル
+							input#subCalcRateMathLv type="number" placeholder="7" min="1.00" max="9.99"
+						li
+							|コンボ（%）
+							input#subCalcRateMathCombo type="number" placeholder="48" min="0" max="100" step="1"
+						li
+							|Perfect（%）
+							input#subCalcRateMathPerfect type="number" placeholder="98" min="0" max="100" step="1"
+				.output
+					|達成率はおおよそ
+					#subCalcRateMathRate null <br>
+					|スキルポイントはだいたい
+					#subCalcRateMathPoint null
+					|ptです。
+
+
+	#skillListView
+		|skillListView
+		div class="attentionArea"
+			h2 ご注意
+			p
+				|使用はユーザーの皆さまにお任せ致します。<br>
+				|半端無い値を入れてブラウザが固まったり、落ちたりしても責任は負いませんのでご了承ください。
+		#SkillFormView
+			form
+				dl
+					dt レベル
+				dd
+					select name="levelMin" id="levelMin"
+						- data.skillListSelect["select"].each do |value|
+							option value="#{value['value']}" #{value["text"]}
+					|～
+					select name="levelMax" id="levelMax"
+						- data.skillListSelect["select"].each do |value|
+							option value="#{value['value']}" #{value["text"]}
+			dl
+				dt
+					|達成率<sup>（整数0～100まで）</sup>
+				dd
+					input type="number" min="0" max="100" id="rateMin" class="rate"/
+					|% ～
+					input type="number" min="0" max="100" id="rateMax" class="rate"/
+					|%
+
+			dl
+				dt 閾値
+				dd
+					input type="number" id="point" class="point" placeholder="150"/
+					|pt
+			dl
+				dt 描画タイプ
+				dd
+					select name="genType" id="genType"
+						option value="0" selected="selected" Lv×達成率
+						option value="1" 達成率×Lv
+						/ option value="2">スマートフォン
+			div class="btnWrap"
+				/!  <span id="submit">生成</span>
+				button id="submit" type="submit" 生成
+
+		#SkillOutputView
+	#musicListView
+		|musicListView
+		#MusicFormView
+			form
+				select
+					option value="g" GUITARFREAKS
+					option value="d" DRUMMANIA
+				select
+					- data.musiclistform["select"].each do |val|
+						option value="#{val['value']}" #{val["text"]}
+				input#musicListSortVector [type="checkbox"]
+				label for="musicListSortVector" 降順
+
+				p 詳細設定
+				.wrap
+					p スキル枠フィルター
+					select
+						option value="0" 全曲
+						option value="1" 新曲枠のみ
+						option value="2" 旧曲枠のみ
+					p パート/難易度フィルター
+					ul
+						- data.musiclistform["checkbox"].each do |val|
+							li
+								input [type="checkbox" name="musicListPartFilters" id="#{val['id']}" value="#{val['val']}" checked="checked"]
+								label [for="#{val['id']}"] #{val['text']}
+				button type="submit" 出力
+
+		#MusicOutputView
+			table
+				col
+				col
+				col
+				col
+				thead
+					tr
+						th 新旧
+						th 曲名
+						th パート
+						th レベル
+				tbody
+#debug style="height:500px"
+	#skilDataBook
+	#skilData
