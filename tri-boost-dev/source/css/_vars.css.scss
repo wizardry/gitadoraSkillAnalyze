@@ -1,14 +1,13 @@
 @charset "utf-8";
 
 // Bases setting
-$fontFamilyBase :"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo"," Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+$fontFamilyBase :sans-serif;
 $default:(
 	line-height:1.5,
 	font-size:13px,
-	color:#333,
+	color:#cfcfcf,
 	font-family:$fontFamilyBase,
-	linkColor:#05a,
-	contentWidth:1050px,
+	linkColor:#3cf,
 	imgPath:'../../img/',
 	borderColor:#ccc,
 	borderRadius:3px

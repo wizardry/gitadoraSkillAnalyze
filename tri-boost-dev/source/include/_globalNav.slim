@@ -1,19 +1,20 @@
-.globalNavWrap
+.subNavWrap
 	ul
 		li 
-			span.toAnalyze HOME
+			span.js-toHome トップ
 		li 
-			span.toAnalyze アナライズ
+			a[href="#guide"] 使い方
 		li 
-			a[href="#debug"] 電卓
+			a[href="#link"] リンク
 		li 
-			span#toMusicListNav 曲一覧
+			a[href="#news"] ログ
+.globalNavWrap
+	p.navTrriger メニュー
+	ul
 		li 
-			span#toSkillListNav Lv*達成率軸スキルポイント一覧
+			span.js-toAnalyze データ分析
 		li 
-			a[href="#guide"] 使い方ガイド
+			span#toMusicListNav 曲一覧<sup>（難易度軸）</sup>
 		li 
-			a[href="#link"] LINK
-		li 
-			a[href="#news"] NEWS
+			span#toSkillListNav Lv×達成率 一覧
 		

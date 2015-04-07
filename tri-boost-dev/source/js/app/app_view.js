@@ -10,12 +10,15 @@ $(function(){
         events:{
         	'click #toMusicListNav':'toMusicList',
         	'click #toSkillListNav':'toSkillPointList',
-        	'click .toAnalyze':'toTop',
+            'click .js-toAnalyze':'toTop',
+        	'click .js-toHome':'toHome',
         },
         initialize:function(){
         	// this.listenTo("#toMusicListNav","click",this.musiclistrender())
         	var view;
 	        var analyzeview = new AnalyzeView();
+            var musicListView = new MusicListView();
+            var skillListView = new SkillListView();
         	var Router = Backbone.Router.extend({
         	    routes:{
         	        '':'index',
@@ -42,7 +45,8 @@ $(function(){
         	    },
         	    musicList: function musicList(){
         	    	$('#musicListView').show();
-        	    	$('#skillListView,#analyzeView').hide()
+        	    	$('#skillListView,#analyzeView').hide();
+                    musicListView.loadDataFunc();
 
         	    },
         	    skillPointList: function skillPointList(){
@@ -68,6 +72,9 @@ $(function(){
         },
         toTop:function(){
 			Backbone.history.navigate('',true)
+        },
+        toHome:function(){
+            Backbone.history.navigate('',true)
         }
 
     });
