@@ -14,29 +14,16 @@ body{
 	color:map-get($default,color);
 	font-family:map-get($default,font-family);
 	position: relative;
+	background:#313131;
 }
-
+a{
+	color:map-get($default,linkColor);;
+}
 %clearfix{
 	@include clearfix();
 }
 
 
-
-/*grid base*/
-.gridSysWrap{
-	$gridValues:(
-		maxCol:12,
-		maxWidth:1200,
-		cellPadding:10,
-		cellMargin:8
-	);
-	@for $i from 1 through map-get($gridValues,maxCol) {
-		.col#{$i}in#{i2} {
-			
-		}
-	}
-
-}
 
 /*typography/headline*/
 .sectionHeadline{}
@@ -69,5 +56,63 @@ body{
 /** etc **/
 
 /*navigation*/
-.globalNav{}
+.globalHeader{
+	background:#212121;
+	border-bottom: 2px solid #3857a6;
+	/*sp*/
+	.globalHeaderLogos{
+		padding:10px 20px;
+		height: 20px;
+	}
+	img{
+		max-width:100%;
+	}
+}
+.subNavWrap{
+	/*sp*/
+	ul{
+		@extend %clearfix;
+	}
+	li{
+		float:left;
+		width: 25%;
+		text-align: center;
+		background:#212121;
+		&:last-child{
+			span,a{
+				border-right:1px solid #666;
+			}
+		}
+	}
+	span,a{
+		color:map-get($default,color);
+		text-decoration: none;
+		display: block;
+		height: 12px;
+		padding:9px;
+		line-height: 1;
+		font-size: 12px;
+		border-left: 1px solid #666;
+		cursor:pointer;
+	}
+}
+.globalNavWrap{
+	margin:10px auto;
+	ul{
+		padding:0 20px;
+	}
+	li{
+		margin:5px 0;
+	}
+	span{
+		padding:8px 10px;
+		background:#ccc;
+		text-align: center;
+		font-size: 13px;
+		border-radius: 4px;
+		display: block;
+		color:#333;
+	}
+}
 .breadcrumb{}
+

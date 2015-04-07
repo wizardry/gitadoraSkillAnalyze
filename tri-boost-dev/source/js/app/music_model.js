@@ -1,8 +1,9 @@
 var MusicConfig = Backbone.Model.extend({
     defaults:{
-        type:'g'
-        select:''
-        sortVector:0
+        type:'g',
+        select:'',
+        sortVector:0,
+        scope:'',
         filter:[]
     },
 })
@@ -10,8 +11,9 @@ var MusicData = Backbone.Model.extend({
     defaults:{
         scope:'',
         title:'',
+        lv:0,
         part:'',
-        lv:0
+        type:'',
     }
 })
 var MusicList = Backbone.Collection.extend({
