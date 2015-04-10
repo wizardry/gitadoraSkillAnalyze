@@ -55,6 +55,7 @@ var SkillFormView = Backbone.View.extend({
     },
     cookieLoad:function(){
         var self = this;
+        var cookie = $.cookie('skillView')
         if(cookie != undefined){
             var cookie = JSON.parse($.cookie('skillView'))
             $.each(cookie,function(key,val){

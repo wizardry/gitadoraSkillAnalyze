@@ -134,9 +134,9 @@ var GraphDatas = Backbone.Collection.extend({
         var data = [];
         this.each(function(model){
             data[i]={
-                name:model.get('title'),
-                x:toDecimalFunc(model.get(x))*1,
-                y:toDecimalFunc(model.get(y))*1
+                "name":model.get('title'),
+                "x":toDecimalFunc(model.get(x))*1,
+                "y":toDecimalFunc(model.get(y))*1
             }
             i++
         })
@@ -209,7 +209,6 @@ var AnalyzeRecList = Backbone.Collection.extend({
         var minTitleList = titleList.filter(function(val , i , self){
             return self.indexOf(val) === i && i !== self.lastIndexOf(val)
         })
-        console.log(minTitleList)
         this.checkOverlapFunc(minTitleList)
         return this;
     },

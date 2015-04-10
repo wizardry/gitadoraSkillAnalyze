@@ -86,6 +86,7 @@ var AnalyzeView = Backbone.View.extend({
         return this;
     },
     ajaxFunc:function(e){
+        loader(true)
         this.analyzeFormView.submitFunc(e)
         // this.analyzeAjaxController.getSkillDataFunc(this.model.importId.getUserID());
     },
@@ -177,6 +178,7 @@ var AnalyzeAjaxController = Backbone.View.extend({
         var ajaxOp ={
             type:'GET',
             async:true,
+            timeout:10000,
             url:SKILL_URL+userId,
             dataType:'html',
             cache:false
@@ -276,9 +278,10 @@ var AnalyzeGraphView = Backbone.View.extend({
         "change #graphType":"setGraphType",
         "change #limit":"setConfigLimit",
         "change #reverse":"setConfigReverse",
-        "click #grapyTypeUi li":"setGraphTypeDom",
+        "click #graphTypeUi li":"setGraphTypeDom",
         "click #limitUi":"setConfigLimitDom",
-        "click #reverseUi":"setConfigReverseDom"
+        "click #reverseUi":"setConfigReverseDom",
+        "click #graphToggleTrigger":"toggleGraphArea",
     },
     render:function(){
         this.cookieLoad();
@@ -301,11 +304,11 @@ var AnalyzeGraphView = Backbone.View.extend({
 
             //1 limit
             if(cookie[1][1] == 'false'){//cookieから取得するため文字列の true/false になる
-                this.model.config.set('limitLenth',false)
+                this.model.config.set('limitLength',false)
                 $('#limit').prop('checked',false);
                 $('#limitUi').removeClass('current');
             }else{
-                this.model.config.set('limitLenth',true)
+                this.model.config.set('limitLength',true)
                 $('#limit').prop('checked',true);
                 $('#limitUi').addClass('current');
             }
@@ -324,7 +327,7 @@ var AnalyzeGraphView = Backbone.View.extend({
             this.model.config.setAxis(0);
             $('#graphType').val(0);
             $('#graphTypeUi').find('li').removeClass('current').eq(0).addClass('current');
-            this.model.config.set('limitLenth',true)
+            this.model.config.set('limitLength',true)
             $('#limit').prop('checked',true);
             $('#limitUi').addClass('current');
             this.model.config.set('axisReverse',false)
@@ -349,11 +352,9 @@ var AnalyzeGraphView = Backbone.View.extend({
             tmpDataA = this.collection.skillList.getOldMusic();
             tmpDataB = this.collection.skillList.getHotMusic();
         }
-        console.log(tmpDataA.toJSON())
+
         this.collection.oldData.reset(tmpDataA.toJSON())
         this.collection.hotData.reset(tmpDataB.toJSON())
-        console.log(this.collection.oldData)
-        console.log(this.collection.hotData)
 
     },
     drawGraph:function(){
@@ -361,23 +362,20 @@ var AnalyzeGraphView = Backbone.View.extend({
         //対象曲は別生成で、そこからAxisを抜き出すのはここ。
         var data = {}
         var axisTitle = this.model.config.getStrAxis( parseInt($('#graphType').val()) );
-        var axisKey = this.model.config.get('axis');
+        var axisKey = this.model.config.getKeyAxis( parseInt($('#graphType').val()) );
 
         //軸反転
         if(this.model.config.get('axisReverse')){
             axisTitle.reverse();
             axisKey.reverse();
-        }
 
+        }
         this.model.graphTitle.set('xKey',axisTitle[0]);
         this.model.graphTitle.set('yKey',axisTitle[1]);
-        
-        // var tmpData;
         data = {
             'old':this.collection.oldData.setGraphData(axisKey[1],axisKey[0]),
             'hot':this.collection.hotData.setGraphData(axisKey[1],axisKey[0])
         }
-        console.log(data)
         graphDrawing(data,this.model.graphTitle.get('xKey'),this.model.graphTitle.get('yKey'));
         //Hichartsの描画
         function graphDrawing(datas,xKey,yKey){//object/str/str
@@ -419,7 +417,7 @@ var AnalyzeGraphView = Backbone.View.extend({
     setGraphTypeDom:function(e){
         e.preventDefault();
         i = $(e.target).index();
-        $('#grapyTypeUi').find('li').removeClass('current').eq(i).addClass('current')
+        $('#graphTypeUi').find('li').removeClass('current').eq(i).addClass('current')
         $('#graphType').val(i).change();
     },
     setConfigLimitDom:function(e){
@@ -440,6 +438,13 @@ var AnalyzeGraphView = Backbone.View.extend({
         }else{
             $(e.target).addClass('current').text('ON');
             $('#reverse').prop('checked',true).change();
+        }
+    },
+    toggleGraphArea:function(){
+        if($('.js-graphToggleArea').hasClass('active')){
+            $('.js-graphToggleArea').removeClass('active')
+        }else{
+            $('.js-graphToggleArea').addClass('active')
         }
     },
 })
@@ -477,19 +482,16 @@ var AnalyzeCalcView = Backbone.View.extend({
             return flg;
         }
         if(chcke()){
-            console.log('----calc start')
             under =  self.model.config.get('under');
             upper =  self.model.config.get('upper');
             beforeData = self.beforeSkillData()//array[]
             
             if(under.indexOf('.') == -1){
-                console.log('under-1')
                 under = (under*1)*100;
             }else{
                 under = under.replace('.','')*1
             }
             if(upper.indexOf('.') == -1){
-                console.log('upper-1')
                 upper = (upper*1)*100;
             }else{
                 upper = upper.replace('.','')*1
@@ -567,7 +569,6 @@ var AnalyzeRecommendView = Backbone.View.extend({
     },
     render:function(){},
     ajax:function(){
-        console.log('REC AJAX START')
         var self = this;
         var id = function(){
 
@@ -575,7 +576,6 @@ var AnalyzeRecommendView = Backbone.View.extend({
             userSkill = self.model.skillUser.get('skillPoint')+'';
             userSkill = parseInt(userSkill.slice(0,-4) + '00');
             part = self.model.importId.get('part')
-            console.log(part)
             $.each(AVG_LIST[part],function(i,d){
                 if(userSkill == d.skill){
                     index = i
@@ -594,6 +594,7 @@ var AnalyzeRecommendView = Backbone.View.extend({
         var ajaxOp1 ={
             type:'GET',
             async:true,
+            timeout:10000,
             url:SKILL_URL+avgid[0],
             dataType:'html',
             cache:false
@@ -601,6 +602,7 @@ var AnalyzeRecommendView = Backbone.View.extend({
         var ajaxOp2 ={
             type:'GET',
             async:true,
+            timeout:10000,
             url:SKILL_URL+avgid[1],
             dataType:'html',
             cache:false
@@ -612,6 +614,7 @@ var AnalyzeRecommendView = Backbone.View.extend({
             self.collection.recList.reset();
             self.setData(ad,false)
             self.setData(bd,true)
+            loader(false)
             //bdのsetDataが終わるとcollectionのListenToからthis.draw()発火
         },function(){
             alert('接続に失敗しました。\n一部機能が表示されません。');
@@ -623,14 +626,12 @@ var AnalyzeRecommendView = Backbone.View.extend({
         this.genNode();
     },
     setData:function(res,silen){
-        console.log(res)
         var self = this;
         var regRateEq = 6
         var inputElem = $('#recRes1');
         if(silen){
             inputElem = $('#recRes2')
         }
-        console.log('---------------------------------------'+this.model.importId.get('part'))
         if(this.model.importId.get('part') == 'g'){
             regRateEq = 7
         }
@@ -640,7 +641,6 @@ var AnalyzeRecommendView = Backbone.View.extend({
         node = $(node)
         node = '<table id="recHot">'+$(node).find('table').eq(4).html()+'</table><table id="recOld">'+$(node).find('table').eq(5).html()+'</table>'
         inputElem.html(node);
-        console.log('REC NODE DATA GEN')
         
 
         $('#recHot').find('tr').not(':first-child').each(function(i,d){
@@ -656,7 +656,6 @@ var AnalyzeRecommendView = Backbone.View.extend({
             self.collection.recList.add(musicData,{silent:true})
             if($('#recOld').find('tr').length-2 == i && silen){
                 self.collection.recList.add(musicData,{silent:false})
-                console.log(self.collection.recList)
             }
         })
 
@@ -684,16 +683,12 @@ var AnalyzeRecommendView = Backbone.View.extend({
 
         //下限フィルター
         this.collection.recList.filterPoint(userSkillUnder[0],userSkillUnder[1]);
-        console.log(this.collection.recList.length)
 
         //平均二種内での重複フィルター
         this.collection.recList.checkThisOverlap();
-        console.log(this.collection.recList.length)
 
         //ユーザーデータとの重複フィルター
         this.collection.recList.checkUserOverlap(titleList);
-        console.log(this.collection.recList.length)
-
 
         //データソート
         this.collection.recList.sort();
@@ -704,23 +699,22 @@ var AnalyzeRecommendView = Backbone.View.extend({
 
         hotData = this.collection.recList.where({scope:'hot'}).reverse()
         oldData = this.collection.recList.where({scope:'old'}).reverse()
-        console.log(hotData)
         this.collection.recList.reset(hotData,{sort:false});
-        console.log(this.collection.recList)
 
         hotNode = '<ul class="recHotList">'
         i = 0;
         this.collection.recList.each(function(d,i){
             i++
             if(i<31 ){
-                var tmp;
-
+                var tmp,classname;
+                classname = d.get('part').slice(0,3);
+                classname = classname.toLowerCase();
                 tmp = d.get('level')+''
                 tmp = tmp.slice(0,1)+'.'+tmp.slice(1),
-                hotNode += '<li>'
-                hotNode += '<span>'+d.get('title')+'</span>'
-                hotNode += '<span>'+d.get('part')+'</span>'
-                hotNode += '<span>'+tmp+'</span>'
+                hotNode += '<li class="'+classname+'">'
+                hotNode += '<span class="title">'+d.get('title')+'</span>'
+                hotNode += '<span class="part">'+d.get('part')+'</span>'
+                hotNode += '<span class="lv">'+tmp+'</span>'
                 hotNode += '</li>'
             }else{
                 return false
@@ -736,23 +730,24 @@ var AnalyzeRecommendView = Backbone.View.extend({
             i++
             if(i<31 ){
 
-                var tmp;
+                var tmp,classname;
+                classname = d.get('part').slice(0,3);
+                classname = classname.toLowerCase();
+
                 tmp = d.get('level')+''
                 tmp = tmp.slice(0,1)+'.'+tmp.slice(1),
-                oldNode += '<li>'
-                oldNode += '<span>'+d.get('title')+'</span>'
-                oldNode += '<span>'+d.get('part')+'</span>'
-                oldNode += '<span>'+tmp+'</span>'
+                oldNode += '<li class="'+classname+'">'
+                oldNode += '<span class="title">'+d.get('title')+'</span>'
+                oldNode += '<span class="part">'+d.get('part')+'</span>'
+                oldNode += '<span class="lv">'+tmp+'</span>'
                 oldNode += '</li>'
             }else{
                 return false;
             }
         })
         oldNode += '</ul>'
-        console.log(hotNode)
         $('#recListHot').html(hotNode)
         $('#recListOld').html(oldNode)
-        console.log('finis')
     }
 });
 var AnalyzeSubCalcView = Backbone.View.extend({
@@ -768,7 +763,6 @@ var AnalyzeSubCalcView = Backbone.View.extend({
     },
     avgRender:function(){
         var self = this;
-        console.log(self.model.avgMath)
         this.model.avgMath.set('total',$('#subCalcSingleAvgTotal').val());
         this.model.avgMath.set('filter',$('#subCalcSingleAvgFilter').val());
         $('#subCalcSingleAvg').text(self.model.avgMath.math());

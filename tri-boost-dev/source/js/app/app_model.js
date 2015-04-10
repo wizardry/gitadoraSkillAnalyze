@@ -25,7 +25,6 @@ var dicimalCheck = function(str){
     var tmp
     if(str.indexOf('.') != -1){
         tmp = str.split('.');
-        console.log(tmp)
         if(tmp[1].length == 1 ){
             str = parseInt(tmp[0]+tmp[1]+'0')
         }else{
@@ -36,6 +35,30 @@ var dicimalCheck = function(str){
     }
     return str;
 }
+//loader処理
+function loader(boo){
+    if(boo){
+        $('.loader').fadeIn(300);
+    }else{
+        $('.loader').fadeOut(300);
+    }
+    
+}
+//出し分け処理 CSSがメディアクエリーなので、それに合わせUAではなく端末サイズで取る。
+function isSPFunc(){
+    var windowWidth = $(window).width();
+    if(windowWidth <= 720){
+        return true;
+    }else{
+        return false;
+    }
+}
+var isSP = isSPFunc();
+$(window).resize(function(e){
+    isSP = isSPFunc();
+})
+
+
 //----------------------------graph
 var graphOp = function(datas,yKey,xKey){
     var option = {
