@@ -10,7 +10,7 @@ var MusicListView = Backbone.View.extend({
     events:{
         'change #musicListSaveToLocal':'cookieSave',
         'submit #musicListConfigForm':'useAjax',
-        'submit #musicListDrawForm':'listRender'
+        'submit #musicListDrawForm':'listRender',
     },
     model:{
         "config" : new MusicConfig(),
@@ -61,13 +61,12 @@ var MusicListView = Backbone.View.extend({
             this.useLocalStorage();
         }
     },
-    useAjax:function(){
-        console.log('ajax')
+    useAjax:function(e){
         this.collection.list.reset();
-        this.formView.loadFunc();
+        loader(true)
+        this.formView.loadFunc(e);
     },
     useLocalStorage:function(){
-        console.log('localStorage');
         this.collection.list.reset();
         this.formView.localLoad();
     },
@@ -78,16 +77,18 @@ var MusicListView = Backbone.View.extend({
         e.preventDefault();
         this.formView.setFormData();
         this.listView.render();
+        return false
     }
 
 })
 var MusicFormView = Backbone.View.extend({
     el:'#musicFormView',
-    loadFunc:function(){
+    loadFunc:function(e){
         localStorage.clear();
         this.getMusicData();
     },
-    setFormData:function(){
+    setFormData:function(e){
+        e.preventDefault();
         var self = this;
         var filter = [];
         var vector = 0;
@@ -132,6 +133,7 @@ var MusicFormView = Backbone.View.extend({
             $.ajax(ajaxOp2)
         ).pipe(function(hotList,oldList){
             self.collection.list.reset();
+            loader(false)
             self.setMusicData(hotList,false)
             self.setMusicData(oldList,true)
             //oldLListのsetMusicDataが終わるとcollectionのListenToからthis.draw()発火

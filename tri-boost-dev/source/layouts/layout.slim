@@ -26,7 +26,8 @@ html lang="ja"
     = "\n"
     == partial "include/globalHeader"
     #masterView
-        == partial "include/globalNav"
+        .navWrap.js-navHeight
+            == partial "include/globalNav"
         = "\n"
         /! /LAYOUT HEADER
         = "\n"
@@ -41,6 +42,37 @@ html lang="ja"
         = "\n"
         /! LAYOUT FOOTER
         = "\n"
+    javascript:
+        //ga
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-53924048-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        $(function(){
+            //conversion
+            $('#graphToggleTrigger').click(function(){
+                _gaq.push(['_trackPageview', '/viewgraph.html'])
+            })
+            //conversion
+            $('#skillForm').submit(function(){
+                _gaq.push(['_trackPageview', '/viewskilllist.html'])
+            })
+            //conversion
+            $('#musicListDrawForm').submit(function(){
+                _gaq.push(['_trackPageview', '/viewmusiclist.html'])
+            })
+            //conversion
+            $('#analyzeForm').submit(function(){
+                _gaq.push(['_trackPageview', '/imported.html'])
+            })
+        })
+        //twitter
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
     == partial "include/globalFooter"
     = "\n"
     /! /LAYOUT FOOTER

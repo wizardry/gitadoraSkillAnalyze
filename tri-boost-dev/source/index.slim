@@ -2,315 +2,371 @@
 title: HOME 
 path: ./
 ---
+.loader
+	i.loading.loadpos
+.contentsInnerWrap
+	.sectionWrap
+		#analyzeView.sectionBlock
+			#analyzeFormView.areaBlock
+				form action="" id="analyzeForm"
+					p.sectionHeadline 
+						span データ取得
+					select name="searchType" id="userData_searchType"
+						option value="1" selected="selected" IDで入力する
+						option value="2" URLで入力する
 
-#masterView
-	#analyzeView
-		#analyzeFormView
-			form action="" id="analyzeForm"
-				select name="searchType" id="userData_searchType"
-					option value="1" selected="selected" IDで入力する
-					option value="2" URLで入力する
+					.js-formToggleWrap.toggleWrap.toggleForm
+						.js-formToggleVal2.toggleArea
+							p.formHeadline URL
+							input type="text" name="getData" id="userData_url" class="block"
+						.js-formToggleVal1.toggleArea
+							p.formHeadline PART / ID
+							p.formiline
+								select name="idType" id="userData_part"
+									option value="g" GUITARFREAKS
+									option value="d" DRUMMANIA
+								input type="text" name="getData" id="userData_id" class="em2"
+					.buttonWrap
+						label.submitBase.primary for="getDataTrigger" 送信
+						/ label.fw-buttonBase.btn-primary for="getDataTrigger" 送信
+						input type="submit" id="getDataTrigger"
+			#importData.hide style="display:none"importdata
+			.analyzeInforBlock
+				#analyzeDataView.areaBlock.userDataBlock
+					h2.sectionHeadline
+						span データ詳細
+					.userDataListWrap
+						table
+							tr
+								th 総合 pt/Avg.
+								td 
+									span#analyzeDataTotalPoint null
+									|pt
+								td
+									span#analyzeDataTotalAvg null
+									|Avg.
+							tr
+								th Hot pt/Avg.
+								td
+									span#analyzeDataHotPoint null
+									|pt
+								td
+									span#analyzeDataHotAvg null
+									|Avg.
+							tr
+								th Old pt/Avg.
+								td
+									span#analyzeDataOldPoint null
+									|pt
+								td
+									span#analyzeDataOldAvg null
+									|Avg.
 
-				.js-formToggleWrapx
-					.js-formToggleVal2
-						p url
-						input type="text" name="getData" id="userData_url"
-					.js-formToggleVal1
-						p id
-						input type="text" name="getData" id="userData_id"
-						p part
-						select name="idType" id="userData_part"
-							option value="g" GUITARFREAKS
-							option value="d" DRUMMANIA
-				input type="submit" id="getDataTrigger"
-		#importData.hide style="display:none"importdata
-		#analyzeDataView
-			h2.sectionHeadline
-				span データ詳細
-			dl
-				dt 総合 Pt
-				dd#analyzeDataTotalPoint null
-				dt HOT Pt
-				dd#analyzeDataHotPoint null
-				dt OLD Pt
-				dd#analyzeDataOldPoint null
-			dl
-				dt 総合 .Avg
-				dd#analyzeDataTotalAvg
-				dt HOT .Avg
-				dd#analyzeDataHotAvg
-				dt OLD .Avg
-				dd#analyzeDataOldAvg
+				#analyzeCalcView.analyzeCalcBlock
+					.areaBlock
+						.mathInput
+							p
+								select name="" id="analyzeCalcFilter" class="mathGenre"
+									option value="0" すべての曲
+									option value="1" 新曲
+									option value="2" 旧曲
+								|から<br>
+								input type="number" id="analyzeCalcUnder" class="pointInput em4" placeholder="120.00"/
+								|pt以下の曲を
+								input type="number" id="analyzeCalcUpper" class="pointInput em4 inline" placeholder="120.00"/
+								|に上げたと仮定すると...
+						.mathOutput
+							p
+								span#analyzeCalcDiffPoint null
+								| pt上昇して<br>
+								span#analyzeCalcResult null
+								| ptになります。<br>
+								|更新曲数は<span id="analyzeCalcMusicLength">null</span> 曲です。
 
-		#analyzeCalcView
-			.mathInput
-				select name="" id="analyzeCalcFilter" class="mathGenre"
-					option value="0" すべての曲
-					option value="1" 新曲
-					option value="2" 旧曲
-				|から<br>
-				input type="number" id="analyzeCalcUnder" class="pointInput" placeholder="120.00"/
-				|pt以下の曲を
-				input type="number" id="analyzeCalcUpper" class="pointInput" placeholder="120.00"/
-				|に上げたと仮定すると...
-			.mathOutput
-				span#analyzeCalcDiffPoint null
-				|pt上昇して<br>
-				span#analyzeCalcResult null
-				|ptになります。<br>　　
-				|更新曲数は<span id="analyzeCalcMusicLength">null</span>曲です。
+			#analyzeGraphView.areaBlock
+				.toggleWrap.js-toggleWrap.sp-toggleWrap
+					p#graphToggleTrigger.toggleTrigger.js-toggleTrigger グラフ
+					.graphToggleWrap.toggleArea.js-toggleArea
+						#analyzeGraphControls.graphControles
+							p.formHeadline グラフ軸
+							.buttonGroup.graphTypeUi
+								ul#graphTypeUi
+									li.actionButtonBase.primary.current Lv×Point
+									li.actionButtonBase.primary Point×達成率
+									li.actionButtonBase.primary Lv×達成率
+							dl.buttonList
+								dt.formHeadline 対象曲に絞る
+								dd
+									span#limitUi.actionButtonBase.secondary.current ON
+							dl.buttonList
+								dt.formHeadline 軸反転
+								dd
+									span#reverseUi.actionButtonBase.secondary OFF
+							form.hide
+								select#graphType
+									option value="0" selected="selected" Lv×Point
+									option value="1" Point×達成率
+									option value="2" Lv×達成率
+								input [type="checkbox" id="limit" name="limit" value="1" checked]
+								input [type="checkbox" id="reverse" value="1" name="reverse"]
 
-		#analyzeGraphView
-			p#graphToggleTrigger.buttonBase.primaryButton グラフ
-			#analyzeGraphControls
-				.buttonGroup
-					ul#grapyTypeUi
-						li.current Lv×Point
-						li Point×達成率
-						li Lv×達成率
-				dl.buttonList
-					dt 対象曲に絞る
-					dd
-						span#limitUi.btnBase.settingButton.current ON
-				dl.buttonList
-					dt 軸反転
-					dd
-						span#reverseUi.btnBase.settingButton OFF
-				form.hide
-					select#graphType
-						option value="0" selected="selected" Lv×Point
-						option value="1" Point×達成率
-						option value="2" Lv×達成率
-					input [type="checkbox" id="limit" name="limit" value="1" checked]
-					input [type="checkbox" id="reverse" value="1" name="reverse"]
-
-			#analyzeGraphCanvas
-		#analyzeRecommendView
-			#recRes1.hide style="display:none;"
-			#recRes2.hide style="display:none;"
-			#recListWrap
-				#recListHot
-				#recListOld
-		#analyzeSubCalcView
-			section
-				h3 理想SPを単曲で計算する
-				.input
-					input#subCalcSingleAvgTotal [type='number' placeholder='1000']
-					|pt上げるには
-					select#subCalcSingleAvgFilter
-						option value="0" すべての曲
-						option value="1" 新曲
-						option value="2" 旧曲
-					|を対象にした場合1曲あたり
-				.output
-					span#subCalcSingleAvg null
-					|pt上げる必要がある
-			section
-				h3 Lv×達成率による簡易スキルポイント計算
-				.input
-					input#subCalcSkillMathLv [type="number" placeholder="7.00" min="1.00" max="9.99"]
-					|の曲を
-					input#subCalcSkillMathRate [type="number" placeholder="90.00" min="0.00" max="100"]
-					|%でクリアすると
-				.output
-					|単曲スキルは
-					#subCalcSkillMath null
-					|ptです。
-			section
-				h3 達成率計算
-				.input
-					ul
-						li
-							|レベル
-							input#subCalcRateMathLv type="number" placeholder="7" min="1.00" max="9.99"
-						li
-							|コンボ（%）
-							input#subCalcRateMathCombo type="number" placeholder="48" min="0" max="100" step="1"
-						li
-							|Perfect（%）
-							input#subCalcRateMathPerfect type="number" placeholder="98" min="0" max="100" step="1"
-				.output
-					|達成率はおおよそ
-					#subCalcRateMathRate null <br>
-					|スキルポイントはだいたい
-					#subCalcRateMathPoint null
-					|ptです。
-
-
-	#skillListView
-		|skillListView
-		div class="attentionArea"
-			h2 ご注意
-			p
-				|使用はユーザーの皆さまにお任せ致します。<br>
-				|半端無い値を入れてブラウザが固まったり、落ちたりしても責任は負いませんのでご了承ください。
-		#skillFormView
-			form#skillForm
-				dl
-					dt レベル
-				dd
-					select name="levelMin" id="skillListLevelMin"
-						- data.skillListSelect["select"].each do |value|
-							option value="#{value['value']}" #{value["text"]}
-					|～
-					select name="levelMax" id="skillListLevelMax"
-						- data.skillListSelect["select"].each do |value|
-							option value="#{value['value']}" #{value["text"]}
-				dl
-					dt
-						|達成率<sup>（整数0～100まで）</sup>
-					dd
-						input type="number" min="0" max="100" id="skillListRateMin" class="rate"/
-						|% ～
-						input type="number" min="0" max="100" id="skillListRateMax" class="rate"/
-						|%
-
-				dl
-					dt 閾値
-					dd
-						input type="number" id="skillListThreshold" class="point" placeholder="150"/
-						|pt
-				dl
-					dt 描画タイプ
-					dd
-						select id="skillListGenType"
-							option value="0" selected="selected" Lv×達成率
-							option value="1" 達成率×Lv
-							/ option value="2">スマートフォン
-				div class="btnWrap"
-					/!  <span id="submit">生成</span>
-					button id="skillListSubmit" type="submit" 生成
-		#skillOutputView
-			#skillOutput
-	#musicListView
-		|musicListView
-		#MusicFormView
-			form#musicListConfigForm
-
-				button#musicListGetDataSubmit type="submit" 曲情報を再取得する
-				input#musicListSaveToLocal[type="checkbox" checked='checked']
-				label for="musicListSaveToLocal" ローカルストレージに曲データを保存する
-				p
-					sup 次回から読み込み速度が速くなりますが、最新情報を取得しなくなります。
-			form#musicListDrawForm
-				select#musicListType
-					option value="g" GUITARFREAKS
-					option value="d" DRUMMANIA
-				select#musicListLv
-					- data.musiclistform["select"].each do |val|
-						option value="#{val['value']}" #{val["text"]}
-				input#musicListSortVector [type="checkbox" checked="checked"]
-				label for="musicListSortVector" 降順
-
-				p 詳細設定
-				.wrap
-					p スキル枠フィルター
-					select#musicListScopeFilter
-						option value="0" 全曲
-						option value="1" 新曲枠のみ
-						option value="2" 旧曲枠のみ
-					p パート/難易度フィルター
-					ul
-						- data.musiclistform["checkbox"].each do |val|
+						#analyzeGraphCanvas.graphCanvas.areaBlock
+			#analyzeRecommendView
+				.areaBlock
+					#recRes1.hide style="display:none;"
+					#recRes2.hide style="display:none;"
+					#recListWrap.recListWrap
+						.recListHotArea.recListArea
+							h3.chapterHeadline 新曲枠
+							#recListHot
+						.recListOldArea.recListArea
+							h3.chapterHeadline 旧曲枠
+							#recListOld
+			#analyzeSubCalcView.areaBlock.calcBlock
+				section
+					h3 理想SPを単曲で計算する
+					.input
+						input#subCalcSingleAvgTotal [type='number' placeholder='1000']
+						|pt上げるには
+						select#subCalcSingleAvgFilter
+							option value="0" すべての曲
+							option value="1" 新曲
+							option value="2" 旧曲
+						|を対象にした場合1曲あたり
+					.output
+						span#subCalcSingleAvg null
+						|pt上げる必要がある
+				section
+					h3 Lv×達成率による簡易スキルポイント計算
+					.input
+						input#subCalcSkillMathLv [type="number" placeholder="7.00" min="1.00" max="9.99"]
+						|の曲を
+						input#subCalcSkillMathRate [type="number" placeholder="90.00" min="0.00" max="100"]
+						|%でクリアすると
+					.output
+						|単曲スキルは
+						span#subCalcSkillMath null
+						|ptです。
+				section
+					h3 達成率計算
+					.input
+						ul
 							li
-								input [type="checkbox" name="musicListPartFilters" id="#{val['id']}" value="#{val['val']}" checked="checked"]
-								label [for="#{val['id']}"] #{val['text']}
-				button#musicListSubmit type="submit" 出力
+								|レベル
+								input#subCalcRateMathLv type="number" placeholder="7" min="1.00" max="9.99"
+							li
+								|コンボ（%）
+								input#subCalcRateMathCombo type="number" placeholder="48" min="0" max="100" step="1"
+							li
+								|Perfect（%）
+								input#subCalcRateMathPerfect type="number" placeholder="98" min="0" max="100" step="1"
+					.output
+						|達成率はおおよそ
+						span#subCalcRateMathRate null <br>
+						|スキルポイントはだいたい
+						span#subCalcRateMathPoint null
+						|ptです。
 
-		#musicOutputView
-			table
-				col
-				col
-				col
-				col
-				thead
-					tr
-						th 新旧
-						th 曲名
-						th パート
-						th レベル
-				tbody
-	#guide
-		h2 使い方ガイド
-		h3 当サイトを利用するまでの手順
-		ol
-			li
-				a target="_blank" href="http://xv-s.heteml.jp/skill/" GuitarFreaks & DrumMania Skill Simulator
-				|こちらのユーザー登録を行い、スキル状況を入力して下さい。<br>入力補佐ツールなどを使うと便利です（<a href="#links">LINK一覧</a>）
-			li 曲情報入力画面上部にある「スキル公開用URL」か、ユーザー検索から自分のページへ行き、URLをコピーしてください。
-			li 当サイト上部にある入力フィールドにURLをペーストし、インポートボタンをクリック、タップして下さい。
-			li 成功した場合「データ詳細」に数値が反映されます。データ反映後各コンテンツがそのデータに応じて機能します。
-		
-		h3 電卓系のヒント
-		ul
-			li ブラウザによっては数値入力後カーソルキーで増減ができます。
-		h3 グラフについてのヒント
-		ul
-			li 軸反転 でx軸とy軸を反転できます。
-			li 対象曲に絞るを外すとスキル対象外を含む登録データ全ての情報をグラフに描画します。
-			li 右上にあるHOT/OLDをクリックすることで片側のみを有効にすることが可能です。
-			li グラフ内をドラッグすることで拡大表示することが出来ます。
-			li マーカーをタップもしくはマウスオーバーすることにより、簡易的な曲情報が見れます。
-			li 
-				|例えばLv×Point にした場合、左側下部は高達成下限なので、放置でよい曲である可能性が高いです。<br>
-				|しかし、左側上部は特攻気味で詰める余地が残されています。<br>
-				|左下の曲を増やしつつ、右側は中～上に動かすように詰めていくのが理想形となります。<br>
+	.sectionWrap
+		#skillListView.sectionBlock.skillListBlock
+			h2.sectionHeadline
+				span Lv×達成率軸 スキルポイント一覧
+			div class="attentionArea"
+				h3.partHeadline ご注意
+				p.read
+					|使用はユーザーの皆さまにお任せ致します。<br>
+					|半端無い値を入れてブラウザが固まったり、落ちたりしても責任は負いませんのでご了承ください。
+			#skillFormView.areaBlock
+				form#skillForm
+					dl
+						dt.formHeadline レベル
+					dd
+						select name="levelMin" id="skillListLevelMin"
+							- data.skillListSelect["select"].each do |value|
+								option value="#{value['value']}" #{value["text"]}
+						|～
+						select name="levelMax" id="skillListLevelMax"
+							- data.skillListSelect["select"].each do |value|
+								option value="#{value['value']}" #{value["text"]}
+					dl
+						dt.formHeadline
+							|達成率<sup>（整数0～100まで）</sup>
+						dd
+							input type="number" min="0" max="100" id="skillListRateMin" class="rate"/
+							|% ～
+							input type="number" min="0" max="100" id="skillListRateMax" class="rate"/
+							|%
 
-	#link
-		h2 リンク
-		ul
-			li 
-				a target="_blank" href="http://xv-s.heteml.jp/skill/" GuitarFreaks & DrumMania Skill Simulator
-			li 
-				a target="_blank" href="http://suitap.iceextra.org/xgcrawler/" XGCrawler 配布サイト （スキルシミュレーター自動入力ツール）
-			li 
-				a target="_blank" href="http://funachun.net/skill.html" funachun.net （XGCrawlerのGUI）
-			li 
-				a target="_blank" href="http://www.konami.jp/bemani/gfdm/gitadora/" 公式
-			li 
-				a target="_blank" href="http://p.eagate.573.jp/game/gfdm/gitadora/p/cont/" 公式e-amu
-		p 他こんなのもつくってました。
-		ul
-			li
-				a href="http://dragonscrown.web.fc2.com/" ドラゴンズクラウン　スキルシミューレーター
-			li
-				a href="http://mh4hakkutsu.web.fc2.com/" 発掘装備 一覧 | モンスターハンター4 
+					dl
+						dt.formHeadline 閾値
+						dd
+							input type="number" id="skillListThreshold" class="point" placeholder="150"/
+							|pt
+					dl
+						dt.formHeadline 描画タイプ
+						dd
+							select id="skillListGenType"
+								option value="0" selected="selected" Lv×達成率
+								option value="1" 達成率×Lv
+								/ option value="2">スマートフォン
+					div class="buttonWrap"
+						label.submitBase.primary for="skillListSubmit" 生成
+						button id="skillListSubmit" type="submit" 生成
+			#skillOutputView.areaBlock
+				#skillOutput.skillListWrap
+	.sectionWrap
+		#musicListView.sectionBlock.musicBlock
+			h1.sectionHeadline <span>曲一覧<sup>（難易度軸）</sup></span>
+			#MusicFormView
+				form#musicListConfigForm.areaBlock
+					.buttonWrap
+						label.submitBase.primary for="musicListGetDataSubmit" 曲情報を再取得する
+						button#musicListGetDataSubmit type="submit" 曲情報を再取得する
+					p.oneLinerForm
+						input#musicListSaveToLocal[type="checkbox" checked='checked']
+						label for="musicListSaveToLocal" ローカルストレージに曲データを保存する
+					p.whatCheck
+						sup ※チェックをすると次回から読み込み速度が速くなりますが、最新情報を取得しなくなります。
+				form#musicListDrawForm.areaBlock
+					select#musicListType
+						option value="g" GUITARFREAKS
+						option value="d" DRUMMANIA
+					select#musicListLv
+						- data.musiclistform["select"].each do |val|
+							option value="#{val['value']}" #{val["text"]}
+					.checkboxWrap.oneLinerForm
+						input#musicListSortVector [type="checkbox" checked="checked"]
+						label for="musicListSortVector" 降順
+					.js-toggleWrap.toggleWrap
+						p.toggleTrigger.js-toggleTrigger 詳細設定
+						.wrap.toggleArea.js-toggleArea
+							p.formHeadline スキル枠フィルター
+							select#musicListScopeFilter
+								option value="0" 全曲
+								option value="1" 新曲枠のみ
+								option value="2" 旧曲枠のみ
+							p.formHeadline パート/難易度フィルター
+							ul.partfilterList
+								- data.musiclistform["checkbox"].each do |val|
+									li
+										.paddingWrap
+											.checkboxWrap
+												input [type="checkbox" name="musicListPartFilters" id="#{val['id']}" value="#{val['val']}" checked="checked"]
+												label [for="#{val['id']}"] #{val['text']}
+					.buttonWrap
+						label.submitBase.primary for="musicListSubmit" 出力
+						button#musicListSubmit type="submit" 出力
 
-	#news
-		h2 更新履歴
-		ul.updates
-			li 04/10 : 新作稼働準備に伴い内部をBackbone.jsに書き換えました。
-			li 04/10 : <em>スキルポイント</em>が上がるかもしれない曲 の精度を格段に向上しました。
-			li 11/28 : ソース整理して若干軽量化しました。
-			li 11/18 : Lv別取得スキルポイント一覧を作成しました。
-			li 11/11 : <em>スキルポイント</em>が上がるかもしれない曲一覧機能のβを外しました。
-			li 09/30 : <em>スキルポイント</em>が上がるかもしれない曲一覧機能をβで実装しました。
-			li 09/30 : 曲一覧の一部表記ミスを修正しました。
-			li 09/30 : 曲一覧のフィルター機能を拡張しました。
-			li 09/29 : 曲一覧のページを作成しました
-			li 09/26 : 新デザインをあてました。
-			li 09/23 : ファビコン追加しました
-			li 09/14 : 達成率計算Bが計算式Cフォームからできてしまうので実装中止しました。
-			li 09/13 : ランクグラフをペンディングにしました。
-			li 09/09 : <em>達成率</em>計算C実装
-			li 09/09 : <em>スキルポイント</em>計算B実装
-			li 09/03 : 仕事が忙しいので更新頻度さがります。
-			li 09/03 : インポート完了後にLv*Pointグラフを描画するようにしました。
-			li 09/03 : 表記入れ子を修正しました。
-			li 08/25 : 使い方ガイド簡易版を作成しました。
-			li 08/24 : データインポート開始をわかりやすくしました。
-			li 08/24 : URLにゴミがつくのを一部修正しました。
-			li 08/24 : スマホ表示を簡易的に調整しました。
-			li 08/21 : グラフ（達成*Lvの散布図）実装しました
-			li 08/21 : グラフB（<em>スキルポイント</em>*Lvの散布図）実装しました
-			li 08/21 : グラフB（達成*スキルポイントの散布図）実装しました
-			li 08/19 : グラフ作成中
-			li 08/19 : やることリストを設置
-			li 08/19 : ajax時読込み反映が不安定だった現象を恐らく解消
-			li 08/19 : 計算系作成
-			li 08/18 : データ参照まわり作成
-			li 08/17 : <em>GITADORA OD Skill Analyze</em>プロジェクトキックオフ
+			#musicOutputView.areaBlock.musicListTableBlock
+				table.musicListTable
+					col.type
+					col
+					col.part
+					col.lv
+					thead
+						tr
+							th 新旧
+							th 曲名
+							th パート
+							th レベル
+					tbody
+	.sectionWrap
+		#guide.sectionBlock.guideBlock.commonBlock
+			h2.sectionHeadline
+				span 使い方ガイド
+			h3 当サイトを利用するまでの手順
+			ol
+				li
+					a target="_blank" href="http://xv-s.heteml.jp/skill/" GuitarFreaks & DrumMania Skill Simulator
+					|こちらのユーザー登録を行い、スキル状況を入力して下さい。<br>入力補佐ツールなどを使うと便利です（<a href="#links">LINK一覧</a>）
+				li 曲情報入力画面上部にある「スキル公開用URL」か、ユーザー検索から自分のページへ行き、URLをコピーしてください。
+				li 当サイト上部にある入力フィールドにURLをペーストし、インポートボタンをクリック、タップして下さい。
+				li 成功した場合「データ詳細」に数値が反映されます。データ反映後各コンテンツがそのデータに応じて機能します。
+			
+			h3 電卓系のヒント
+			ul
+				li ブラウザによっては数値入力後カーソルキーで増減ができます。
+			h3 グラフについてのヒント
+			ul
+				li 軸反転 でx軸とy軸を反転できます。
+				li 対象曲に絞るを外すとスキル対象外を含む登録データ全ての情報をグラフに描画します。
+				li 右上にあるHOT/OLDをクリックすることで片側のみを有効にすることが可能です。
+				li グラフ内をドラッグすることで拡大表示することが出来ます。
+				li マーカーをタップもしくはマウスオーバーすることにより、簡易的な曲情報が見れます。
+				li 
+					|例えばLv×Point にした場合、左側下部は高達成下限なので、放置でよい曲である可能性が高いです。<br>
+					|しかし、左側上部は特攻気味で詰める余地が残されています。<br>
+					|左下の曲を増やしつつ、右側は中～上に動かすように詰めていくのが理想形となります。<br>
+			h3 その他
+			ul
+				li URLに#!analyze_{USER-ID}を付け足すと読込時に自動でインポートします。
 
-#debug style="height:500px"
+	.sectionWrap
+		#link.sectionBlock.commonBlock
+			h2.sectionHeadline
+				span リンク
+			ul
+				li 
+					a target="_blank" href="http://xv-s.heteml.jp/skill/" GuitarFreaks & DrumMania Skill Simulator
+				li 
+					a target="_blank" href="http://suitap.iceextra.org/xgcrawler/" XGCrawler 配布サイト （スキルシミュレーター自動入力ツール）
+				li 
+					a target="_blank" href="http://funachun.net/skill.html" funachun.net （XGCrawlerのGUI）
+				li 
+					a target="_blank" href="http://www.konami.jp/bemani/gfdm/gitadora/" 公式
+				li 
+					a target="_blank" href="http://p.eagate.573.jp/game/gfdm/gitadora/p/cont/" 公式e-amu
+			h3 他こんなのもつくってました。
+			ul
+				li
+					a href="http://dragonscrown.web.fc2.com/" ドラゴンズクラウン　スキルシミューレーター
+				li
+					a href="http://mh4hakkutsu.web.fc2.com/" 発掘装備 一覧 | モンスターハンター4 
+	.sectionWrap
+		#news.sectionBlock.commonBlock
+			h2.sectionHeadline
+				span 更新履歴
+			ul.updates
+				li 04/10 : 新作稼働準備に伴い内部をBackbone.jsに書き換えました。
+				li 04/10 : <em>スキルポイント</em>が上がるかもしれない曲 の精度を格段に向上しました。
+				li 11/28 : ソース整理して若干軽量化しました。
+				li 11/18 : Lv別取得スキルポイント一覧を作成しました。
+				li 11/11 : <em>スキルポイント</em>が上がるかもしれない曲一覧機能のβを外しました。
+				li 09/30 : <em>スキルポイント</em>が上がるかもしれない曲一覧機能をβで実装しました。
+				li 09/30 : 曲一覧の一部表記ミスを修正しました。
+				li 09/30 : 曲一覧のフィルター機能を拡張しました。
+				li 09/29 : 曲一覧のページを作成しました
+				li 09/26 : 新デザインをあてました。
+				li 09/23 : ファビコン追加しました
+				li 09/14 : 達成率計算Bが計算式Cフォームからできてしまうので実装中止しました。
+				li 09/13 : ランクグラフをペンディングにしました。
+				li 09/09 : <em>達成率</em>計算C実装
+				li 09/09 : <em>スキルポイント</em>計算B実装
+				li 09/03 : 仕事が忙しいので更新頻度さがります。
+				li 09/03 : インポート完了後にLv*Pointグラフを描画するようにしました。
+				li 09/03 : 表記入れ子を修正しました。
+				li 08/25 : 使い方ガイド簡易版を作成しました。
+				li 08/24 : データインポート開始をわかりやすくしました。
+				li 08/24 : URLにゴミがつくのを一部修正しました。
+				li 08/24 : スマホ表示を簡易的に調整しました。
+				li 08/21 : グラフ（達成*Lvの散布図）実装しました
+				li 08/21 : グラフB（<em>スキルポイント</em>*Lvの散布図）実装しました
+				li 08/21 : グラフB（達成*スキルポイントの散布図）実装しました
+				li 08/19 : グラフ作成中
+				li 08/19 : やることリストを設置
+				li 08/19 : ajax時読込み反映が不安定だった現象を恐らく解消
+				li 08/19 : 計算系作成
+				li 08/18 : データ参照まわり作成
+				li 08/17 : <em>GITADORA OD Skill Analyze</em>プロジェクトキックオフ
+	.snsBtn
+		a href="https://twitter.com/share" class="twitter-share-button" data-text="ギタドラ アナライズではGITADORA Tri-Boost の スキル解析や計算をサポートします #ギタドラ" data-via="wiz_rein" data-lang="ja" data-count="none" ツイート
+
+	.affiliateArea
+		p
+			a href="http://www.amazon.co.jp/gp/product/B00I3LHM6S/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=B00I3LHM6S&linkCode=as2&tag=dcskillsim-22"
+				img border="0" src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00I3LHM6S&Format=_SL250_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=dcskillsim-22"
+			img src="http://ir-jp.amazon-adsystem.com/e/ir?t=dcskillsim-22&l=as2&o=9&a=B00I3LHM6S" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"
+
+#debug
 	#skilDataBook
 	#skilData
