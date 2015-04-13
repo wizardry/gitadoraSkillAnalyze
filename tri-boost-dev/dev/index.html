@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+        <title>ギタドラ スキル計算サポートサイト GITADORA TB Skill Analyze - ギタドラ スキルアナライズ</title>
+        <meta content="GITADORA Skill Analyze は GITADORA Tri-Boost の スキル分析や計算をサポートしてスキル アナライズします。" name="description" />
+        <meta content="スキル,計算,解析,アナライズ,上達,分析,GITADORA,GITADORA TB,ギタドラ,Drummania,GUITAR FREAKS,Tri-Boost" name="keywords" />
+        <meta content="ギタドラ スキル計算サポートサイト GITADORA Tri-Boost Skill Analyze | ギタドラ スキルアナライズ" property="og:title" />
+        <meta content="website" property="og:type" />
+        <meta content="http://gitadoraodanalyze.web.fc2.com/" property="og:url" />
+        <meta content="" property="og:image" />
+        <meta content="GITADORA Skill Analyze は GITADORA Tri-Boost の スキル解析や計算をサポートしてスキル アナライズします。" property="og:description" />
+        <meta content="ギタドラ スキル計算サポートサイト GITADORA Skill Analyze - ギタドラ スキルアナライズ" property="og:site_name" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="/img/favicon.ico" rel="shortcut icon" />
+        <link href="css/default.css" rel="stylesheet" type="text/css" /><script src="js/lib/jquery.min.js" type="text/javascript"></script><script src="js/lib/underscore.js" type="text/javascript"></script><script src="js/lib/backbone.js" type="text/javascript"></script><script src="js/lib/backbone_localstorage.js" type="text/javascript"></script><script src="js/lib/jquery.cookie.js" type="text/javascript"></script><script src="js/lib/jquery.xdomainajax.js" type="text/javascript"></script><script src="js/lib/highcharts.js" type="text/javascript"></script><script src="js/app/app_model.js" type="text/javascript"></script><script src="js/app/analyze_model.js" type="text/javascript"></script><script src="js/app/music_model.js" type="text/javascript"></script><script src="js/app/skill_model.js" type="text/javascript"></script><script src="js/app/app_view.js" type="text/javascript"></script><script src="js/app/analyze_view.js" type="text/javascript"></script><script src="js/app/music_view.js" type="text/javascript"></script><script src="js/app/skill_view.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <!--LAYOUT HEADER-->
+        <div class="globalHeader">
+            <div class="globalHeaderLogos js-toHome">
+                <img alt="GITADORA SKILL ANALYZE" src="img/logo.png" />
+                <p class="logoCopy">
+                    GITADORA TB Skill Analyze は GITADORA Tri-Boost の スキル解析や計算をサポートしてスキル アナライズします。
+                </p>
+            </div>
+            <div class="globalHeaderNav"></div>
+        </div>
+        <div id="masterView">
+            <div class="navWrap js-navHeight">
+                <div class="subNavWrap">
+                    <ul>
+                        <li>
+                            <span class="js-toHome">トップ</span>
+                        </li>
+                        <li>
+                            <a href="#guide">使い方</a>
+                        </li>
+                        <li>
+                            <a href="#link">リンク</a>
+                        </li>
+                        <li>
+                            <a href="#news">ログ</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="globalNavWrap">
+                    <ul>
+                        <li class="current">
+                            <span class="js-toAnalyze">データ分析</span>
+                        </li>
+                        <li>
+                            <span id="toMusicListNav">曲一覧<sup>（難易度軸）</sup></span>
+                        </li>
+                        <li>
+                            <span id="toSkillListNav">Lv×達成率 一覧</span>
+                        </li>
+                    </ul>
+                </div>
+                <p class="navTrigger">
+                    メニュー
+                </p>
+            </div>
+            <!--/LAYOUT HEADER-->
+            
+            <!--LAYOUT CONTENT-->
+            
+            <div class="contents">
+                <div class="loader">
+                    <i class="loading loadpos"></i>
+                </div>
+                <div class="contentsInnerWrap">
+                    <div class="sectionWrap">
+                        <div class="sectionBlock" id="analyzeView">
+                            <div class="areaBlock" id="analyzeFormView">
+                                <form action="" id="analyzeForm">
+                                    <p class="sectionHeadline">
+                                        <span>データ取得</span>
+                                    </p>
+                                    <select id="userData_searchType" name="searchType">
+                                        <option selected="selected" value="1">
+                                            IDで入力する
+                                        </option>
+                                        <option value="2">
+                                            URLで入力する
+                                        </option>
+                                    </select>
+                                    <div class="js-formToggleWrap toggleWrap toggleForm">
+                                        <div class="js-formToggleVal2 toggleArea">
+                                            <p class="formHeadline">
+                                                URL
+                                            </p>
+                                            <input class="block" id="userData_url" name="getData" type="text" />
+                                        </div>
+                                        <div class="js-formToggleVal1 toggleArea">
+                                            <p class="formHeadline">
+                                                PART / ID
+                                            </p>
+                                            <p class="formiline">
+                                                <select id="userData_part" name="idType">
+                                                    <option value="g">
+                                                        GUITARFREAKS
+                                                    </option>
+                                                    <option value="d">
+                                                        DRUMMANIA
+                                                    </option>
+                                                </select><input class="em2" id="userData_id" name="getData" type="text" />
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="buttonWrap">
+                                        <label class="submitBase primary" for="getDataTrigger">送信</label><input id="getDataTrigger" type="submit" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="hide" id="importData" style="display:none">
+                                importdata
+                            </div>
+                            <div class="analyzeInforBlock">
+                                <div class="areaBlock userDataBlock" id="analyzeDataView">
+                                    <h2 class="sectionHeadline">
+                                        <span>データ詳細</span>
+                                    </h2>
+                                    <div class="userDataListWrap">
+                                        <table>
+                                            <tr>
+                                                <th>
+                                                    総合 pt/Avg.
+                                                </th>
+                                                <td>
+                                                    <span id="analyzeDataTotalPoint">null</span>pt
+                                                </td>
+                                                <td>
+                                                    <span id="analyzeDataTotalAvg">null</span>Avg.
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Hot pt/Avg.
+                                                </th>
+                                                <td>
+                                                    <span id="analyzeDataHotPoint">null</span>pt
+                                                </td>
+                                                <td>
+                                                    <span id="analyzeDataHotAvg">null</span>Avg.
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Old pt/Avg.
+                                                </th>
+                                                <td>
+                                                    <span id="analyzeDataOldPoint">null</span>pt
+                                                </td>
+                                                <td>
+                                                    <span id="analyzeDataOldAvg">null</span>Avg.
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="analyzeCalcBlock" id="analyzeCalcView">
+                                    <div class="areaBlock">
+                                        <div class="mathInput">
+                                            <p>
+                                                <select class="mathGenre" id="analyzeCalcFilter" name="">
+                                                    <option value="0">
+                                                        すべての曲
+                                                    </option>
+                                                    <option value="1">
+                                                        新曲
+                                                    </option>
+                                                    <option value="2">
+                                                        旧曲
+                                                    </option>
+                                                </select>から<br><input class="pointInput em4" id="analyzeCalcUnder" placeholder="120.00" type="number" />pt以下の曲を<input class="pointInput em4 inline" id="analyzeCalcUpper" placeholder="120.00" type="number" />に上げたと仮定すると...
+                                            </p>
+                                        </div>
+                                        <div class="mathOutput">
+                                            <p>
+                                                <span id="analyzeCalcDiffPoint">null</span>pt上昇して<br><span id="analyzeCalcResult">null</span>ptになります。<br>更新曲数は<span id="analyzeCalcMusicLength">null</span> 曲です。
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="areaBlock" id="analyzeGraphView">
+                                <div class="toggleWrap js-toggleWrap sp-toggleWrap">
+                                    <p class="toggleTrigger js-toggleTrigger" id="graphToggleTrigger">
+                                        グラフ
+                                    </p>
+                                    <div class="graphToggleWrap toggleArea js-toggleArea">
+                                        <div class="graphControles" id="analyzeGraphControls">
+                                            <p class="formHeadline">
+                                                グラフ軸
+                                            </p>
+                                            <div class="buttonGroup graphTypeUi">
+                                                <ul id="graphTypeUi">
+                                                    <li class="actionButtonBase primary current">
+                                                        Lv×Point
+                                                    </li>
+                                                    <li class="actionButtonBase primary">
+                                                        Point×達成率
+                                                    </li>
+                                                    <li class="actionButtonBase primary">
+                                                        Lv×達成率
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <dl class="buttonList">
+                                                <dt class="formHeadline">
+                                                    対象曲に絞る
+                                                </dt>
+                                                <dd>
+                                                    <span class="actionButtonBase secondary current" id="limitUi">ON</span>
+                                                </dd>
+                                            </dl>
+                                            <dl class="buttonList">
+                                                <dt class="formHeadline">
+                                                    軸反転
+                                                </dt>
+                                                <dd>
+                                                    <span class="actionButtonBase secondary" id="reverseUi">OFF</span>
+                                                </dd>
+                                            </dl>
+                                            <form class="hide">
+                                                <select id="graphType">
+                                                    <option selected="selected" value="0">
+                                                        Lv×Point
+                                                    </option>
+                                                    <option value="1">
+                                                        Point×達成率
+                                                    </option>
+                                                    <option value="2">
+                                                        Lv×達成率
+                                                    </option>
+                                                </select><input checked="" id="limit" name="limit" type="checkbox" value="1" /><input id="reverse" name="reverse" type="checkbox" value="1" />
+                                            </form>
+                                        </div>
+                                        <div class="graphCanvas areaBlock" id="analyzeGraphCanvas"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="analyzeRecommendView">
+                                <div class="areaBlock">
+                                    <div class="hide" id="recRes1" style="display:none;"></div>
+                                    <div class="hide" id="recRes2" style="display:none;"></div>
+                                    <div class="recListWrap" id="recListWrap">
+                                        <div class="recListHotArea recListArea">
+                                            <h3 class="chapterHeadline">
+                                                新曲枠
+                                            </h3>
+                                            <div id="recListHot"></div>
+                                        </div>
+                                        <div class="recListOldArea recListArea">
+                                            <h3 class="chapterHeadline">
+                                                旧曲枠
+                                            </h3>
+                                            <div id="recListOld"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="areaBlock calcBlock" id="analyzeSubCalcView">
+                                <section>
+                                    <h3>
+                                        理想SPを単曲で計算する
+                                    </h3>
+                                    <div class="input">
+                                        <input id="subCalcSingleAvgTotal" placeholder="1000" type="number" />pt上げるには<select id="subCalcSingleAvgFilter">
+                                            <option value="0">
+                                                すべての曲
+                                            </option>
+                                            <option value="1">
+                                                新曲
+                                            </option>
+                                            <option value="2">
+                                                旧曲
+                                            </option>
+                                        </select>を対象にした場合1曲あたり
+                                    </div>
+                                    <div class="output">
+                                        <span id="subCalcSingleAvg">null</span>pt上げる必要がある
+                                    </div>
+                                </section>
+                                <section>
+                                    <h3>
+                                        Lv×達成率による簡易スキルポイント計算
+                                    </h3>
+                                    <div class="input">
+                                        <input id="subCalcSkillMathLv" max="9.99" min="1.00" placeholder="7.00" type="number" />の曲を<input id="subCalcSkillMathRate" max="100" min="0.00" placeholder="90.00" type="number" />%でクリアすると
+                                    </div>
+                                    <div class="output">
+                                        単曲スキルは<span id="subCalcSkillMath">null</span>ptです。
+                                    </div>
+                                </section>
+                                <section>
+                                    <h3>
+                                        達成率計算
+                                    </h3>
+                                    <div class="input">
+                                        <ul>
+                                            <li>
+                                                レベル<input id="subCalcRateMathLv" max="9.99" min="1.00" placeholder="7" type="number" />
+                                            </li>
+                                            <li>
+                                                コンボ（%）<input id="subCalcRateMathCombo" max="100" min="0" placeholder="48" step="1" type="number" />
+                                            </li>
+                                            <li>
+                                                Perfect（%）<input id="subCalcRateMathPerfect" max="100" min="0" placeholder="98" step="1" type="number" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="output">
+                                        達成率はおおよそ<span id="subCalcRateMathRate">null <br></span>スキルポイントはだいたい<span id="subCalcRateMathPoint">null</span>ptです。
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sectionWrap">
+                        <div class="sectionBlock skillListBlock" id="skillListView">
+                            <h2 class="sectionHeadline">
+                                <span>Lv×達成率軸 スキルポイント一覧</span>
+                            </h2>
+                            <div class="attentionArea">
+                                <h3 class="partHeadline">
+                                    ご注意
+                                </h3>
+                                <p class="read">
+                                    使用はユーザーの皆さまにお任せ致します。<br>半端無い値を入れてブラウザが固まったり、落ちたりしても責任は負いませんのでご了承ください。
+                                </p>
+                            </div>
+                            <div class="areaBlock" id="skillFormView">
+                                <form id="skillForm">
+                                    <dl>
+                                        <dt class="formHeadline">
+                                            レベル
+                                        </dt>
+                                    </dl>
+                                    <dd>
+                                        <select id="skillListLevelMin" name="levelMin">
+                                            <option value="10">
+                                                1.00
+                                            </option>
+                                            <option value="15">
+                                                1.50
+                                            </option>
+                                            <option value="20">
+                                                2.00
+                                            </option>
+                                            <option value="25">
+                                                2.50
+                                            </option>
+                                            <option value="30">
+                                                3.00
+                                            </option>
+                                            <option value="35">
+                                                3.50
+                                            </option>
+                                            <option value="40">
+                                                4.00
+                                            </option>
+                                            <option value="45">
+                                                4.50
+                                            </option>
+                                            <option value="50">
+                                                5.00
+                                            </option>
+                                            <option value="55">
+                                                5.50
+                                            </option>
+                                            <option value="60">
+                                                6.00
+                                            </option>
+                                            <option value="65">
+                                                6.50
+                                            </option>
+                                            <option value="70">
+                                                7.00
+                                            </option>
+                                            <option value="75">
+                                                7.50
+                                            </option>
+                                            <option value="80">
+                                                8.00
+                                            </option>
+                                            <option value="85">
+                                                8.50
+                                            </option>
+                                            <option value="90">
+                                                9.00
+                                            </option>
+                                            <option value="95">
+                                                9.50
+                                            </option>
+                                            <option value="99">
+                                                9.99
+                                            </option>
+                                        </select>～<select id="skillListLevelMax" name="levelMax">
+                                            <option value="10">
+                                                1.00
+                                            </option>
+                                            <option value="15">
+                                                1.50
+                                            </option>
+                                            <option value="20">
+                                                2.00
+                                            </option>
+                                            <option value="25">
+                                                2.50
+                                            </option>
+                                            <option value="30">
+                                                3.00
+                                            </option>
+                                            <option value="35">
+                                                3.50
+                                            </option>
+                                            <option value="40">
+                                                4.00
+                                            </option>
+                                            <option value="45">
+                                                4.50
+                                            </option>
+                                            <option value="50">
+                                                5.00
+                                            </option>
+                                            <option value="55">
+                                                5.50
+                                            </option>
+                                            <option value="60">
+                                                6.00
+                                            </option>
+                                            <option value="65">
+                                                6.50
+                                            </option>
+                                            <option value="70">
+                                                7.00
+                                            </option>
+                                            <option value="75">
+                                                7.50
+                                            </option>
+                                            <option value="80">
+                                                8.00
+                                            </option>
+                                            <option value="85">
+                                                8.50
+                                            </option>
+                                            <option value="90">
+                                                9.00
+                                            </option>
+                                            <option value="95">
+                                                9.50
+                                            </option>
+                                            <option value="99">
+                                                9.99
+                                            </option>
+                                        </select>
+                                    </dd>
+                                    <dl>
+                                        <dt class="formHeadline">
+                                            達成率<sup>（整数0～100まで）</sup>
+                                        </dt>
+                                        <dd>
+                                            <input class="rate" id="skillListRateMin" max="100" min="0" type="number" />% ～<input class="rate" id="skillListRateMax" max="100" min="0" type="number" />%
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt class="formHeadline">
+                                            閾値
+                                        </dt>
+                                        <dd>
+                                            <input class="point" id="skillListThreshold" placeholder="150" type="number" />pt
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt class="formHeadline">
+                                            描画タイプ
+                                        </dt>
+                                        <dd>
+                                            <select id="skillListGenType">
+                                                <option selected="selected" value="0">
+                                                    Lv×達成率
+                                                </option>
+                                                <option value="1">
+                                                    達成率×Lv
+                                                </option>
+                                            </select>
+                                        </dd>
+                                    </dl>
+                                    <div class="buttonWrap">
+                                        <label class="submitBase primary" for="skillListSubmit">生成</label><button id="skillListSubmit" type="submit">生成</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="areaBlock" id="skillOutputView">
+                                <div class="skillListWrap" id="skillOutput"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sectionWrap">
+                        <div class="sectionBlock musicBlock" id="musicListView">
+                            <h1 class="sectionHeadline">
+                                <span>曲一覧<sup>（難易度軸）</sup></span>
+                            </h1>
+                            <div id="MusicFormView">
+                                <form class="areaBlock" id="musicListConfigForm">
+                                    <div class="buttonWrap">
+                                        <label class="submitBase primary" for="musicListGetDataSubmit">曲情報を再取得する</label><button id="musicListGetDataSubmit" type="submit">曲情報を再取得する</button>
+                                    </div>
+                                    <p class="oneLinerForm">
+                                        <input checked="checked" id="musicListSaveToLocal" type="checkbox" /><label for="musicListSaveToLocal">ローカルストレージに曲データを保存する</label>
+                                    </p>
+                                    <p class="whatCheck">
+                                        <sup>※チェックをすると次回から読み込み速度が速くなりますが、最新情報を取得しなくなります。</sup>
+                                    </p>
+                                </form>
+                                <form class="areaBlock" id="musicListDrawForm">
+                                    <select id="musicListType">
+                                        <option value="g">
+                                            GUITARFREAKS
+                                        </option>
+                                        <option value="d">
+                                            DRUMMANIA
+                                        </option>
+                                    </select><select id="musicListLv">
+                                        <option value="17">
+                                            9.50 - 9.99
+                                        </option>
+                                        <option value="16">
+                                            9.00 - 9.49
+                                        </option>
+                                        <option value="15">
+                                            8.50 - 8.99
+                                        </option>
+                                        <option value="14">
+                                            8.00 - 8.49
+                                        </option>
+                                        <option value="13">
+                                            7.50 - 7.99
+                                        </option>
+                                        <option value="12">
+                                            7.00 - 7.49
+                                        </option>
+                                        <option value="11">
+                                            6.50 - 6.99
+                                        </option>
+                                        <option value="10">
+                                            6.00 - 6.49
+                                        </option>
+                                        <option value="9">
+                                            5.50 - 5.99
+                                        </option>
+                                        <option value="8">
+                                            5.00 - 5.49
+                                        </option>
+                                        <option value="7">
+                                            4.50 - 4.99
+                                        </option>
+                                        <option value="6">
+                                            4.00 - 4.49
+                                        </option>
+                                        <option value="5">
+                                            3.50 - 3.99
+                                        </option>
+                                        <option value="4">
+                                            3.00 - 3.49
+                                        </option>
+                                        <option value="3">
+                                            2.50 - 2.99
+                                        </option>
+                                        <option value="2">
+                                            2.00 - 2.49
+                                        </option>
+                                        <option value="1">
+                                            1.50 - 1.99
+                                        </option>
+                                        <option value="0">
+                                            1.00 - 1.49
+                                        </option>
+                                        <option value="18">
+                                            all
+                                        </option>
+                                    </select>
+                                    <div class="checkboxWrap oneLinerForm">
+                                        <input checked="checked" id="musicListSortVector" type="checkbox" /><label for="musicListSortVector">降順</label>
+                                    </div>
+                                    <div class="js-toggleWrap toggleWrap">
+                                        <p class="toggleTrigger js-toggleTrigger">
+                                            詳細設定
+                                        </p>
+                                        <div class="wrap toggleArea js-toggleArea">
+                                            <p class="formHeadline">
+                                                スキル枠フィルター
+                                            </p>
+                                            <select id="musicListScopeFilter">
+                                                <option value="0">
+                                                    全曲
+                                                </option>
+                                                <option value="1">
+                                                    新曲枠のみ
+                                                </option>
+                                                <option value="2">
+                                                    旧曲枠のみ
+                                                </option>
+                                            </select>
+                                            <p class="formHeadline">
+                                                パート/難易度フィルター
+                                            </p>
+                                            <ul class="partfilterList">
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter1" name="musicListPartFilters" type="checkbox" value="0" /><label for="musicListPartFilter1">BSC-D</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter2" name="musicListPartFilters" type="checkbox" value="1" /><label for="musicListPartFilter2">ADV-D</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter3" name="musicListPartFilters" type="checkbox" value="2" /><label for="musicListPartFilter3">EXT-D</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter4" name="musicListPartFilters" type="checkbox" value="3" /><label for="musicListPartFilter4">MAS-D</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter5" name="musicListPartFilters" type="checkbox" value="4" /><label for="musicListPartFilter5">BSC-G</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter6" name="musicListPartFilters" type="checkbox" value="5" /><label for="musicListPartFilter6">ADV-G</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter7" name="musicListPartFilters" type="checkbox" value="6" /><label for="musicListPartFilter7">EXT-G</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter8" name="musicListPartFilters" type="checkbox" value="7" /><label for="musicListPartFilter8">MAS-G</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter9" name="musicListPartFilters" type="checkbox" value="8" /><label for="musicListPartFilter9">BSC-B</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter10" name="musicListPartFilters" type="checkbox" value="9" /><label for="musicListPartFilter10">ADV-B</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter11" name="musicListPartFilters" type="checkbox" value="10" /><label for="musicListPartFilter11">EXT-B</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="paddingWrap">
+                                                        <div class="checkboxWrap">
+                                                            <input checked="checked" id="musicListPartFilter12" name="musicListPartFilters" type="checkbox" value="11" /><label for="musicListPartFilter12">MAS-B</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="buttonWrap">
+                                        <label class="submitBase primary" for="musicListSubmit">出力</label><button id="musicListSubmit" type="submit">出力</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="areaBlock musicListTableBlock" id="musicOutputView">
+                                <table class="musicListTable">
+                                    <col class="type" /><col /><col class="part" /><col class="lv" />
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                新旧
+                                            </th>
+                                            <th>
+                                                曲名
+                                            </th>
+                                            <th>
+                                                パート
+                                            </th>
+                                            <th>
+                                                レベル
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sectionWrap">
+                        <div class="sectionBlock guideBlock commonBlock" id="guide">
+                            <h2 class="sectionHeadline">
+                                <span>使い方ガイド</span>
+                            </h2>
+                            <h3>
+                                当サイトを利用するまでの手順
+                            </h3>
+                            <ol>
+                                <li>
+                                    <a href="http://xv-s.heteml.jp/skill/" target="_blank">GuitarFreaks & DrumMania Skill Simulator</a>こちらのユーザー登録を行い、スキル状況を入力して下さい。<br>入力補佐ツールなどを使うと便利です（<a href="#links">LINK一覧</a>）
+                                </li>
+                                <li>
+                                    曲情報入力画面上部にある「スキル公開用URL」か、ユーザー検索から自分のページへ行き、URLをコピーしてください。
+                                </li>
+                                <li>
+                                    当サイト上部にある入力フィールドにURLをペーストし、インポートボタンをクリック、タップして下さい。
+                                </li>
+                                <li>
+                                    成功した場合「データ詳細」に数値が反映されます。データ反映後各コンテンツがそのデータに応じて機能します。
+                                </li>
+                            </ol>
+                            <h3>
+                                電卓系のヒント
+                            </h3>
+                            <ul>
+                                <li>
+                                    ブラウザによっては数値入力後カーソルキーで増減ができます。
+                                </li>
+                            </ul>
+                            <h3>
+                                グラフについてのヒント
+                            </h3>
+                            <ul>
+                                <li>
+                                    軸反転 でx軸とy軸を反転できます。
+                                </li>
+                                <li>
+                                    対象曲に絞るを外すとスキル対象外を含む登録データ全ての情報をグラフに描画します。
+                                </li>
+                                <li>
+                                    右上にあるHOT/OLDをクリックすることで片側のみを有効にすることが可能です。
+                                </li>
+                                <li>
+                                    グラフ内をドラッグすることで拡大表示することが出来ます。
+                                </li>
+                                <li>
+                                    マーカーをタップもしくはマウスオーバーすることにより、簡易的な曲情報が見れます。
+                                </li>
+                                <li>
+                                    例えばLv×Point にした場合、左側下部は高達成下限なので、放置でよい曲である可能性が高いです。<br>しかし、左側上部は特攻気味で詰める余地が残されています。<br>左下の曲を増やしつつ、右側は中～上に動かすように詰めていくのが理想形となります。<br>
+                                </li>
+                            </ul>
+                            <h3>
+                                その他
+                            </h3>
+                            <ul>
+                                <li>
+                                    URLに#!analyze_{USER-ID}を付け足すと読込時に自動でインポートします。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sectionWrap">
+                        <div class="sectionBlock commonBlock" id="link">
+                            <h2 class="sectionHeadline">
+                                <span>リンク</span>
+                            </h2>
+                            <ul>
+                                <li>
+                                    <a href="http://xv-s.heteml.jp/skill/" target="_blank">GuitarFreaks & DrumMania Skill Simulator</a>
+                                </li>
+                                <li>
+                                    <a href="http://suitap.iceextra.org/xgcrawler/" target="_blank">XGCrawler 配布サイト （スキルシミュレーター自動入力ツール）</a>
+                                </li>
+                                <li>
+                                    <a href="http://funachun.net/skill.html" target="_blank">funachun.net （XGCrawlerのGUI）</a>
+                                </li>
+                                <li>
+                                    <a href="http://www.konami.jp/bemani/gfdm/gitadora/" target="_blank">公式</a>
+                                </li>
+                                <li>
+                                    <a href="http://p.eagate.573.jp/game/gfdm/gitadora/p/cont/" target="_blank">公式e-amu</a>
+                                </li>
+                            </ul>
+                            <h3>
+                                他こんなのもつくってました。
+                            </h3>
+                            <ul>
+                                <li>
+                                    <a href="http://dragonscrown.web.fc2.com/">ドラゴンズクラウン　スキルシミューレーター</a>
+                                </li>
+                                <li>
+                                    <a href="http://mh4hakkutsu.web.fc2.com/">発掘装備 一覧 | モンスターハンター4 </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sectionWrap">
+                        <div class="sectionBlock commonBlock" id="news">
+                            <h2 class="sectionHeadline">
+                                <span>更新履歴</span>
+                            </h2>
+                            <ul class="updates">
+                                <li>
+                                    04/10 : 新作稼働準備に伴い内部をBackbone.jsに書き換えました。
+                                </li>
+                                <li>
+                                    04/10 : <em>スキルポイント</em>が上がるかもしれない曲 の精度を格段に向上しました。
+                                </li>
+                                <li>
+                                    11/28 : ソース整理して若干軽量化しました。
+                                </li>
+                                <li>
+                                    11/18 : Lv別取得スキルポイント一覧を作成しました。
+                                </li>
+                                <li>
+                                    11/11 : <em>スキルポイント</em>が上がるかもしれない曲一覧機能のβを外しました。
+                                </li>
+                                <li>
+                                    09/30 : <em>スキルポイント</em>が上がるかもしれない曲一覧機能をβで実装しました。
+                                </li>
+                                <li>
+                                    09/30 : 曲一覧の一部表記ミスを修正しました。
+                                </li>
+                                <li>
+                                    09/30 : 曲一覧のフィルター機能を拡張しました。
+                                </li>
+                                <li>
+                                    09/29 : 曲一覧のページを作成しました
+                                </li>
+                                <li>
+                                    09/26 : 新デザインをあてました。
+                                </li>
+                                <li>
+                                    09/23 : ファビコン追加しました
+                                </li>
+                                <li>
+                                    09/14 : 達成率計算Bが計算式Cフォームからできてしまうので実装中止しました。
+                                </li>
+                                <li>
+                                    09/13 : ランクグラフをペンディングにしました。
+                                </li>
+                                <li>
+                                    09/09 : <em>達成率</em>計算C実装
+                                </li>
+                                <li>
+                                    09/09 : <em>スキルポイント</em>計算B実装
+                                </li>
+                                <li>
+                                    09/03 : 仕事が忙しいので更新頻度さがります。
+                                </li>
+                                <li>
+                                    09/03 : インポート完了後にLv*Pointグラフを描画するようにしました。
+                                </li>
+                                <li>
+                                    09/03 : 表記入れ子を修正しました。
+                                </li>
+                                <li>
+                                    08/25 : 使い方ガイド簡易版を作成しました。
+                                </li>
+                                <li>
+                                    08/24 : データインポート開始をわかりやすくしました。
+                                </li>
+                                <li>
+                                    08/24 : URLにゴミがつくのを一部修正しました。
+                                </li>
+                                <li>
+                                    08/24 : スマホ表示を簡易的に調整しました。
+                                </li>
+                                <li>
+                                    08/21 : グラフ（達成*Lvの散布図）実装しました
+                                </li>
+                                <li>
+                                    08/21 : グラフB（<em>スキルポイント</em>*Lvの散布図）実装しました
+                                </li>
+                                <li>
+                                    08/21 : グラフB（達成*スキルポイントの散布図）実装しました
+                                </li>
+                                <li>
+                                    08/19 : グラフ作成中
+                                </li>
+                                <li>
+                                    08/19 : やることリストを設置
+                                </li>
+                                <li>
+                                    08/19 : ajax時読込み反映が不安定だった現象を恐らく解消
+                                </li>
+                                <li>
+                                    08/19 : 計算系作成
+                                </li>
+                                <li>
+                                    08/18 : データ参照まわり作成
+                                </li>
+                                <li>
+                                    08/17 : <em>GITADORA OD Skill Analyze</em>プロジェクトキックオフ
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="snsBtn">
+                        <a class="twitter-share-button" data-count="none" data-lang="ja" data-text="ギタドラ アナライズではGITADORA Tri-Boost の スキル解析や計算をサポートします #ギタドラ" data-via="wiz_rein" href="https://twitter.com/share">ツイート</a>
+                    </div>
+                    <div class="affiliateArea">
+                        <p>
+                            <a href="http://www.amazon.co.jp/gp/product/B00I3LHM6S/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=B00I3LHM6S&linkCode=as2&tag=dcskillsim-22"><img border="0" src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00I3LHM6S&Format=_SL250_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=dcskillsim-22" /></a><img alt="" border="0" height="1" src="http://ir-jp.amazon-adsystem.com/e/ir?t=dcskillsim-22&l=as2&o=9&a=B00I3LHM6S" style="border:none !important; margin:0px !important;" width="1" />
+                        </p>
+                    </div>
+                </div>
+                <div id="debug">
+                    <div id="skilDataBook"></div>
+                    <div id="skilData"></div>
+                </div>
+                
+            </div>
+            <!--/LAYOUT CONTENT-->
+            <!--LAYOUT FOOTER-->
+            
+        </div>
+        <script type="text/javascript">
+            //ga
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-53924048-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            $(function(){
+                //conversion
+                $('#graphToggleTrigger').click(function(){
+                    _gaq.push(['_trackPageview', '/viewgraph.html'])
+                })
+                //conversion
+                $('#skillForm').submit(function(){
+                    _gaq.push(['_trackPageview', '/viewskilllist.html'])
+                })
+                //conversion
+                $('#musicListDrawForm').submit(function(){
+                    _gaq.push(['_trackPageview', '/viewmusiclist.html'])
+                })
+                //conversion
+                $('#analyzeForm').submit(function(){
+                    _gaq.push(['_trackPageview', '/imported.html'])
+                })
+            })
+            //twitter
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+        </script>
+        <div class="globalFooter">
+            <div class="footerInner">
+                <p class="globalFooterCopyright">
+                    <em>GITADORA Tri-Boost Skill Analyze</em> copyright by wiz_rein | twitter id => <a href="https://twitter.com/wiz_rein" target="_blank">wiz_rein</a>
+                </p>
+            </div>
+        </div>
+        <!--/LAYOUT FOOTER-->
+        
+    </body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf8">
+	<title>スキルポイント*達成率一覧 - GITADORA OD Skill Analyze - ギタドラ スキルアナライズ</title>
+	<meta name="description" content="GITADORA OD Skill Analyze は GITADORA OD の スキル解析や計算をサポートしてスキル アナライズします。">
+	<meta name="keywords" content="スキル,計算,解析,アナライズ,上達,GITADORA,GITADORA OD,ギタドラ,Drummania,GUITAR FREAKS">
+	<meta property="og:title" content="ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze | ギタドラ スキルアナライズ">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://gitadoraodanalyze.web.fc2.com/">
+	<meta property="og:image" content="">
+	<meta property="og:description" content="GITADORA OD Skill Analyze は GITADORA OD の スキル解析や計算をサポートしてスキル アナライズします。">
+	<meta property="og:site_name" content="ギタドラ スキル計算サポートサイト GITADORA OD SKill Analyze - ギタドラ スキルアナライズ">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="./img/favicon.ico" rel="shortcut icon" />
+	<link rel="stylesheet" href="./css/pointList.css">
+	<script src="./js/jquery.js"></script>
+	<script src="./js/jquery.xdomainajax.js"></script>
+	<script src="./js/jquery.cookie.js"></script>
+	<script src="./js/pointList.js"></script>
+	<script>
+	//ga
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-53924048-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	$(function(){
+		//conversion
+		// $('#importBtn').submit(function(){
+		// 	_gaq.push(['_trackPageview', '/imported.html/'])
+		// })
+	})
+	//twitter
+	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+	</script>
+</head>
+<body>
+<h1><a href="/"><span>GITADORA OD SKill Analyze</span></a></h1>
+<div class="wrap">
+	<div id="input">
+		<p><a href="/">TOPへ戻る</a></p>
+		<form id="listGen">
+			<dl>
+				<dt>レベル</dt>
+				<dd>
+					<select name="levelMin" id="levelMin">
+						<option value="10">1.00</option> <option value="15">1.50</option> <option value="20">2.00</option> <option value="25">2.50</option> <option value="30">3.00</option> <option value="35">3.50</option> <option value="40">4.00</option> <option value="45">4.50</option> <option value="50">5.00</option> <option value="55">5.50</option> <option value="60">6.00</option> <option value="65">6.50</option> <option value="70">7.00</option> <option value="75">7.50</option> <option value="80">8.00</option> <option value="85">8.50</option> <option value="90">9.00</option> <option value="95">9.50</option> <option value="99">9.99</option>
+					</select>
+					 ～
+					<select name="levelMax" id="levelMax">
+						<option value="10">1.00</option> <option value="15">1.50</option> <option value="20">2.00</option> <option value="25">2.50</option> <option value="30">3.00</option> <option value="35">3.50</option> <option value="40">4.00</option> <option value="45">4.50</option> <option value="50">5.00</option> <option value="55">5.50</option> <option value="60">6.00</option> <option value="65">6.50</option> <option value="70">7.00</option> <option value="75">7.50</option> <option value="80">8.00</option> <option value="85">8.50</option> <option value="90">9.00</option> <option value="95">9.50</option> <option value="99" selected>9.99</option>
+					</select>
+				</dd>
+			</dl>
+			<dl>
+				<dt>達成率<sup>（整数0～100まで）</sup></dt>
+				<dd>
+					<input type="number" max="100" id="rateMin" class="rate">% ～
+					<input type="number" max="100" id="rateMax" class="rate">%
+				</dd>
+			</dl>
+			<dl>
+				<dt>閾値</dt>
+				<dd><input type="number" id="point" class="point" placeholder="150">pt</dd>
+			</dl>
+			<dl>
+				<dt>描画タイプ</dt>
+				<dd>
+					<select name="genType" id="genType">
+						<option value="0" selected>Lv * 達成率</option>
+						<option value="1">達成率 * Lv</option>
+						<option value="2">スマートフォン</option>
+					</select>
+				</dd>
+			</dl>
+			<div class="btnWrap">
+				<!-- <span id="submit">生成</span> -->
+				<button id="submit" type="submit">生成</button>
+			</div>
+		</form>
+	</div>
+	<div id="output"></div>
+	<div class="attentionArea">
+		<h2>ご注意</h2>
+		<p>
+			使用はユーザーの皆さまにお任せ致します。<br>
+			半端無い値を入れてブラウザが固まったり、落ちたりしても責任は負いませんのでご了承ください。
+		</p>
+	</div>
+</div>
+<div class="snsBtn">
+	<a href="https://twitter.com/share" class="twitter-share-button" data-text="ギタドラ アナライズではGITADORA OrverDrive の スキル解析や計算をサポートします #ギタドラ" data-via="wiz_rein" data-lang="ja" data-count="none">ツイート</a>
+</div>
+
+</body>
+</html>
