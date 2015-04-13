@@ -87,7 +87,8 @@ var MusicFormView = Backbone.View.extend({
         localStorage.clear();
         this.getMusicData();
     },
-    setFormData:function(){
+    setFormData:function(e){
+        e.preventDefault();
         var self = this;
         var filter = [];
         var vector = 0;
@@ -261,3 +262,4 @@ var MusicOutputView = Backbone.View.extend({
         return list;
     }
 })
+;
