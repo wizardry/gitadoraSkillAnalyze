@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+// Bases setting
+$fontFamilyBase :sans-serif;
+$default:(
+	line-height:1.5,
+	font-size:13px,
+	color:#cfcfcf,
+	font-family:$fontFamilyBase,
+	linkColor:#3cf,
+	imgPath:'../../img/',
+	borderColor:#ccc,
+	borderRadius:3px
+);
+$themeColor:(
+	primary:(
+		normal:#000,
+		hover:#000,
+		current:#000
+	),
+	secondary:(
+		normal:#000,
+		hover:#000,
+		current:#000
+	),
+	tertiary:(
+		normal:#000,
+		hover:#000,
+		current:#000
+	)
+);
