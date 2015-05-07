@@ -1,0 +1,149 @@
+@charset "UTF-8";
+@import "reset";
+@import "mixin";
+
+$path:"../img/";
+$bgc1:#313336;
+$bgc2:#5e6472;
+
+$fc1:#a7a7b6;
+$fc2:#fff;
+
+body{
+	font-family:sans-serif;
+	font-size: 12px;
+	position: relative;
+	background:$bgc2;
+	line-height: 1.6;
+}
+a{
+	color:#f0f;
+}
+.hide,.dataOutput{
+	display: none;
+}
+
+button,.button{
+	cursor:pointer;
+	margin:10px 0 15px 5px;
+	padding: 10px 5px;
+	border-radius: 3px;
+	min-width: 120px;
+	width: 252px;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	border: none;
+	display: block;
+	background: #888;
+	font-weight: bold;
+	font-size: 12px;
+	color: #fff;
+	cursor: pointer;
+	letter-spacing: 1px;
+	&:hover{
+		background: #777;
+	}
+}
+.button{
+	text-align: center;
+	position: relative;
+	span{
+		position: absolute;
+		right:10px;
+		top:50%;
+		margin-top: -0.5em;
+		line-height: 1;
+		font-size: 24px;
+		font-weight: bold;
+	}
+}
+select{
+	padding:5px 6px;
+}
+input[type=text],input[type=number]{
+	padding:5px 6px;
+	height: 12px;
+	margin-right: 5px;
+	&.rate{
+		width: 50px;
+	}
+	&.point{
+		width: 50px;
+	}
+}
+.wrap{
+	padding: 10px;
+}
+form{
+	dl:first-child dt{
+		margin-top: 0;
+	}
+	dt{
+		margin-top: 10px;
+		font-weight: bold;
+		color:#f1f1f1;
+		font-size: 14px;
+		letter-spacing:1px;
+	}
+	dd{
+		margin-top: 3px;
+		color:#f1f1f1;
+	}
+}
+
+h1{
+	height: 54px;
+	padding:3px 0;
+	background:$bgc1;
+	span{
+		@include txtimg(180,54);
+		margin-left:10px;
+		background-image: url(#{$path}logo.png);
+	}
+}
+h2{
+	margin-bottom: 10px;
+	height: 37px;
+	line-height: 37px;
+	font-size: 24px;
+	color:$fc2;
+	span{
+		padding-left: 12px;
+		border-left: 3px solid #fff;
+	}
+	+p{
+		color:$fc2;
+		margin-bottom: 5px;
+	}
+}
+
+
+table{
+	border-left: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+th,td{
+	margin: 0;
+}
+th{
+	padding:5px;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	background: #333;
+	color:#fff;
+}
+td{
+	padding:5px;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	background:#fff;
+}
+tr:nth-child(odd) td{
+	background: #bbffff;
+}
+.imp{
+	background: red !important;
+	color:#fff;
+}
