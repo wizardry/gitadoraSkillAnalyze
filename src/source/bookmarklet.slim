@@ -1,0 +1,65 @@
+---
+title: HOME 
+path: ./
+layout: notscript
+---
+/ .notscriptContents[style="padding:0px 20px;margin:25px 0;"]
+.notscriptContents
+	.sectionWrap
+		.sectionBlock
+			p
+				a href="./index.html" < TOPに戻る
+		.sectionBlock.commonBlock
+			p.sectionHeadline 
+				span スキルトータル値、平均値算出ブックマークレット
+			p.read
+				| このブックマークレットはGITADORA公式サイト上から実行すると、HotまたはOtherのトータルと平均値を出してくれるブックマークレットです。
+			ol
+				li
+					a href="#master" ブックマークレット本体
+				li
+					a href="#howto" 当ブックマークレットの使い方
+				li
+					a href="#about" ブックマークレットとは
+		.sectionBlock.commonBlock
+			h3.sectionHeadline#master
+				span ブックマークレット本体
+			.areaBlock
+				p.read <a href='javascript:(function(b){var a=document.createElement("script");a.src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js";a.onload=function(){b(jQuery.noConflict(!0))};document.body.appendChild(a)})(function(b){function a(){var a=[];f.find(".skill_cell").each(function(d){a[d]=parseInt(b(this).text().replace(".",""))});return a}function g(a){function d(c){c=[(c+"").slice(0,-2),(c+"").slice(-2)];return parseFloat(c[0]+"."+c[1]).toFixed(2)}var e={total:function(){var c=0;b.each(a,function(b,a){c+=a});return c},avg:function(){var a=0,a=this.total();return Math.round(a/25)}},e=b("<textarea/>").css({margin:"10px auto",padding:"3px 5px",height:"80px"}).val("Total:"+d(e.total())+"\nAVG.:"+d(e.avg()));b("body").prepend(%27<div class="ex-bookmarkletarea" style="margin:10px auto;padding:10px;background:rgba(0,0,0,0.75)"><p class="bookmarkletclose" style="text-decoration:underline; color:#fff;">\u9589\u3058\u308b</p></div>%27);b(".ex-bookmarkletarea").prepend(e);b(".bookmarkletclose").on("click",function(){b(".ex-bookmarkletarea").remove()})}var f=b(".skill_table_tb");if(0==f.length)alert("\u8a72\u5f53\u30da\u30fc\u30b8\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u3002\b\u30ae\u30bf\u30c9\u30e9\u516c\u5f0f\u30da\u30fc\u30b8\u3088\u308a\u30b9\u30ad\u30eb\u5bfe\u8c61\u66f2\u306e\u753b\u9762\u3067\u5b9f\u884c\u3057\u3066\u304f\u3060\u3055\u3044\u3002");else{var h=a();g(h)}});'>ギタドラスキル算出</a>
+			.areaBlock
+				p.read 元scriptは<a href="./js/bookmarklet/skillmath.js">こちら</a> | (非minfy)
+		.sectionBlock.commonBlock
+			h3.sectionHeadline#howto
+				span 当ブックマークレットの使い方
+			ol
+				li e-amusement GITADORA サイトにログインしてアクセスする。
+				li スキル対象曲の画面を開く
+				li Hot、Otherを選択する
+				li 
+					|ブックマークレットを実行する。
+					ul
+						li 閲覧している画面のトータルと平均値が出ます。
+						li コピーし易いようにテキストエリアにトータルと平均値が出力されます。
+						li テキストエリア下部の閉じるをクリック、タップするとテキストエリアが閉じられます。
+		.sectionBlock.commonBlock
+			h3.sectionHeadline#about
+				span ブックマークレットとは
+			h4.chapterHeadline ブックマークレットについてはこちら
+			p.read
+				a href="http://d.hatena.ne.jp/keyword/%A5%D6%A5%C3%A5%AF%A5%DE%A1%BC%A5%AF%A5%EC%A5%C3%A5%C8" target="_blank" ブックマークレットとは
+			h4.chapterHeadline スマホの登録方法はこちら
+			p.read
+				|・Android<br><a href="http://hayashikejinan.com/android/828/" target="_blank">Android スマートフォンのブラウザからブックマークレットを起動する方法</a><br>
+				|・iOS<br><a href="http://matome.naver.jp/odai/2133819926268876901" target="_blank">【保存版】iPhone,iPadがもっと便利になるSafariブックマークレット大全</a><br>
+			p.read
+				|環境により保存・実行できないことがあるようです。<br>
+				a href="http://android-smart.com/2011/06/android%E3%81%A7%E3%82%82%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%83%AC%E3%83%83%E3%83%88%E3%82%92%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%97%E3%82%88%E3%81%86.html"こちら
+				|も参考下さい。
+			ol
+				li PC経由などでブックマークレットを保存する
+				li URLバーから保存したブックマークレットの名前を呼び出す
+				li 成功すると<a href="./img/capture/20150507ss.png" target="_blank">こちら</a>のような画面になります。
+
+			h4.chapterHeadline PCの登録方法はこちら
+			p.read
+				|<a href="http://www.lifehacker.jp/2013/04/130402bookmarklet_matome.html">知ってそうで知らないブックマークレットの仕組みと使い方（と便利な11点まとめ）</a>

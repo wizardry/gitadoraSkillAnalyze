@@ -350,6 +350,27 @@ sup{
 
 	}
 }
+.movePageNav{
+	@extend .globalNavWrap;
+	margin-bottom: 16px;
+	border-top: none;
+	ul{
+		margin-top: 0;
+		padding-top: 0;
+		border-top: none;
+	}
+	li{
+		margin-top: 0;
+	}
+	a{
+		display: block;
+		color:inherit;
+		text-decoration: none;
+	}
+	@include mediaSP {
+		border-top: 1px solid #ccc;
+	}
+}
 @keyframes menuIn{
 	0%{
 		top:150%;
@@ -1302,7 +1323,7 @@ sup{
 .affiliateArea{
 	@include mediaPC {
 		position: absolute;
-		top:330px;
+		top:415px;
 		left:10px;
 		width:190px;
 		z-index:250;
@@ -1352,3 +1373,10 @@ sup{
 	}
 }
 */
+.notscriptContents{
+	.sectionBlock{
+		margin: 25px auto 30px;
+		padding: 0 20px;
+	}
+
+}

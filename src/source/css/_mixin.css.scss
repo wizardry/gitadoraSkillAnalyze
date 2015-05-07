@@ -65,7 +65,7 @@
 	word-break:break-word;
 }
 
-@mixin animAdd($propaty:background-color,$time:0.5s, $timing:ease-in ,$delay:0){
+@mixin animAdd($propaty:background-color,$time:0.5s, $timing:ease-in ,$delay:0s){
 	transition: $propaty , $time , $timing , $delay;
 	-ms-transition: $propaty , $time , $timing , $delay;
 	-webkit-transition: $propaty , $time , $timing , $delay;
