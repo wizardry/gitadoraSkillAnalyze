@@ -11,17 +11,23 @@ path: ./
 				form action="" id="analyzeForm"
 					p.sectionHeadline 
 						span データ取得
-					select name="searchType" id="userData_searchType"
-						option value="1" selected="selected" IDで入力する
-						option value="2" URLで入力する
+					p.serchTypeWrap
+						select name="searchType" id="userData_searchType"
+							option value="1" selected="selected" IDで入力する
+							option value="2" URLで入力する
 
 					.js-formToggleWrap.toggleWrap.toggleForm
 						.js-formToggleVal2.toggleArea
 							p.formHeadline URL
 							input type="text" name="getData" id="userData_url" class="block"
 						.js-formToggleVal1.toggleArea
+							p.formHeadline 利用サイト
+							p.formline
+								select name="siteType" id="userData_WebType"
+									option value="xv-od" http://xv-s.heteml.jp - OverDrive
+									option value="mimi-tb" http://tri.gfdm-skill.net - TriBoost
 							p.formHeadline PART / ID
-							p.formiline
+							p.formline
 								select name="idType" id="userData_part"
 									option value="g" GUITARFREAKS
 									option value="d" DRUMMANIA
