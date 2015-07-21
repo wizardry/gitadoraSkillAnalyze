@@ -112,18 +112,17 @@ var MusicFormView = Backbone.View.extend({
         //http://xv-s.heteml.jp/skill/music_gdod.php?k=new
         //http://xv-s.heteml.jp/skill/music_gdod.php?k=old
         var self = this;
-        var musiclistFile = 'music_gdod.php';
         var ajaxOp1 ={
             type:'GET',
             async:true,
-            url:AJAX_URL_BASE+musiclistFile+'?k=new',
+            url:AJAX_URL_BASE['mimi-tb']+'/musics/hot',
             dataType:'html',
             cache:false
         }
         var ajaxOp2 ={
             type:'GET',
             async:true,
-            url:AJAX_URL_BASE+musiclistFile+'?k=old',
+            url:AJAX_URL_BASE['mimi-tb']+'/musics/other',
             dataType:'html',
             cache:false
         }
@@ -148,21 +147,21 @@ var MusicFormView = Backbone.View.extend({
         var poptmp;
         if(flg) scope = 'old'
 
-        $(master).find('table').eq(1).find('tr').not(':first-child,:nth-child(2)').each(function(i,d){
+        $(master).find('#sTable_musics tbody').find('tr').each(function(i,d){
             var $d = $(d);
             var musicdata = [
-                [$d.find('td').eq(2).text(),'BSC-D','d'],
-                [$d.find('td').eq(3).text(),'ADB-D','d'],
-                [$d.find('td').eq(4).text(),'EXT-D','d'],
-                [$d.find('td').eq(5).text(),'MAS-D','d'],
-                [$d.find('td').eq(6).text(),'BSC-G','g'],
-                [$d.find('td').eq(7).text(),'ADV-G','g'],
-                [$d.find('td').eq(8).text(),'EXT-G','g'],
-                [$d.find('td').eq(9).text(),'MAS-G','g'],
-                [$d.find('td').eq(10).text(),'BSC-B','g'],
-                [$d.find('td').eq(11).text(),'ADV-B','g'],
-                [$d.find('td').eq(12).text(),'EXT-B','g'],
-                [$d.find('td').eq(13).text(),'MAS-B','g'],
+                [$d.find('td').eq(1).text(),'BSC-D','d'],
+                [$d.find('td').eq(2).text(),'ADB-D','d'],
+                [$d.find('td').eq(3).text(),'EXT-D','d'],
+                [$d.find('td').eq(4).text(),'MAS-D','d'],
+                [$d.find('td').eq(5).text(),'BSC-G','g'],
+                [$d.find('td').eq(6).text(),'ADV-G','g'],
+                [$d.find('td').eq(7).text(),'EXT-G','g'],
+                [$d.find('td').eq(8).text(),'MAS-G','g'],
+                [$d.find('td').eq(9).text(),'BSC-B','g'],
+                [$d.find('td').eq(10).text(),'ADV-B','g'],
+                [$d.find('td').eq(11).text(),'EXT-B','g'],
+                [$d.find('td').eq(12).text(),'MAS-B','g'],
             ]
             $.each(musicdata,function(ii,dd){
                 if( dd[0].indexOf('.') != -1){//undefinedのものは処理しない。
