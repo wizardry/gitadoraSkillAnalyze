@@ -22,7 +22,7 @@ $(function(){
         	var Router = Backbone.Router.extend({
         	    routes:{
         	        '':'index',
-        	        '!analyze(_:id)':'analyze',
+        	        '!analyze/:webtype/(:id)':'analyze',
         	        '!calc':'calc',
         	        '!musicList':'musicList',
         	        '!skillPointList':'skillPointList'
@@ -36,19 +36,28 @@ $(function(){
                     }
 
         	    },
-        	    analyze: function analyze(id){
+        	    analyze: function analyze(webtype,id){
                     $('#analyzeView').show();
                     $('#skillListView,#musicListView').hide()
                     navCurrent(0);
                     $('#analyzeGraphView,#analyzeCalcView,#analyzeDataView,#analyzeRecommendView,#analyzeSubCalcView').show();
-
-        	        if(id.slice(0,1) != 'g' && id.slice(0,1) != 'd' ){
-        	        	Backbone.history.navigate('')
-        	        	alert('URLが不正です。TOPにリダイレクトします。')
-        	        	return false;
-        	        }
+                    if(webtype == 'xv-od'){
+            	        if(id.slice(0,1) != 'g' && id.slice(0,1) != 'd' ){
+            	        	Backbone.history.navigate('')
+            	        	alert('URLが不正です。TOPにリダイレクトします。')
+            	        	return false;
+            	        }
+                    }else if(webtype == 'mimi-tb'){
+                        var tmp = id.split('_')
+                        if(tmp[1].slice(0,1) != 'g' && tmp[1].slice(0,1) != 'd' ){
+                            Backbone.history.navigate('')
+                            alert('URLが不正です。TOPにリダイレクトします。')
+                            return false;
+                        }
+                    }
                     loader(true)
-        	        analyzeview.analyzeAjaxController.getSkillDataFunc(id);
+                    console.log(1)
+        	        analyzeview.analyzeAjaxController.getSkillDataFunc(webtype,id);
         	    },
         	    musicList: function musicList(){
         	    	$('#musicListView').show();
