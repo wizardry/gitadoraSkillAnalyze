@@ -88,7 +88,6 @@ var AnalyzeView = Backbone.View.extend({
     ajaxFunc:function(e){
         loader(true)
         this.analyzeFormView.submitFunc(e)
-        // this.analyzeAjaxController.getSkillDataFunc(this.model.importId.getUserID());
     },
     runGraphFunc:function(){
         this.analyzeDataView.setData();
@@ -120,18 +119,14 @@ var AnalyzeFormView = Backbone.View.extend({
             //cookieがあった場合の処理
             var cookUid = $.cookie('uid');
             if(cookUid != undefined){
-
+                cookUid = JSON.parse(cookUid);
                 //DOM側
-                $('#userData_url').val(SKILL_URL+cookUid);
-                $('#userData_id').val(cookUid.substr(1));
-                $('#userData_part').val(cookUid.substr(0,1));
+                $('#userData_url').val(cookUid.url);
+                $('#userData_id').val(cookUid.userId);
+                $('#userData_part').val(cookUid.part);
+                $('#userData_WebType').val(cookUid.webType);
 
-                //Model側
-                this.model.set({
-                    userId:cookUid.substr(1),
-                    part:cookUid.substr(0,1), 
-                    url:SKILL_URL+cookUid
-                })
+                this.model.set(cookUid);
             }
         },
         searchTypeToggleFunc:function(){
@@ -157,35 +152,61 @@ var AnalyzeFormView = Backbone.View.extend({
                 userId : $('#userData_id').val(),
                 part : $('#userData_part').val(),
                 url : $('#userData_url').val(),
-                search:$('#userData_searchType').val()
+                search:$('#userData_searchType').val(),
+                webType:$('#userData_WebType').val()
             }
-
+            //Model set
             this.model.set(formVal);
+
+            //serchによってmodelに空が出るためそれを埋める
             this.model.setUserID();
+
+            //Cookie保存
             this.model.saveCookieFunc();
 
         },
         toAnalyze:function(){
-            Backbone.history.navigate('!analyze_'+this.model.getUserID(),true)
+            Backbone.history.navigate('!analyze/'+this.model.get('webType')+'/'+this.model.getUserID(),true)
         }
 })
 var AnalyzeAjaxController = Backbone.View.extend({
     initialize:function(){
         _.bindAll(this,'getSkillDataFunc',"setSkillDataFunc");
     },
-    getSkillDataFunc:function(userId){
+    getSkillDataFunc:function(webtype,userId){
         var self = this;//jQuery関数内にはいるとthisがviewではない方を向くためスコープにしておく。
+        var xUrl;
+        console.log(0)
+        if(webtype == 'xv-od'){
+            //ajax URL set
+            xUrl = SKILL_URL['xv-od']+userId;
+
+            //#urlでアクセスした際のmodel set
+            this.model.importId.set('part',userId.slice(0,1))
+            this.model.importId.set('userId',userId.slice(1))
+            this.model.importId.set('url',xUrl)
+            this.model.importId.set('webType','xv-od')
+        }else if(webtype == 'mimi-tb'){
+
+            var tmp = userId.split('_')
+            console.log(tmp);
+            //ajax URL set
+            xUrl = SKILL_URL['mimi-tb']+tmp[0]+'/'+tmp[1];
+
+            //#urlでアクセスした際のmodel set
+            this.model.importId.set('part',userId[1].slice(0,1))
+            this.model.importId.set('userId',userId[0])
+            this.model.importId.set('url',xUrl)
+            this.model.importId.set('webType','mimi-tb')
+        }
         var ajaxOp ={
             type:'GET',
             async:true,
             timeout:10000,
-            url:SKILL_URL+userId,
+            url:xUrl,
             dataType:'html',
             cache:false
         }
-        this.model.importId.set('part',userId.slice(0,1))
-        this.model.importId.set('userId',userId.slice(1))
-        this.model.importId.set('url',SKILL_URL+userId)
 
         //collection初期化
         self.collection.skillList.reset();
@@ -201,12 +222,19 @@ var AnalyzeAjaxController = Backbone.View.extend({
         var view = this;//jQuery関数内にはいるとthisがviewではない方を向くためスコープにしておく。
         $('input[type=submit]').removeAttr('disabled');
         $('#importData').html(res.results)
+        if(this.model.importId.get('webType') == 'xv-od'){
+            this.xvodAjax();
+        }else if(this.model.importId.get('webType') == 'mimi-tb'){
+            this.mimitbAjax();
+        }
 
+    },
+    xvodAjax:function(){
+        var view = this;
         var hotNode = '<table id="scopeHot">'+$('#importData > table').eq(2).html()+'</table>';
         var oldNode = '<table id="scopeOld">'+$('#importData > table').eq(3).html()+'</table>';
 
         $('#importData').empty().html(hotNode+oldNode);
-        
         var lastindex = $('#scopeOld').find('tr').length - 2
 
         $('#scopeHot').find('tr').not(':first-child').each(function(i,d){
@@ -237,6 +265,48 @@ var AnalyzeAjaxController = Backbone.View.extend({
             result.rate = parseInt($(node).find('td').eq(3).text().replace('.','').replace('%',''))
             result.point = parseInt($(node).find('td').eq(4).text().replace('.',''))
             result.rank = $(node).find('td').eq(5).text()
+
+            //result.scope,scopeIndexは実行先で入れる。
+            return result;
+        }
+    },
+    mimitbAjax:function(){
+        var view = this;
+        var hotNode = '<table id="scopeHot">'+$('#importData #sortableTable tbody').html()+'</table>';
+        var oldNode = '<table id="scopeOld">'+$('#importData #sortableTable2 tbody').html()+'</table>';
+        $('#importData').empty().html(hotNode+oldNode);
+        var lastindex = $('#scopeOld').find('tr').length - 2
+        $('#scopeHot').find('tr').each(function(i,d){
+            var skillData = nodeToObject(d);
+
+            skillData.scope = 'hot';
+            skillData.scopeIndex=i
+            view.collection.skillList.add(skillData,{silent:true})
+        })
+        $('#scopeOld').find('tr').each(function(i,d){
+            var skillData = nodeToObject(d);
+
+            skillData.scope = 'old';
+            skillData.scopeIndex=i
+            view.collection.skillList.add(skillData,{silent:true})
+            if(lastindex == i){
+                view.collection.skillList.add(skillData,{silent:false})
+            }
+        })
+        function nodeToObject(node){
+            var result = {};
+            var lvAndPart = $(node).find('td').eq(2).text().split(' ');
+            var rateIndex;
+            var rate = $(node).find('td').eq(3).text().replace('.','').replace('(','').replace(')','');
+            rate = rate.split(' ');
+            rate[1] = rate[1].split('/')
+
+            result.title = $(node).find('td').eq(1).text()
+            result.lv = parseInt(lvAndPart[0].replace('.',''))
+            result.part = lvAndPart[1]
+            result.rate = parseInt(rate[0])
+            result.point = parseInt($(node).find('td').eq(4).text().replace('.',''))
+            result.rank = rate[1][0];
 
             //result.scope,scopeIndexは実行先で入れる。
             return result;
@@ -570,55 +640,61 @@ var AnalyzeRecommendView = Backbone.View.extend({
     render:function(){},
     ajax:function(){
         var self = this;
-        var id = function(){
+        if(self.model.importId.get('webType') == 'xv-od'){
+            var id = function(){
 
-            var result,part,index,userSkill;
-            userSkill = self.model.skillUser.get('skillPoint')+'';
-            userSkill = parseInt(userSkill.slice(0,-4) + '00');
-            part = self.model.importId.get('part')
-            $.each(AVG_LIST[part],function(i,d){
-                if(userSkill == d.skill){
-                    index = i
-                    return false;
-                }
+                var result,part,index,userSkill;
+                userSkill = self.model.skillUser.get('skillPoint')+'';
+                userSkill = parseInt(userSkill.slice(0,-4) + '00');
+                part = self.model.importId.get('part')
+                $.each(AVG_LIST['xv-od'][part],function(i,d){
+                    if(userSkill == d.skill){
+                        index = i
+                        return false;
+                    }
+                })
+
+                result = [
+                    part+AVG_LIST['xv-od'][part][index].userId,
+                    part+AVG_LIST['xv-od'][part][index-1].userId
+                ]
+
+                return result;
+            };
+            avgid = id();
+            var ajaxOp1 ={
+                type:'GET',
+                async:true,
+                timeout:10000,
+                url:SKILL_URL['xv-od']+avgid[0],
+                dataType:'html',
+                cache:false
+            };
+            var ajaxOp2 ={
+                type:'GET',
+                async:true,
+                timeout:10000,
+                url:SKILL_URL['xv-od']+avgid[1],
+                dataType:'html',
+                cache:false
+            };
+            $.when(
+                $.ajax(ajaxOp1),
+                $.ajax(ajaxOp2)
+            ).pipe(function(ad,bd){
+                self.collection.recList.reset();
+                self.setData(ad,false)
+                self.setData(bd,true)
+                loader(false)
+                //bdのsetDataが終わるとcollectionのListenToからthis.draw()発火
+            },function(){
+                alert('接続に失敗しました。\n一部機能が表示されません。');
             })
-
-            result = [
-                part+AVG_LIST[part][index].userId,
-                part+AVG_LIST[part][index-1].userId
-            ]
-
-            return result;
-        };
-        avgid = id();
-        var ajaxOp1 ={
-            type:'GET',
-            async:true,
-            timeout:10000,
-            url:SKILL_URL+avgid[0],
-            dataType:'html',
-            cache:false
-        };
-        var ajaxOp2 ={
-            type:'GET',
-            async:true,
-            timeout:10000,
-            url:SKILL_URL+avgid[1],
-            dataType:'html',
-            cache:false
-        };
-        $.when(
-            $.ajax(ajaxOp1),
-            $.ajax(ajaxOp2)
-        ).pipe(function(ad,bd){
-            self.collection.recList.reset();
-            self.setData(ad,false)
-            self.setData(bd,true)
-            loader(false)
-            //bdのsetDataが終わるとcollectionのListenToからthis.draw()発火
-        },function(){
-            alert('接続に失敗しました。\n一部機能が表示されません。');
-        })
+        }else{
+            loader(false);
+            $('#recListHot').text('平均データがありません。');
+            $('#recListOld').text('平均データがありません。');
+        }
 
     },
     draw:function(){
