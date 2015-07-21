@@ -2,34 +2,95 @@ var ImportId = Backbone.Model.extend({
     defaults:{
         userId:"",//ex => 4053
         part:"", //ex => g || d
+        webType:"", //ex => xv-od || mimi-tb
         url:"", //ex => http://xv-s.heteml.jp/skill/gdod.php?uid=g4053
         search:"", //ex => 1 || 2
     },
     getUserID:function(){
-        if(this.get("search") == 1){//ID
-            return this.get("part")+this.get("userId");
-        }else if(search == 2){//url
-            var userid = this.get("url").split('.php?uid=');
-            return userid[1];
-        }else{
-            alert('Model > ImportId.getUserID => Error:searchTypeNone');
+        //URL末尾を返す。
+        //xv-od   : g4053
+        //mimi-tb : 4053/guitar
+        if(this.get('webType') == 'xv-od'){
+            return this.get('part')+this.get('userId');
+        }else if(this.get('webType') == 'mimi-tb'){
+            var part = (this.get('part') == 'd' )? 'drum' : 'guitar'
+            return this.get('userId')+'_'+part;
         }
+
     },
     setUserID:function(){
-        if(this.get("search") == 1){//ID
-            this.set("url",SKILL_URL+this.get("part")+this.get("userId"));
-        }else if(search == 2){//url
-            var userid = this.get("url").split('.php?uid=');
+        if(this.get('search') == 1 ){
+            //IDで入力時
 
-            this.set('part',userid[1].substr(0,1));
-            this.set('userId',userid[1].substr(1));
-        }else{
-            alert('Model > ImportId.setUserID => Error:searchTypeNone');
+            //Webサイト毎の振り分け→各処理
+            this.assignURL();
+        }else if(this.get('search') == 2){
+            //URLで入力時
+
+            //Webサイト毎の振り分け→各処理
+            this.assignID();
+
         }
+    },
+    assignURL:function(){
+        //IDで入力時
+        var urltmp;
+        if(this.get('webType') == 'xv-od'){
+            urltmp = this.setXvOdURL();
+        }else if(this.get('webType') == 'mimi-tb'){
+            urltmp = this.setMimiTbURL();
+        }
+        this.set('url',urltmp);
+
+        return this;
+    },
+    setXvOdURL:function(){
+        return SKILL_URL['xv-od']+this.get("part")+this.get("userId");
+    },
+    setMimiTbURL:function(){
+        var urltmp = SKILL_URL['mimi-tb']+'users/'+this.get('userId')+'/';
+        return urltmp = (this.get('part') == 'g' ) ? urltmp = urltmp+'guiter' : urltmp = urltmp+'drum';
+    },
+    assignID:function(){
+        var thisurl = this.get("url");
+
+        if(thisurl.indexOf(SKILL_URL['xv-od']) != -1){
+            //xv od の場合
+            this.setXvOdID();
+
+        }else if(thisurl.indexOf(SKILL_URL['mimi-tb']) != -1){
+            //http://tri.gfdm-skill.net　の場合
+            this.setMimiTbID();
+        }
+    },
+    setXvOdID:function(){
+        var userid = this.get("url").split('.php?uid=');
+
+        this.set('part',userid[1].substr(0,1));
+        this.set('userId',userid[1].substr(1));
+
+        return this;
+    },
+    setMimiTbID:function(){
+        var thisurls = this.get("url").sprit('/');
+        if(thisurls[5] == 'drum'){
+            this.set('part','d');
+        }else{
+            this.set('part','g');
+        }
+        this.set('userId',thisurls[4]);
         return this;
     },
     saveCookieFunc:function(){
-        $.cookie("uid",this.getUserID());
+        // cookie保存 ModelをママJSONで保存する。
+        var cookieJson = {
+            userId:this.get('userId'),
+            part:this.get('part'),
+            webType:this.get('webType'),
+            url:this.get('url'),
+            search:this.get('search'),
+        }
+        $.cookie("uid",JSON.stringify(cookieJson))
     }
 });
 var SkillMusic = Backbone.Model.extend({
