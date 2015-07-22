@@ -186,14 +186,14 @@ path: ./
 				form#skillForm
 					dl
 						dt.formHeadline レベル
-					dd
-						select name="levelMin" id="skillListLevelMin"
-							- data.skillListSelect["select"].each do |value|
-								option value="#{value['value']}" #{value["text"]}
-						|～
-						select name="levelMax" id="skillListLevelMax"
-							- data.skillListSelect["select"].each do |value|
-								option value="#{value['value']}" #{value["text"]}
+						dd
+							select name="levelMin" id="skillListLevelMin"
+								- data.skillListSelect["select"].each do |value|
+									option value="#{value['value']}" #{value["text"]}
+							|～
+							select name="levelMax" id="skillListLevelMax"
+								- data.skillListSelect["select"].each do |value|
+									option value="#{value['value']}" #{value["text"]}
 					dl
 						dt.formHeadline
 							|達成率<sup>（整数0～100まで）</sup>
@@ -280,6 +280,7 @@ path: ./
 		#guide.sectionBlock.guideBlock.commonBlock
 			h2.sectionHeadline
 				span 使い方ガイド
+			p.attention 大幅改修によりCookieの競合が起きる可能性があります。<br>正常に読み込めない場合（各ボタンが反応しないなど）はCookieを削除し、再度お試しください。
 			h3 当サイトを利用するまでの手順
 			ol
 				li
