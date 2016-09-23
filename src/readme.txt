@@ -1,48 +1,72 @@
-# �M�^�h���X�L���A�i���C�Y
+# ギタドラスキルアナライズ
 
-## �g�p�Z�p
+## 使用技術
 
-* middleman (3.3.7) -> �Ď��A�r���h�c�[��
-** scss (ver��gemfile�L��) -> CSS���^����
-** slim (ver��gemfile�L��) -> HTML�e���v���[�g����
+nodejs 5.3.0 ~
 
-���C�u�����ڍׂ�Gemfile/Gemfile.lock�Q��
+### nodejs global installs
 
-## �f�B���N�g������
+* gulp
+
+### packages
+
+* babel
+* 
+
+### librares
+
+* backbonejs
+** underscorejs
+** jquery
+
+* ReactJS
+
+* Hicharts
+
+
+======================================= duplicated
+
+* middleman (3.3.7) -> 監視、ビルドツール
+** scss (verはgemfile記載) -> CSSメタ言語
+** slim (verはgemfile記載) -> HTMLテンプレート言語
+
+ライブラリ詳細はGemfile/Gemfile.lock参照
+
+## ディレクトリ説明
 
 build/
-	middleman���r���h���ꂽ�ŏI�\�[�X
+	middlemanよりビルドされた最終ソース
 
 data/
-	�f�[�^�ނ�json
+	データ類のjson
 
 source
-	��Ɨp�t�@�C��
+	作業用ファイル
 
-�ҏW�Ȃǂ̍�Ƃ�source�f�B���N�g���ōs���B
-���ʕ��R�s�[�Ȃǂ�build�f�B���N�g������s���B
+編集などの作業はsourceディレクトリで行う。
+成果物コピーなどはbuildディレクトリから行う。
 
 
-middleman�Ascss�Aslim�̎g�����ɂ��Ă�Google�ȂǂŌ������Ă��������B
-����{�Ă��ɉ{���p��[middleman]or[middleman server],build�p��[middleman build]�����R�}���h�͎g���Ă��Ȃ��ł��B
+middleman、scss、slimの使い方についてはGoogleなどで検索してください。
+→基本てきに閲覧用に[middleman]or[middleman server],build用に[middleman build]しかコマンドは使っていないです。
 
-## source���f�B���N�g������
+## source側ディレクトリ説明
 
 css/
-	scss�t�@�C���u����B
+	scssファイル置き場。
 
 img/
-	�g�p����摜��ۑ�����B
+	使用する画像を保存する。
 
 include/
-	���ʃt�@�C���B
-	�Ǎ�����͊eView�t�@�C����frontmatter�Ő錾����Ƃ悢�B
+	共通ファイル。
+	読込分岐は各Viewファイルのfrontmatterで宣言するとよい。
 
 js/
 
 layouts/
-	���C�A�E�g�t�@�C���B
-	�Ǎ�����͊eView�t�@�C����frontmatter�Ő錾����Ƃ悢�B
+	レイアウトファイル。
+	読込分岐は各Viewファイルのfrontmatterで宣言するとよい。
 
-�ȏ�
+以上
 
