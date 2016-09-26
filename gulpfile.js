@@ -1,3 +1,4 @@
+
 var gulp = require('gulp');
 var connect = require('gulp-connect');
 var webpack = require('gulp-webpack');
@@ -11,7 +12,7 @@ gulp.task('webpack', function () {
  
 gulp.task('connect', function() {
   connect.server({
-    root: [__dirname]
+    root: './build/'
   });
 });
 
@@ -19,22 +20,30 @@ var jade = require('gulp-jade');
  
 gulp.task('jade', function() {
  
-  gulp.src('*.jade')
+  gulp.src('./src/**/*.jade')
     .pipe(jade({
-      jade: jade,
       pretty:false
     }))
-    .pipe(gulp.dest('./guild/'));
+    .pipe(gulp.dest('./build/'));
 });
 // copy image files
 gulp.task('copy:_img', function(){
-  g.src(srcPath+'img/**/')
+  g.src('./src/img/**/')
     .pipe(gulp.dest('./build/img/'));
 });
 
+var sass = require('gulp-sass');
+ 
+gulp.task('sass', function () {
+  return gulp.src('./src/css/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./build/css'));
+});
 
 gulp.task('watch', function () {
+    gulp.watch('./src/**/*.jade',['jade']);
+    gulp.watch('./src/css/**/*.scss',['sass']);
     gulp.watch('./src/**/*.js', ['webpack']);
 });
  
-gulp.task('default', ['webpack','watch','jade']);
+gulp.task('default', ['webpack','watch','connect']);
