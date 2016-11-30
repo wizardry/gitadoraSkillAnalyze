@@ -4,20 +4,23 @@ module.exports = {
       app :'./src/js/app.js'
   },
   output: {
-      path:path.join(__dirname,'public'),
+      path:path.join(__dirname,'./build/js'),
       filename: '[name].dist.js'
   },
   resolve: {
-    extensions:['','.js']
+    extensions:['','.js','jsx']
   },
   module: {
     loaders: [
       {
-        test: /\.ts$/,
+        test: /\.js$/,
+        // test: './src/js/**/*.js',
         loader: 'babel-loader' ,
         exclude: '/node_modules/',
         query: {
-          presets: ['es2015'],
+          compact:false,
+          presets: ['react','es2015'],
+          plugins:['transform-react-jsx']
         }
       }
     ]

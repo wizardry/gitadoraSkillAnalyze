@@ -1,26 +1,28 @@
 var React  = require('react');
+var ReactDOM  = require('react-dom');
 console.log(React);
+console.log(ReactDOM);
 
 var $ = require('jquery');
 console.log($);
 
-// var Config  = require('./config');
-// import Config from './config';
-// console.log(Config);
-// console.log(URLS);
-if(typeof Symbol === "function" && typeof Symbol() === "symbol"){
-	console.log(0)
-}else{
-	console.log(1)
+let Models = require('./model/app');
+let models = new Models();
+console.log(models) ;
+
+class JSXTest extends React.Component {
+	render() {
+		// return React.createElement('div',null,'hello');
+		return (<div>hello</div>);
+	}
 }
-// import UserModelClass from './model/user.js';
-var UserModel = require('./model/user');
-var userModel = new UserModel();
-userModel.model.set({test:1});
-console.log(userModel);
+// var View = require('./view/app');
+console.log(JSXTest)
+var domready = require('domready')
+domready(function(){
 
-var test2 = require('./test2');
-test2();
-console.log(test2)
-console.log(userModel)
-
+	ReactDOM.render(
+		<JSXTest />,
+		document.getElementById('masterView')
+	)
+});

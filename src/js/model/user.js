@@ -1,4 +1,3 @@
-var React  = require('react');
 var $ = require('jquery');
 var Backbone = require('backbone');
 
@@ -30,6 +29,11 @@ var skillScrapingFunc =function(type){
 	return allData;
 };
 
+var SkillMusic = Backbone.Model.extend({});
+var SkillList = Backbone.Collection.extend({
+	model:SkillMusic
+});
+
 //ユーザー情報
 var UserModel = Backbone.Model.extend({
 	url:function(){
@@ -39,10 +43,15 @@ var UserModel = Backbone.Model.extend({
 	skillScrapingFunc:function(type){
 		skillScrapingFunc(type)
 	},
+	beforeFetch:function(){
+		if(this.has(data)){
+			this.remove('data');
+		}
+	},
 	parse:function(res){
 		var data = skillScrapingFunc(res);
-		debugger;
-		return data;
+
+		return {data:new SkillList(data)};
 	},
 	saveCookieFunc:function(){
 		// cookie保存 ModelをママJSONで保存する。
@@ -55,14 +64,12 @@ var UserModel = Backbone.Model.extend({
 	}
 });
 
-
+/*
+不要？
 var userModel = new UserModel();
-
-var SkillMusic = Backbone.Model.extend({});
-var SkillList = Backbone.Collection.extend({
-	model:SkillMusic
-});
-
+*/
+/*
+やってみたけど少なくともModelまわりではclass化するメリットがなさそう
 class UserModelClass {
 	constructor(data){
 		console.log(this.isCreated)
@@ -77,6 +84,6 @@ class UserModelClass {
 		return this.model;
 	}
 }
-
+*/
 // export default UserModelClass;
-module.exports = UserModelClass;
+module.exports = UserModel;

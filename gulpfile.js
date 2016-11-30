@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var connect = require('gulp-connect');
 var webpack = require('gulp-webpack');
 var webpackConfig = require('./webpack.config.js');
- 
+ console.log(webpackConfig)
 gulp.task('webpack', function () {
     gulp.src(['./src/js/**/*.js'])
     .pipe(webpack(webpackConfig))

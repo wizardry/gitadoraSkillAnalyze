@@ -1,5 +1,9 @@
-var React  = require('react');
-console.log(React);
-
 var $ = require('jquery');
-console.log($);
+var Backbone = require('backbone');
+
+var AvgSongModel = Backbone.Model.extend({});
+var AverageCollection = Backbone.Collection.extend({
+	model:AvgSongModel
+});
+
+module.exports = AverageCollection;

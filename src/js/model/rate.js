@@ -1,5 +1,6 @@
-var React  = require('react');
-console.log(React);
-
 var $ = require('jquery');
-console.log($);
+var Backbone = require('backbone');
+
+var RateModel = Backbone.Model.extend({});
+
+module.exports = RateModel;
