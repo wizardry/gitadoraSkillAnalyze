@@ -19,8 +19,7 @@ var userModel = new UserModel();
 userModel.model.set({test:1});
 console.log(userModel);
 
-var test2 = require('./test2');
-test2();
-console.log(test2)
-console.log(userModel)
+var testModel = UserModel.call();
+console.log(testModel)
+
 

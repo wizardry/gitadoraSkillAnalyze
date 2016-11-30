@@ -7,10 +7,9 @@ module.exports = {
       path:path.join(__dirname,'public'),
       filename: '[name].dist.js'
   },
-  // resolve: {
-  //     root:[path.join(__dirname,'public')],
-  //     extensions:['[name].js']
-  // },
+  resolve: {
+    extensions:['','.js']
+  },
   module: {
     loaders: [
       {
@@ -18,10 +17,10 @@ module.exports = {
         loader: 'babel-loader' ,
         exclude: '/node_modules/',
         query: {
-          cacheDirectory: true,
-          presets: ['react', 'es2015']
+          presets: ['es2015'],
         }
       }
     ]
-  }
+  },
+  devtool: 'source-map',
 };
