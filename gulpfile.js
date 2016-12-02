@@ -28,7 +28,7 @@ gulp.task('jade', function() {
 });
 // copy image files
 gulp.task('copy:_img', function(){
-  g.src('./src/img/**/')
+  gulp.src('./src/img/**/')
     .pipe(gulp.dest('./build/img/'));
 });
 
@@ -44,6 +44,7 @@ gulp.task('watch', function () {
     gulp.watch('./src/**/*.jade',['jade']);
     gulp.watch('./src/css/**/*.scss',['sass']);
     gulp.watch('./src/**/*.js', ['webpack']);
+    gulp.watch('./src/img/**.*.png', ['copy:_img']);
 });
  
-gulp.task('default', ['webpack','watch','connect']);
+gulp.task('default', ['webpack','watch','connect','copy:_img']);

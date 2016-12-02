@@ -1,37 +1,83 @@
 @charset "utf-8";
 
 // Bases setting
-$fontFamilyBase :"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo"," Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+$fontFamilyBase :sans-serif;
 $default:(
 	line-height:1.5,
 	font-size:13px,
-	color:#333,
+	color:#cfcfcf,
 	font-family:$fontFamilyBase,
-	linkColor:#05a,
-	contentWidth:1050px,
+	linkColor:#3cf,
 	imgPath:'../../img/',
 	borderColor:#ccc,
 	borderRadius:3px
 );
-$theme:#c69c6d;
-$themeDark:darken(#c69c6d,10%);
-// $themeColor:(
-// 	primary:(
-// 		normal:#000,
-// 		hover:#000,
-// 		current:#000
-// 	),
-// 	secondary:(
-// 		normal:#000,
-// 		hover:#000,
-// 		current:#000
-// 	),
-// 	tertiary:(
-// 		normal:#000,
-// 		hover:#000,
-// 		current:#000
-// 	)
-// );
-$mediaQueryLearge :"min-width:768px";
-$mediaQuerySmall :"max-width:767px";
-$brand-color: #e9e3db;
+$themeColor:(
+	primary:(
+		normal:#000,
+		hover:#000,
+		current:#000
+	),
+	secondary:(
+		normal:#000,
+		hover:#000,
+		current:#000
+	),
+	tertiary:(
+		normal:#000,
+		hover:#000,
+		current:#000
+	)
+);
+// media query
+
+$isSP :"max-width:720px";
+$isPC :"min-width:721px";
+
+@mixin mediaSP{
+	@media ($isSP){
+		@content;
+	}
+}
+@mixin mediaPC{
+	@media ($isPC){
+		@content;
+	}
+}
+
+
+//----------------------Github Primer
+$container-width: 980px !default;
+$grid-gutter:     10px !default;
+
+// Brand colors
+$brand-blue:       #4183c4 !default;
+$brand-gray-light: #999    !default;
+$brand-gray:       #666    !default;
+$brand-gray-dark:  #333    !default;
+$brand-green:      #6cc644 !default;
+$brand-red:        #bd2c00 !default;
+$brand-orange:     #f93    !default;
+$brand-purple:     #6e5494 !default;
+
+// Font stack
+$body-font: Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+// The base body size
+$body-font-size: 13px !default;
+
+// Monospace font stack
+$mono-font: Consolas, "Liberation Mono", Menlo, Courier, monospace !default;
+
+// State indicators.
+$status-open:     $brand-green;
+$status-closed:   $brand-red;
+$status-reverted: $status-closed;
+$status-merged:   $brand-purple;
+$status-renamed:  #fffa5d;
+$status-pending:  #cea61b;
+
+// Repository type colors
+$repo-private-text: #a1882b;
+$repo-private-bg:   #fff9ea;
+$repo-private-icon: #e9dba5;

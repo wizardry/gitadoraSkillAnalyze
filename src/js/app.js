@@ -10,19 +10,11 @@ let Models = require('./model/app');
 let models = new Models();
 console.log(models) ;
 
-class JSXTest extends React.Component {
-	render() {
-		// return React.createElement('div',null,'hello');
-		return (<div>hello</div>);
-	}
-}
-// var View = require('./view/app');
-console.log(JSXTest)
+var View = require('./view/app');
 var domready = require('domready')
 domready(function(){
-
 	ReactDOM.render(
-		<JSXTest />,
-		document.getElementById('masterView')
+		<View />,
+		document.getElementById('reactRender')
 	)
 });
