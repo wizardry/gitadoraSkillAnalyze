@@ -12,6 +12,7 @@ class UserModelClass {
 		this.model.songCollection = new SongModel();
 		this.model.averageCollection = new AverageModel();
 		this.model.rateModel = new RateModel();
+		this.model.viewStateModel = new Backbone.Model();
 	}
 	call(){
 		return this.model;

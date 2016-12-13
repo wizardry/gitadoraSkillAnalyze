@@ -1,5 +1,5 @@
-var $ = require('jquery');
-var Backbone = require('backbone');
+// var $ = require('jquery');
+// var Backbone = require('backbone');
 
 var SongModel = Backbone.Model.extend({});
 var SongCollection = Backbone.Collection.extend({

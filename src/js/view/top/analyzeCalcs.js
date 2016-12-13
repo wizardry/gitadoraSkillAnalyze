@@ -26,15 +26,23 @@ module.exports = class ScrapingFormView extends React.Component {
 			dataType:'html',
 			type:'GET',
 			success:function(a,b,c){
+				debugger;
 			}
 		});
+		// $.ajax({
+		// 	url:this.props.models.model.userModel.url,
+		// 	dataType:'html',
+		// 	type:'GET',
+		// 	success:function(a,b,c){
+		// 		debugger;
+		// 	}
+		// })
 		console.log(this.props.models.model.userModel.url)
 	}
 	userIdChangeHandler(){}
 	idTypeChangeHandler(){}
 	webTypeChangeHandler(){}
 	render(){
-		console.log(this.props)
 		return (
 			<form action="" id="analyzeForm" onSubmit={(e) => this.submitHandler(e) }>
 				<p className="sectionHeadline">

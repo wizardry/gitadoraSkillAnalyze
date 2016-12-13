@@ -19,20 +19,24 @@ module.exports = class Navigations extends React.Component {
                 {text:'曲一覧<sup>（難易度軸）</sup>',className:'',id:'toMusicListNav',isCurrent:false},
                 {text:'Lv×達成率 一覧',className:'',id:'toSkillListNav',isCurrent:false},
             ],
-            windowHeight:this.getWindowHeight()
+            windowHeight:this.getNavigationHeight()
 
         });
 
 
         $(window).on('resize', () => {
-            console.log(0,self,self.getWindowHeight());
-            self.setState({windowHeight:self.getWindowHeight()});
+            console.log(0,self,self.getNavigationHeight());
+            self.setState({windowHeight:self.getNavigationHeight()});
         });
     }
-    getWindowHeight(){
-        console.log(1,$(window).height());
-
-        return $(window).height();
+    getNavigationHeight(){
+        // console.log(1,$(window).height());
+        // let height = $(window).height();
+        // if(height < $(document).height()){
+        // }
+        // 100%で取れるので一律100％
+        let height = '100%';
+        return height;
     }
     navClickHandler(e){
         e.preventDefault();
