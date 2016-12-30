@@ -4,11 +4,18 @@ module.exports = {
       app :'./src/js/app.js'
   },
   output: {
+      publicPath:'/js/',
       path:path.join(__dirname,'./build/js'),
       filename: '[name].dist.js'
   },
   resolve: {
     extensions:['','.js','jsx']
+  },
+  devServer: {
+    contentBase: './build',
+    cache:false,
+    inline:true,
+    port:8080
   },
   module: {
     loaders: [

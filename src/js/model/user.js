@@ -48,6 +48,7 @@ var SkillList = Backbone.Collection.extend({
 		let floatResult = ( formula / (1000000 / 10 ) );
 		//少数第三位以下切り捨て
 		floatResult = Math.floor(floatResult*100)/100;
+		model.set({point:floatResult});
 		return floatResult;
 	},
 	mathFrameSkillFunc:function(type){
@@ -143,6 +144,9 @@ var SkillList = Backbone.Collection.extend({
 //ユーザー情報
 var UserModel = Backbone.Model.extend({
 	setURL:function(webType,idType,userId){
+		this.setIdType(idType);
+		this.setWebType(webType);
+		this.setUserId(userId);
 		let url = '';
 		if(webType.indexOf('tri.gfdm-skill.net') != -1){
 			url = webType+userId+'/';
@@ -166,6 +170,22 @@ var UserModel = Backbone.Model.extend({
 		}
 		this.url = url;
 	},
+	setIdType:function(idType){
+		this.idType = idType;
+	},
+	setWebType:function(webType){
+		this.webType = webType;
+	},
+	setUserId:function(userId){
+		this.userId = userId;
+	},
+	getOptions:function(){
+		return {
+			idType:this.idType,
+			webType:this.webType,
+			userId:this.userId
+		};
+	},
 	url:function(){
 		return '../../data/user.html';
 		// return this.get('urlType')+'/users/'+this.get('id')+'/'+this.get('gameType');
@@ -179,6 +199,7 @@ var UserModel = Backbone.Model.extend({
 		}
 	},
 	parse:function(res){
+		console.log('user parse',res)
 		var verDOM = $(res.responseText);
 		var data = skillScrapingFunc(verDOM);
 

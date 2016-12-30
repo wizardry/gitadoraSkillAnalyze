@@ -11,16 +11,11 @@ module.exports = class AnlyzeDataView extends React.Component {
 
 	}
 	componentWillMount(){
-		console.log('willmount',this.props);
 		// this.props.models.model.userModel.on()
-
 	}
 	componentDidMount(){
-		console.log('didmount',this.props)
 	}
 	calcHandler(){
-		console.log(this)
-		console.log(this.refs)
 		let type = this.refs.calcType.value;
 		let min = this.refs.calcMin.value;
 		let upper = this.refs.calcUpper.value;
@@ -35,7 +30,6 @@ module.exports = class AnlyzeDataView extends React.Component {
 	}
 	render(){
 		let dataCollection = this.props.models.model.userModel.get('data');
-		console.log('analyze data.js render',this,dataCollection)
 		if(dataCollection == undefined || dataCollection.length == 0){
 			return null;
 		}

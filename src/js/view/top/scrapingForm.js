@@ -6,16 +6,12 @@ module.exports = class ScrapingFormView extends React.Component {
 		super(props);
 	}
 	componentWillMount(){
-		console.log('willmount',this.props);
-		// this.props.models.model.userModel.on()
 
 	}
 	componentDidMount(){
-		console.log('didmount',this.props)
 	}
 	submitHandler(e){
 		e.preventDefault();
-		console.log('submit',this,e);
 		let data = {
 			idType:this.refs.idType.value,
 			webType:this.refs.webType.value,
@@ -28,13 +24,11 @@ module.exports = class ScrapingFormView extends React.Component {
 			success:function(a,b,c){
 			}
 		});
-		console.log(this.props.models.model.userModel.url)
 	}
 	userIdChangeHandler(){}
 	idTypeChangeHandler(){}
 	webTypeChangeHandler(){}
 	render(){
-		console.log(this.props)
 		return (
 			<form action="" id="analyzeForm" onSubmit={(e) => this.submitHandler(e) }>
 				<p className="sectionHeadline">

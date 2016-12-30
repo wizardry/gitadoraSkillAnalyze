@@ -2,7 +2,10 @@ var React  = require('react');
 // var $ = require('jquery');
 
 var ScrapingForm = require('./scrapingForm');
-var AnlyzeData = require('./analyzeData');
+var AnalyzeData = require('./analyzeData');
+var AnalyzeGraph = require('./analyzeControl');
+var AnalyzeAgerage = require('./analyzeAveragesWrap');
+var AnalyzeCalcs = require('./analyzeCalcs');
 module.exports = class TopView extends React.Component {
 	constructor(props){
 		super(props);
@@ -13,7 +16,10 @@ module.exports = class TopView extends React.Component {
 				<div className="areaBlock" id="analyzeFormView">
 					<ScrapingForm models={this.props.models}/>
 				</div>
-				<AnlyzeData models={this.props.models} />
+				<AnalyzeData models={this.props.models} />
+				<AnalyzeGraph models={this.props.models} />
+				<AnalyzeAgerage models={this.props.models} />
+				<AnalyzeCalcs models={this.props.models} />
 			</div>
 		);		
 	}

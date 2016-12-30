@@ -1,5 +1,5 @@
 var React  = require('react');
-module.exports = class ScrapingFormView extends React.Component {
+module.exports = class HeaderView extends React.Component {
 	constructor(props){
 		super(props);
 	}

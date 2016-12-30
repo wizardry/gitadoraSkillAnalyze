@@ -5,10 +5,6 @@ module.exports = class ScrapingFormView extends React.Component {
 	constructor(props){
 		super(props);
 	}
-	submitHandler(e){
-		e.preventDefalut();
-		console.log('submit');
-	}
 	render(){
 		return (
             <div className="globalFooter">

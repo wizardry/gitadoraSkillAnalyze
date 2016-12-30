@@ -11,7 +11,8 @@ module.exports = class MainWrapper extends React.Component {
 	}
 	componentWillMount(){
 		var self = this;
-		this.props.models.model.userModel.on('change',function(){
+		this.props.models.model.userModel.on('change sync',function(){
+			console.log('model change and sync',this)
 			var model = self.state.models;
 			model.userModel = this;
 			self.setState({models:model});

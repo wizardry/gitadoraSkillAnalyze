@@ -25,27 +25,19 @@ module.exports = class Navigations extends React.Component {
 
 
         $(window).on('resize', () => {
-            console.log(0,self,self.getNavigationHeight());
             self.setState({windowHeight:self.getNavigationHeight()});
         });
     }
     getNavigationHeight(){
-        // console.log(1,$(window).height());
-        // let height = $(window).height();
-        // if(height < $(document).height()){
-        // }
         // 100%で取れるので一律100％
         let height = '100%';
         return height;
     }
     navClickHandler(e){
         e.preventDefault();
-        console.log('nav click handler');
     }
 	render(){
-        console.log(this.state.anchorList)
         let anchorListDOM = this.state.anchorList.map((anchor) => {
-            console.log(anchor);
             let item = <a className={anchor.className} href={anchor.href}>{anchor.text}</a>
             if(anchor.isCurrent){
                 item = <span className={anchor.className} href={anchor.href}>{anchor.text}</span>
