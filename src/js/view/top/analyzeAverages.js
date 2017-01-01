@@ -19,7 +19,8 @@ module.exports = class AnalyzeAverageView extends React.Component {
 		let resultDOM = [(<li>平均データがありません。</li>)];
 		if(renderData.length != 0){
 			resultDOM = renderData.map(function(data){
-				return (<li key={data.cid}>
+				console.log(data)
+				return (<li key={data.get('title')+'_'+data.get('part')}>
 	                <span className="title">{data.get('title')}</span>
 	                <span className="part">{data.get('part')}</span>
     	            <span className="lv">{data.get('level')}</span>

@@ -111,6 +111,11 @@ module.exports = class AnalyzeCalcsView extends React.Component {
 
 	}
 	render(){
+		let dataCollection = this.props.models.model.userModel.get('data');
+		if(dataCollection == undefined || dataCollection.length == 0){
+			return null;
+		}
+
 		return (
 			<div className="areaBlock calcBlock" id="analyzeSubCalcView">
 				<section>

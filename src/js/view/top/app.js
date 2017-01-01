@@ -2,10 +2,12 @@ var React  = require('react');
 // var $ = require('jquery');
 
 var ScrapingForm = require('./scrapingForm');
+
 var AnalyzeData = require('./analyzeData');
 var AnalyzeGraph = require('./analyzeControl');
 var AnalyzeAgerage = require('./analyzeAveragesWrap');
 var AnalyzeCalcs = require('./analyzeCalcs');
+
 module.exports = class TopView extends React.Component {
 	constructor(props){
 		super(props);

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+        <title>トータル、平均値取得ブックマークレット | ギタドラ スキルアナライズ</title>
+        <meta content="ギタドラ公式サイトからトータル、平均値を出すブックマークレットです。" name="description" />
+        <meta content="スキル,計算,解析,アナライズ,上達,分析,GITADORA,GITADORA TB,ギタドラ,Drummania,GUITAR FREAKS,Tri-Boost" name="keywords" />
+        <meta content="トータル、平均値取得ブックマークレット | ギタドラ スキルアナライズ" property="og:title" />
+        <meta content="website" property="og:type" />
+        <meta content="http://gitadoraodanalyze.web.fc2.com/" property="og:url" />
+        <meta content="" property="og:image" />
+        <meta content="ギタドラ公式サイトからトータル、平均値を出すブックマークレットです。" property="og:description" />
+        <meta content="トータル、平均値取得ブックマークレット | ギタドラ スキルアナライズ" property="og:site_name" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="/img/favicon.ico" rel="shortcut icon" />
+        <link href="css/default.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <!--LAYOUT HEADER-->
+        <div class="globalHeader">
+            <div class="globalHeaderLogos js-toHome">
+                <img alt="GITADORA SKILL ANALYZE" src="img/logo.png" />
+                <p class="logoCopy">
+                    GITADORA TB Skill Analyze は GITADORA Tri-Boost の スキル解析や計算をサポートしてスキル アナライズします。
+                </p>
+            </div>
+            <div class="globalHeaderNav"></div>
+        </div>
+        <div class="notscriptContents">
+    <div class="sectionWrap">
+        <div class="sectionBlock">
+            <p>
+                <a href="./index.html">< TOPに戻る</a>
+            </p>
+        </div>
+        <div class="sectionBlock commonBlock">
+            <p class="sectionHeadline">
+                <span>スキルトータル値、平均値算出ブックマークレット</span>
+            </p>
+            <p class="read">
+                このブックマークレットはGITADORA公式サイト上から実行すると、HotまたはOtherのトータルと平均値を出してくれるブックマークレットです。
+            </p>
+            <ol>
+                <li>
+                    <a href="#master">ブックマークレット本体</a>
+                </li>
+                <li>
+                    <a href="#howto">当ブックマークレットの使い方</a>
+                </li>
+                <li>
+                    <a href="#about">ブックマークレットとは</a>
+                </li>
+            </ol>
+        </div>
+        <div class="sectionBlock commonBlock">
+            <h3 class="sectionHeadline" id="master">
+                <span>ブックマークレット本体</span>
+            </h3>
+            <div class="areaBlock">
+                <p class="read"><a href='javascript:(function(b){var a=document.createElement("script");a.src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js";a.onload=function(){b(jQuery.noConflict(!0))};document.body.appendChild(a)})(function(b){function a(){var a=[];f.find(".skill_cell").each(function(d){a[d]=parseInt(b(this).text().replace(".",""))});return a}function g(a){function d(c){c=[(c+"").slice(0,-2),(c+"").slice(-2)];return parseFloat(c[0]+"."+c[1]).toFixed(2)}var e={total:function(){var c=0;b.each(a,function(b,a){c+=a});return c},avg:function(){var a=0,a=this.total();return Math.round(a/25)}},e=b("<textarea/>").css({margin:"10px auto",padding:"3px 5px",height:"80px"}).val("Total:"+d(e.total())+"\nAVG.:"+d(e.avg()));b("body").prepend(%27<div class="ex-bookmarkletarea" style="margin:10px auto;padding:10px;background:rgba(0,0,0,0.75)"><p class="bookmarkletclose" style="text-decoration:underline; color:#fff;">\u9589\u3058\u308b</p></div>%27);b(".ex-bookmarkletarea").prepend(e);b(".bookmarkletclose").on("click",function(){b(".ex-bookmarkletarea").remove()})}var f=b(".skill_table_tb");if(0==f.length)alert("\u8a72\u5f53\u30da\u30fc\u30b8\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u3002\b\u30ae\u30bf\u30c9\u30e9\u516c\u5f0f\u30da\u30fc\u30b8\u3088\u308a\u30b9\u30ad\u30eb\u5bfe\u8c61\u66f2\u306e\u753b\u9762\u3067\u5b9f\u884c\u3057\u3066\u304f\u3060\u3055\u3044\u3002");else{var h=a();g(h)}});'>ギタドラスキル算出</a>
+                </p>
+            </div>
+            <div class="areaBlock">
+                <p class="read">
+                    元scriptは<a href="./js/bookmarklet/skillmath.js">こちら</a> | (非minfy)
+                </p>
+            </div>
+            <div class="areaBlock">
+                <p class="read">
+                    スマホ端末でリンク長押しにてリンク元をコピー出来ないかたは下記テキストエリアからコピペください。
+                </p>
+                <textarea>javascript:(function(b){var a=document.createElement("script");a.src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js";a.onload=function(){b(jQuery.noConflict(!0))};document.body.appendChild(a)})(function(b){function a(){var a=[];f.find(".skill_cell").each(function(d){a[d]=parseInt(b(this).text().replace(".",""))});return a}function g(a){function d(c){c=[(c+"").slice(0,-2),(c+"").slice(-2)];return parseFloat(c[0]+"."+c[1]).toFixed(2)}var e={total:function(){var c=0;b.each(a,function(b,a){c+=a});return c},avg:function(){var a=0,a=this.total();return Math.round(a/25)}},e=b("<textarea/>").css({margin:"10px auto",padding:"3px 5px",height:"80px"}).val("Total:"+d(e.total())+"\nAVG.:"+d(e.avg()));b("body").prepend(%27<div class="ex-bookmarkletarea" style="margin:10px auto;padding:10px;background:rgba(0,0,0,0.75)"><p class="bookmarkletclose" style="text-decoration:underline; color:#fff;">\u9589\u3058\u308b</p></div>%27);b(".ex-bookmarkletarea").prepend(e);b(".bookmarkletclose").on("click",function(){b(".ex-bookmarkletarea").remove()})}var f=b(".skill_table_tb");if(0==f.length)alert("\u8a72\u5f53\u30da\u30fc\u30b8\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u3002\b\u30ae\u30bf\u30c9\u30e9\u516c\u5f0f\u30da\u30fc\u30b8\u3088\u308a\u30b9\u30ad\u30eb\u5bfe\u8c61\u66f2\u306e\u753b\u9762\u3067\u5b9f\u884c\u3057\u3066\u304f\u3060\u3055\u3044\u3002");else{var h=a();g(h)}});</textarea>
+            </div>
+        </div>
+        <div class="sectionBlock commonBlock">
+            <h3 class="sectionHeadline" id="howto">
+                <span>当ブックマークレットの使い方</span>
+            </h3>
+            <ol>
+                <li>
+                    e-amusement GITADORA サイトにログインしてアクセスする。
+                </li>
+                <li>
+                    スキル対象曲の画面を開く
+                </li>
+                <li>
+                    Hot、Otherを選択する
+                </li>
+                <li>
+                    ブックマークレットを実行する。
+                    <ul>
+                        <li>
+                            閲覧している画面のトータルと平均値が出ます。
+                        </li>
+                        <li>
+                            コピーし易いようにテキストエリアにトータルと平均値が出力されます。
+                        </li>
+                        <li>
+                            テキストエリア下部の閉じるをクリック、タップするとテキストエリアが閉じられます。
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div class="sectionBlock commonBlock">
+            <h3 class="sectionHeadline" id="howto">
+                <span>動作確認環境</span>
+            </h3>
+            <ul>
+                <li>
+                    Android4.1(Galaxy S III α)
+                    <ul>
+                        <li>
+                            GoogleChrome(実行のみ。登録はPC経由が必要)
+                        </li>
+                        <li>
+                            Firefox(登録実行共にOK ただ当Webサイト自体はFirefox未対応)
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    PC
+                    <ul>
+                        <li>
+                            GoogleChrome
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="sectionBlock commonBlock">
+            <h3 class="sectionHeadline" id="about">
+                <span>ブックマークレットとは</span>
+            </h3>
+            <h4 class="chapterHeadline">
+                ブックマークレットについてはこちら
+            </h4>
+            <p class="read">
+                <a href="http://d.hatena.ne.jp/keyword/%A5%D6%A5%C3%A5%AF%A5%DE%A1%BC%A5%AF%A5%EC%A5%C3%A5%C8" target="_blank">ブックマークレットとは</a>
+            </p>
+            <h4 class="chapterHeadline">
+                スマホの登録方法はこちら
+            </h4>
+            <p class="read">
+                ・Android<br><a href="http://hayashikejinan.com/android/828/" target="_blank">Android スマートフォンのブラウザからブックマークレットを起動する方法</a><br>・iOS<br><a href="http://matome.naver.jp/odai/2133819926268876901" target="_blank">【保存版】iPhone,iPadがもっと便利になるSafariブックマークレット大全</a><br>
+            </p>
+            <p class="read">
+                環境により保存・実行できないことがあるようです。<br><a href="http://android-smart.com/2011/06/android%E3%81%A7%E3%82%82%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%83%AC%E3%83%83%E3%83%88%E3%82%92%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%97%E3%82%88%E3%81%86.html">こちら</a>も参考下さい。
+            </p>
+            <ol>
+                <li>
+                    PC経由などでブックマークレットを保存する
+                </li>
+                <li>
+                    URLバーから保存したブックマークレットの名前を呼び出す
+                </li>
+                <li>
+                    成功すると<a href="./img/capture/20150507ss.png" target="_blank">こちら</a>のような画面になります。
+                </li>
+            </ol>
+            <h4 class="chapterHeadline">
+                PCの登録方法はこちら
+            </h4>
+            <p class="read">
+                <a href="http://www.lifehacker.jp/2013/04/130402bookmarklet_matome.html">知ってそうで知らないブックマークレットの仕組みと使い方（と便利な11点まとめ）</a>
+            </p>
+        </div>
+    </div>
+</div>
+        <script type="text/javascript">
+            //ga
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-53924048-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            $(function(){
+                //conversion
+                $('#graphToggleTrigger').click(function(){
+                    _gaq.push(['_trackPageview', '/viewgraph.html'])
+                })
+                //conversion
+                $('#skillForm').submit(function(){
+                    _gaq.push(['_trackPageview', '/viewskilllist.html'])
+                })
+                //conversion
+                $('#musicListDrawForm').submit(function(){
+                    _gaq.push(['_trackPageview', '/viewmusiclist.html'])
+                })
+                //conversion
+                $('#analyzeForm').submit(function(){
+                    _gaq.push(['_trackPageview', '/imported.html'])
+                })
+            })
+            //twitter
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+        </script>
+        <div class="globalFooter">
+            <div class="footerInner">
+                <p class="globalFooterCopyright">
+                    <em>GITADORA Tri-Boost Skill Analyze</em> copyright by GITADORA Skill Analyze
+                </p>
+            </div>
+        </div>
+        <!--/LAYOUT FOOTER-->
+        
+    </body>
+</html>
