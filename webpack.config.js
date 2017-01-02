@@ -1,4 +1,6 @@
 var path = require('path');
+var webpack = require("webpack");
+
 module.exports = {
   entry: {
       app :'./src/js/app.js'
@@ -10,12 +12,6 @@ module.exports = {
   },
   resolve: {
     extensions:['','.js','jsx']
-  },
-  devServer: {
-    contentBase: './build',
-    cache:false,
-    inline:true,
-    port:8080
   },
   module: {
     loaders: [
@@ -32,5 +28,5 @@ module.exports = {
       }
     ]
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
 };

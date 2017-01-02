@@ -36,24 +36,7 @@ var SongCollection = Backbone.Collection.extend({
 		}
 		return result;
 	},
-	getDiffcultFilter:function(checkedAry){
-		let partListMaster = [
-			'BSC-D',
-			'ADV-D',
-			'EXT-D',
-			'MAS-D',
-			'BSC-G',
-			'ADV-G',
-			'EXT-G',
-			'MAS-G',
-			'BSC-B',
-			'ADV-B',
-			'EXT-B',
-			'MAS-B',
-		];
-	},
-	genDataFunc(DOM,type){
-		let $DOM = $(DOM);
+	genDataFunc:function(DOM,type){
 		let $trs = $(DOM).find('#sTable_musics tbody tr');
 		let data = [];
 		let partMaster = [

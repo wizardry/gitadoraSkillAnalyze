@@ -27,13 +27,10 @@ module.exports = class HowToGuideView extends React.Component {
 					</h3>
 					<ol>
 						<li>
-							<a href="http://xv-s.heteml.jp/skill/" target="_blank">GuitarFreaks &amp; DrumMania Skill Simulator</a>こちらのユーザー登録を行い、スキル状況を入力して下さい。<br />入力補佐ツールなどを使うと便利です（<a href="#links">LINK一覧</a>）
+							<a href="http://gitadora.info/index" target="_blank">gitadoraInfo</a> もしくは <a href="http://tri.gfdm-skill.net/" target="_blank">ギタドラ スキルシミュ</a> に登録し、ユーザーIDを控えます。
 						</li>
 						<li>
-							曲情報入力画面上部にある「スキル公開用URL」か、ユーザー検索から自分のページへ行き、URLをコピーしてください。
-						</li>
-						<li>
-							当サイト上部にある入力フィールドにURLをペーストし、インポートボタンをクリック、タップして下さい。
+							当サイト上部にある入力フィールドに使用しているサイトを選択し、ユーザーIDを入力、インポートボタンをクリック、タップして下さい。
 						</li>
 						<li>
 							成功した場合「データ詳細」に数値が反映されます。データ反映後各コンテンツがそのデータに応じて機能します。
@@ -75,7 +72,7 @@ module.exports = class HowToGuideView extends React.Component {
 					</h3>
 					<ul>
 						<li>
-							URLに#!analyze_[tri.gfdm-skill.net or gitadora.info]_[USER-ID]を付け足すと読込時に自動でインポートします。
+							<del>URLに#!analyze_[tri.gfdm-skill.net or gitadora.info]_[USER-ID]を付け足すと読込時に自動でインポートします。</del>
 						</li>
 					</ul>
 				</div>

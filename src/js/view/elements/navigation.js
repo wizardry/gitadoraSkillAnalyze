@@ -15,10 +15,11 @@ module.exports = class Navigations extends React.Component {
                 {text:'ログ',className:'',href:'#news',isCurrent:false},
             ],
             navList:[
-                {text:'データ分析',className:'js-toAnalyze',id:'',isCurrent:true , dataValue:'top'},
-                {text:'曲一覧<sup>（難易度軸）</sup>',className:'',id:'toMusicListNav',isCurrent:false, dataValue:'musicList'},
-                {text:'Lv×達成率 一覧',className:'',id:'toSkillListNav',isCurrent:false, dataValue:'skillList'},
+                {text:'データ分析',className:'js-toAnalyze',id:'', dataValue:'top'},
+                {text:'曲一覧<sup>（難易度軸）</sup>',className:'',id:'toMusicListNav', dataValue:'musicList'},
+                {text:'Lv×達成率 一覧',className:'',id:'toSkillListNav', dataValue:'skillList'},
             ],
+            navCurrent:'top',
             windowHeight:this.getNavigationHeight()
 
         });
@@ -47,6 +48,7 @@ module.exports = class Navigations extends React.Component {
             mode:path,
             path:urls[path]
         });
+        this.setState({navCurrent:path})
 
     }
     anchorHandler(e){
@@ -65,7 +67,7 @@ module.exports = class Navigations extends React.Component {
 
         let navListDOM = this.state.navList.map((nav) => {
             let current = '';
-            if(nav.isCurrent){
+            if(this.state.navCurrent == nav.dataValue){
                 current = 'current';
             }
             return (<li className={current} key={nav.text}>

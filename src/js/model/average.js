@@ -18,23 +18,24 @@ var AverageCollection = Backbone.Collection.extend({
 		let url = '';
 		let nowPoint = this.options.skillPoint;
 		let maxPoint = nowPoint+200;
-		if(this.options.webType.indexOf('tri.gfdm-skill.net') != -1){
-			url = this.options.webType.replace('users/','')+'average/';
+		// if(this.options.webType.indexOf('tri.gfdm-skill.net') != -1){
+			// url = this.options.webType.replace('users/','')+'average/';
+			url = 'http://tri.gfdm-skill.net/average/';
 			if(this.options.idType == 'g'){
 				url = url+'guitar';
 			}else{
 				url = url+'drum';
 			}
 			url = url+'/other/'+nowPoint+'/'+maxPoint
-		}
-		if(this.options.webType.indexOf('gitadora.info') != -1){
-			url = this.options.webType+'/average/'+nowPoint+'/'+maxPoint+'/'+this.options.idType;
-		}
+		// }
+		// if(this.options.webType.indexOf('gitadora.info') != -1){
+		// 	url = this.options.webType+'/average/'+nowPoint+'/'+maxPoint+'/'+this.options.idType;
+		// }
 		return url;
 	},
 	scrapingFunc:function(verDOM){
 		var data = [];
-		if(this.options.webType.indexOf('tri.gfdm-skill.net') != -1){
+		// if(this.options.webType.indexOf('tri.gfdm-skill.net') != -1){
 			let type = $(verDOM).find('h2').text();
 			if(type == 'Other'){
 				type = 'old';
@@ -43,7 +44,7 @@ var AverageCollection = Backbone.Collection.extend({
 			}
 			$(verDOM).find('#averageTable tbody tr').each(function(index,tr){
 				let $tr = $(tr)
-				let className = $tr.attr('class').replace(/ odd/g,'').replace(/ even/g,'');
+				// let className = $tr.attr('class').replace(/ odd/g,'').replace(/ even/g,'');
 				let title = $tr.find('td').eq(1).text();
 				let part = $tr.find('td').eq(2).text().trim().split(' ')[1];
 				let level = $tr.find('td').eq(2).text().slice(0,4);
@@ -61,10 +62,10 @@ var AverageCollection = Backbone.Collection.extend({
 					recPoint:parseInt(level)*parseInt(rate)*parseInt(register)
 				});
 			});
-		}
-		if(this.options.webType.indexOf('gitadora.info') != -1){
+		// }
+		// if(this.options.webType.indexOf('gitadora.info') != -1){
 
-		}
+		// }
 		return data;
 	},
 	getUseAverage:function(type){

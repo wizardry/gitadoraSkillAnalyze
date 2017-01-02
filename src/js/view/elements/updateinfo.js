@@ -2,7 +2,7 @@ var React  = require('react');
 // var $ = require('jquery');
 
 var updates = [
-	{date:'01/01', text:'描画ライブラリの変更、gitadoraInfoの対応、レコメンドの一部復活を行いました。'},
+	{date:'01/03', text:'描画ライブラリの変更、<a href="http://gitadora.info/index" target="_blank">gitadoraInfo</a>の対応、レコメンドの一部復活を行いました。（重いのか旧曲がアクセス出来ない状態を解決できませんでした。）'},
 	{date:'2017&nbsp;', text:'↓2016年　↑2017年'},
 	{date:'2016&nbsp;', text:'↓2015年　↑2016年'},
 	{date:'08/06', text:'GuitarFreaks &amp; DrumMania Skill Simulator が 403 Forbidden 状態のため選択できないようにしました。'},

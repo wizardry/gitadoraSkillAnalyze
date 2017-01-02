@@ -24,7 +24,8 @@ module.exports = class AnalyzeAverageWrapView extends React.Component {
 			options.skillPoint = point;
 			props.models.model.averageCollection.setOptions(options);
 			props.models.model.averageCollection.userModel = model;
-			if(options.webType.indexOf('tri.gfdm-skill.net') != -1){
+			// if(options.webType.indexOf('tri.gfdm-skill.net') != -1){
+			// gitadorainfoではhot枠をわけてないのでtri.gfdmからとってくる
 				let url = props.models.model.averageCollection.url();
 				props.models.model.averageCollection.fetch({
 					dataType:'html',
@@ -53,7 +54,7 @@ module.exports = class AnalyzeAverageWrapView extends React.Component {
 					}
 				});
 
-			}
+			// }
 
 		});
 		this.props.models.model.averageCollection.on('sync',function(model,res){

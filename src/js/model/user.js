@@ -3,28 +3,52 @@
 
 //スクレイピング処理
 var skillScrapingFunc =function(DOM,type){
-	type = null;//URL増えた時用
-
-	var hotData = DOM.find('#sortableTable tbody tr').map(function($tr){
-		var data = {};
-		data.title = $(this).find('td').eq(1).text().trim();
-		data.level = $(this).find('td').eq(2).text().split(' ')[0];
-		data.dif = $(this).find('td').eq(2).text().split(' ')[1];
-		data.rate = $(this).find('td').eq(3).text().split('%')[0];
-		data.rank = $(this).find('td').eq(3).text().split('%')[1];
-		data.frame = 'hot';
-		return data;
-	}).get();
-	var oldData = DOM.find('#sortableTable2 tbody tr').map(function(){
-		var data = {};
-		data.title = $(this).find('td').eq(1).text().trim();
-		data.level = $(this).find('td').eq(2).text().split(' ')[0];
-		data.dif = $(this).find('td').eq(2).text().split(' ')[1];
-		data.rate = $(this).find('td').eq(3).text().split('%')[0];
-		data.rank = $(this).find('td').eq(3).text().split('%')[1];
-		data.frame = 'old';
-		return data;
-	}).get();
+	if(type.indexOf('tri.gfdm-skill.net') != -1){
+		var hotData = DOM.find('#sortableTable tbody tr').map(function($tr){
+			var data = {};
+			data.title = $(this).find('td').eq(1).text().trim();
+			data.level = $(this).find('td').eq(2).text().split(' ')[0];
+			data.dif = $(this).find('td').eq(2).text().split(' ')[1];
+			data.rate = $(this).find('td').eq(3).text().split('%')[0];
+			data.rank = $(this).find('td').eq(3).text().split('%')[1];
+			data.frame = 'hot';
+			return data;
+		}).get();
+		var oldData = DOM.find('#sortableTable2 tbody tr').map(function(){
+			var data = {};
+			data.title = $(this).find('td').eq(1).text().trim();
+			data.level = $(this).find('td').eq(2).text().split(' ')[0];
+			data.dif = $(this).find('td').eq(2).text().split(' ')[1];
+			data.rate = $(this).find('td').eq(3).text().split('%')[0];
+			data.rank = $(this).find('td').eq(3).text().split('%')[1];
+			data.frame = 'old';
+			return data;
+		}).get();
+	}
+	if(type.indexOf('gitadora.info') != -1){
+		var hotData = DOM.find('.div-table').eq(0).find('.div-table-row').map(function(){
+			var data= {};
+			var $data = $(this).find('.div-table-cell').eq(3);
+			data.title = $data.find('.row').eq(0).find('a').text().trim();
+			data.level = $data.find('.row').eq(1).text().trim().split('/')[1].trim();
+			data.dif = $data.find('.row').eq(1).text().trim().split('/')[0].trim();
+			data.rate = $data.find('.row').eq(3).text().trim().split('/')[1].trim().replace('%','');
+			data.rank = $data.find('.row').eq(3).text().trim().split('/')[0].trim();
+			data.frame = 'hot';
+			return data;
+		}).get();
+		var oldData = DOM.find('.div-table').eq(1).find('.div-table-row').map(function(){
+			var data={}
+			var $data = $(this).find('.div-table-cell').eq(3);
+			data.title = $data.find('.row').eq(0).find('a').text().trim();
+			data.level = $data.find('.row').eq(1).text().trim().split('/')[1].trim();
+			data.dif = $data.find('.row').eq(1).text().trim().split('/')[0].trim();
+			data.rate = $data.find('.row').eq(3).text().trim().split('/')[1].trim().replace('%','');
+			data.rank = $data.find('.row').eq(3).text().trim().split('/')[0].trim();
+			data.frame = 'old';
+			return data;
+		}).get();
+	}
 	var allData = hotData.concat(oldData);
 	return allData;
 };
@@ -183,18 +207,20 @@ var UserModel = Backbone.Model.extend({
 		return '../../data/user.html';
 		// return this.get('urlType')+'/users/'+this.get('id')+'/'+this.get('gameType');
 	},
-	skillScrapingFunc:function(type){
-		skillScrapingFunc(type)
-	},
 	beforeFetch:function(){
 		if(this.has(data)){
 			this.remove('data');
 		}
 	},
 	parse:function(res){
-		var verDOM = $(res.responseText);
-		var data = skillScrapingFunc(verDOM);
-
+		// gitadorainfoは大量のempty画像リクエストが発生するのでDOM化するまえに調整する
+		if(this.webType.indexOf('gitadora.info') != -1){
+			var verDOM = $(res.responseText.replace(/onerror/g,'dummySrc').replace(/src/g,'dummySrc'));
+		}else{
+			var verDOM = $(res.responseText);
+		}
+		var data = skillScrapingFunc(verDOM,this.webType);
+		verDOM = null;
 		return {data:new SkillList(data)};
 	},
 	saveCookieFunc:function(){
