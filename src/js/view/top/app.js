@@ -13,8 +13,15 @@ module.exports = class TopView extends React.Component {
 		super(props);
 	}
 	render(){
+		let wrapDisplay = 'block';
+		if(
+			this.props.models.model.viewStateModel.get('mode') == 'musicList' || 
+			this.props.models.model.viewStateModel.get('mode') == 'skillList'
+		){
+			wrapDisplay = 'none';
+		}
 		return(
-			<div>
+			<div style={{display:wrapDisplay}}>
 				<div className="areaBlock" id="analyzeFormView">
 					<ScrapingForm models={this.props.models}/>
 				</div>

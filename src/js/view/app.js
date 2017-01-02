@@ -26,14 +26,18 @@ module.exports = class MainWrapper extends React.Component {
 			self.setState({models:model});
 		});
 		this.props.models.model.viewStateModel.on('change',function(){
-			//FIXME Hash¤ò¤ß¤¿³õÆÚ¥¤¥ó¥Ý©`¥È„IÀí
-			if(this.get('path').indexOf('analyze_') != -1){
-				let path = this.get('path').split('_');
+			if(this.get('path').indexOf('analyze') != -1){
+				this.set({mode:'top'});
+				console.log('mode top/ hash analyze')
 			}
 
 			if(this.get('path').indexOf('songlist') != -1){
+				this.set({mode:'musicList'});
+				console.log('mode musicList/ hash songlist')
 			}
 			if(this.get('path').indexOf('skillPointList') != -1){
+				this.set({mode:'skillList'});
+				console.log('mode skillList/ hash skillPointList')
 			}
 			var model = self.state.models;
 			model.viewStateModel = this;
@@ -48,7 +52,7 @@ module.exports = class MainWrapper extends React.Component {
 			<div>
 				<PageHeader />
 				<div id="masterView">
-					<Navigation />
+					<Navigation models={this.state.models} />
 					<div className="contents">
 						<div className="loader">
 							<i className="loading loadpos"></i>

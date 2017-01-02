@@ -125,8 +125,10 @@ module.exports = class MusicListWrap extends React.Component {
 		this.setState({toggle:!this.state.toggle});
 	}
 	render(){
+		let wrapDisplay = 'block'
+		if( this.props.models.model.viewStateModel.get('mode') != 'musicList'){ wrapDisplay = 'none'; }
 		return (
-			<div className="sectionBlock musicBlock" id="musicListView">
+			<div className="sectionBlock musicBlock" id="musicListView" style={{display:wrapDisplay}}>
 				<h1 className="sectionHeadline">
 					<span>曲一覧<sup>（難易度軸）</sup></span>
 				</h1>

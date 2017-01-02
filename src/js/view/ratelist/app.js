@@ -71,8 +71,10 @@ module.exports = class rateListControl extends React.Component {
 		});
 	}
 	render(){
+		let wrapDisplay = 'block'
+		if( this.props.models.model.viewStateModel.get('mode') != 'skillList'){ wrapDisplay = 'none'; }
 		return (
-			<div className="sectionWrap">
+			<div className="sectionWrap" style={{display:wrapDisplay}}>
 				<div className="sectionBlock skillListBlock" id="skillListView">
 					<h2 className="sectionHeadline">
 						<span>Lv×達成率軸 スキルポイント一覧</span>
