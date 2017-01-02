@@ -45,7 +45,7 @@ var AverageCollection = Backbone.Collection.extend({
 				let $tr = $(tr)
 				let className = $tr.attr('class').replace(/ odd/g,'').replace(/ even/g,'');
 				let title = $tr.find('td').eq(1).text();
-				let part = className;
+				let part = $tr.find('td').eq(2).text().trim().split(' ')[1];
 				let level = $tr.find('td').eq(2).text().slice(0,4);
 				let rate = $tr.find('td').eq(3).text().slice(0,5);
 				let skill = $tr.find('td').eq(4).text();
@@ -65,7 +65,6 @@ var AverageCollection = Backbone.Collection.extend({
 		if(this.options.webType.indexOf('gitadora.info') != -1){
 
 		}
-		console.log(data);
 		return data;
 	},
 	getUseAverage:function(type){
@@ -81,9 +80,7 @@ var AverageCollection = Backbone.Collection.extend({
 	oldFetched:false,
 	parse:function(res,b,c){
 		var verDOM = $(res.responseText);
-		console.log(res,b,c,verDOM)
 		var data = this.scrapingFunc(verDOM);
-		console.log(data);
 
 		return data;
 	},

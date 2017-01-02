@@ -15,18 +15,13 @@ module.exports = class AnalyzeControlView extends React.Component {
 		}
 	}
 	componentWillMount(){
-		console.log('willmount',this.props);
 		// this.props.models.model.userModel.on()
 	}
 	componentDidMount(){
-		console.log('did mount')
 		this.genGraphData();
 	}
 	// 無限ループ
 	componentDidUpdate(prevp,prevs){
-		console.log('did mount update')
-		console.log(prevp,prevs,this.state)
-
 		// グラフ周りの設定をいじった時にもグラフ情報を再ジェネレートする
 		if(
 			this.state.currentType !== prevs.currentType ||
@@ -36,10 +31,6 @@ module.exports = class AnalyzeControlView extends React.Component {
 			this.genGraphData();
 		}
 	}
-	// componentWillReceiveProps(){
-	// 	console.log('willreceiveprops')
-	// 	this.genGraphData();
-	// }
 	graphTypes(){
 		return [
 			{className:'actionButtonBase primary', text:'Lv×Point', value:'0', xAxis:'Lv', yAxis:'Point' , xkey:'level', ykey:'point'},
@@ -69,7 +60,6 @@ module.exports = class AnalyzeControlView extends React.Component {
 		let yAxis = graphtype.yAxis;
 		let xKey = graphtype.xkey;
 		let yKey = graphtype.ykey;
-console.log(xKey,yKey,xAxis,yAxis,this.state.reserve)
 		if(this.state.reserve){
 			let tmp = xAxis+''; //shalow
 			xAxis = yAxis+'';
@@ -91,7 +81,6 @@ console.log(xKey,yKey,xAxis,yAxis,this.state.reserve)
 				x:musicModel.get(xKey)*1,
 				y:musicModel.get(yKey)*1
 			};
-			// console.log(setData)
 			data[musicModel.get('frame')].push(setData);
 		});
 		let options = {
@@ -154,8 +143,7 @@ console.log(xKey,yKey,xAxis,yAxis,this.state.reserve)
 					,data:data.old
 				}
 			]
-		}
-		console.log('fire graph')
+		};
 		this.setState({highChartsData:options});
 	}
 	render(){

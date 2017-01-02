@@ -11,7 +11,6 @@ module.exports = class AnlyzeGraphView extends React.Component {
 		}
 	}
 	componentDidMount(){
-		console.log(this.props.highChartsData)
 		$('#analyzeGraphCanvas').highcharts(this.props.highChartsData);
 	}
 	componentDidUpdate(){

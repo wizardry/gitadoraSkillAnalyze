@@ -13,15 +13,38 @@ module.exports = class rateListControl extends React.Component {
 			threshold:0,
 			sortType:0
 		}
-	}
-	componentWillMount(){
-		// this.props.models.model.userModel.on()
 
 	}
+	componentWillMount(){
+		var cookie = $.cookie('skillView');
+		/**
+		* ex cookie
+		* key : skillView
+		* oldValue: "{"startLv":10,"endLv":25,"startRate":80,"endRate":100,"threshold":48,"drawType":0}"
+		* value: "{"lvMax":20,"lvMin":10,"rateMax:80,"rateMin":60,"threshold":30,"sortType":0}""
+		*/
+		if(cookie != undefined ){
+			cookie = JSON.parse(cookie);
+			if(cookie.drawType !== undefined){
+				alert('Cookie情報が古いため過去の入力情報を破棄します。');
+				$.removeCookie('skillView');
+			}
+			cookie.hasCookie = true;
+			this.state = cookie;
+		}
+		// this.props.models.model.userModel.on()
+	}
 	componentDidMount(){
+		if(this.state.hasCookie){
+			this.refs.levelMax.value = this.state.lvMax
+			this.refs.levelMin.value = this.state.lvMin
+			this.refs.rateMax.value = this.state.rateMax
+			this.refs.rateMin.value = this.state.rateMin
+			this.refs.threshold.value = this.state.threshold
+			this.refs.sortSelect.value = this.state.sortType
+		}
 	}
 	submitHandler(e){
-		console.log('rate list submit')
 		e.preventDefault();
 
 		let lvMax = parseInt( this.refs.levelMax.value );
@@ -30,14 +53,14 @@ module.exports = class rateListControl extends React.Component {
 		let rateMin = parseInt( this.refs.rateMin.value );
 		let threshold = parseFloat( this.refs.threshold.value ) * 100;
 		let sortType = parseInt( this.refs.sortSelect.value );
-		console.log({
+		$.cookie('skillView',JSON.stringify({
 			lvMax:lvMax,
 			lvMin:lvMin,
 			rateMax:rateMax,
 			rateMin:rateMin,
 			threshold:threshold,
 			sortType:sortType
-		});
+		}));
 		this.setState({
 			lvMax:lvMax,
 			lvMin:lvMin,

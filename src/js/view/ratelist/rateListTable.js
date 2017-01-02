@@ -2,7 +2,7 @@ var React  = require('react');
 // var $ = require('jquery');
 
 
-module.exports = class rateListControl extends React.Component {
+module.exports = class RateListTable extends React.Component {
 	constructor(props){
 		super(props);
 	}
@@ -87,14 +87,14 @@ module.exports = class rateListControl extends React.Component {
 					}
 					let classname = parseFloat(cell) >= threshold/100 ? 'threshold':''
 					return (
-						<td key={cell} className={classname}>
+						<td key={cell+'_'+index3} className={classname}>
 							{cell}pt
 						</td>
 					)
 				});
 
 				return (
-					<tr key={index1*index2}>
+					<tr key={index1+'_'+index2}>
 						<th>{yThText(yData.min + ( (index1*5)+index2) )}</th>
 						{cellDOM}
 					</tr>
@@ -103,11 +103,11 @@ module.exports = class rateListControl extends React.Component {
 
 			let theadDOM = []
 			for (var i = xData.min; i < xData.max+1; i++) {
-				theadDOM.push(<th>{xThText(i)}</th>);
+				theadDOM.push(<th key={index1+'_'+i}>{xThText(i)}</th>);
 			};
 
 			return (
-				<div className='skillListWrap'>
+				<div className='skillListWrap' key={index1}>
 					<h2><b>{heading( (index1*5)+yData.min)}</b></h2>
 					<table>
 						<thead>

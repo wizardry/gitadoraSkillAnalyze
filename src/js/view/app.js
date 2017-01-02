@@ -3,8 +3,10 @@ var React  = require('react');
 var PageHeader = require('./elements/header');
 var Navigation = require('./elements/navigation');
 var PageFooter = require('./elements/footer');
+
 var TopView = require('./top/app');
 var RateTable = require('./ratelist/app');
+var MusicList = require('./songlist/app');
 
 var HowtoGuide = require('./elements/guid');
 var LinkList = require('./elements/linklist');
@@ -19,7 +21,6 @@ module.exports = class MainWrapper extends React.Component {
 	componentWillMount(){
 		var self = this;
 		this.props.models.model.userModel.on('change sync',function(){
-			console.log('model change and sync',this)
 			var model = self.state.models;
 			model.userModel = this;
 			self.setState({models:model});
@@ -55,6 +56,7 @@ module.exports = class MainWrapper extends React.Component {
 						<div className="contentsInnerWrap">
 							<TopView models={this.state.models}/>
 							<RateTable models={this.state.models} />
+							<MusicList models={this.state.models} />
 							<HowtoGuide />
 							<LinkList />
 							<Updates />

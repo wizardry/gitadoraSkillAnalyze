@@ -11,7 +11,6 @@ module.exports = class AnalyzeAverageWrapView extends React.Component {
 		}
 	}
 	componentWillMount(){
-		console.log(this.props.models.model.userModel);
 		var props = this.props;
 		var self = this;
 		this.props.models.model.userModel.on('sync',function(model,res){
@@ -56,9 +55,6 @@ module.exports = class AnalyzeAverageWrapView extends React.Component {
 
 			}
 
-			//averageCollection
-			console.log(props)
-			console.log('ave on sync')
 		});
 		this.props.models.model.averageCollection.on('sync',function(model,res){
 		});
@@ -75,8 +71,8 @@ module.exports = class AnalyzeAverageWrapView extends React.Component {
 			<div id="analyzeRecommendView">
 				<div className="areaBlock">
 					<div className="recListWrap" id="recListWrap">
-						<AnalyzeAverage models={this.props.models} heading='新曲枠' wrapClass='recListHotArea' data={this.state.hot} />
-						<AnalyzeAverage models={this.props.models} heading='旧曲枠' wrapClass='recListOldArea' data={this.state.old} />
+						<AnalyzeAverage models={this.props.models} heading='新曲枠' wrapClass='recListHotArea' data={this.state.hot} key='hot' />
+						<AnalyzeAverage models={this.props.models} heading='旧曲枠' wrapClass='recListOldArea' data={this.state.old} key='old' />
 					</div>
 				</div>
 			</div>

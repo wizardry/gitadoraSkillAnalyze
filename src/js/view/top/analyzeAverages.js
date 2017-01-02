@@ -13,14 +13,12 @@ module.exports = class AnalyzeAverageView extends React.Component {
 	componentDidMount(){
 	}
 	render(){
-		console.log(this.props.data);
 		let renderData = this.props.data.slice(0,30);
 
-		let resultDOM = [(<li>平均データがありません。</li>)];
+		let resultDOM = [(<li key='notfined'>平均データがありません。</li>)];
 		if(renderData.length != 0){
 			resultDOM = renderData.map(function(data){
-				console.log(data)
-				return (<li key={data.get('title')+'_'+data.get('part')}>
+				return (<li key={data.get('title')+'_'+data.get('part')+'_'+data.get('level')}>
 	                <span className="title">{data.get('title')}</span>
 	                <span className="part">{data.get('part')}</span>
     	            <span className="lv">{data.get('level')}</span>

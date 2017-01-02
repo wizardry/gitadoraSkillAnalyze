@@ -124,13 +124,6 @@ var SkillList = Backbone.Collection.extend({
 			let modelPoint = parseFloat(self.mathSkill(model))*100;
 			diffPoint += (parseFloat(upper)*100) - modelPoint;
 		});
-		console.log({
-			this:this,
-			target:target,
-			diffPoint:(diffPoint/100).toFixed(2),
-			length:target.length,
-			total:( (masterPoint*100)+diffPoint )/100
-		})
 		return {
 			diffPoint:diffPoint/100,
 			length:target.length,
@@ -199,7 +192,6 @@ var UserModel = Backbone.Model.extend({
 		}
 	},
 	parse:function(res){
-		console.log('user parse',res)
 		var verDOM = $(res.responseText);
 		var data = skillScrapingFunc(verDOM);
 
@@ -224,7 +216,6 @@ var userModel = new UserModel();
 やってみたけど少なくともModelまわりではclass化するメリットがなさそう
 class UserModelClass {
 	constructor(data){
-		console.log(this.isCreated)
 		if(this.isCreated){
 			return this;
 		}else{
