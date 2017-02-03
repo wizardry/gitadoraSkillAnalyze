@@ -1,0 +1,8 @@
+user URL
+URL_BASE/users/USER_ID/PART(guitar||drum)
+ex:http://tri.gfdm-skill.net/users/929/guitar
+
+avg URL
+URL_BASE/average/PART(guitar||drum)/TYPE(hot||other)/START_SKILL_POINT/END_SKILL_POINT
+
+ex:http://tri.gfdm-skill.net/average/guitar/hot/7400/7600

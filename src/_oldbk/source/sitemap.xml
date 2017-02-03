@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!--  created with free sitemap generation system www.sitemapxml.jp  --> 
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/</loc>
+  <priority>1.0</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/#</loc>
+  <priority>0.5</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/#!skillPointList</loc>
+  <priority>0.3</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/#!musicList</loc>
+  <priority>0.3</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/#!analyze</loc>
+  <priority>0.3</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/old/od/</loc>
+  <priority>0.3</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/old/od/pointList.html</loc>
+  <priority>0.3</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/old/od/songlist.html</loc>
+  <priority>0.3</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/old/od/index-sp.html</loc>
+  <priority>0.3</priority>
+  <lastmod>2015-04-10T19:28:19+09:00</lastmod>
+</url>
+<url>
+  <loc>http://gitadoraodanalyze.web.fc2.com/bookmarklet.html</loc>
+  <priority>0.3</priority>
+  <lastmod>2015-05-07T15:28:19+09:00</lastmod>
+</url>
+
+</urlset>

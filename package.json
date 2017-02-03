@@ -1,0 +1,47 @@
+{
+  "name": "gitadora_git",
+  "version": "1.0.0",
+  "description": "gitadoraodSkillAnalyze ======================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wizardry/gitadoraSkillAnalyze.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wizardry/gitadoraSkillAnalyze/issues"
+  },
+  "homepage": "https://github.com/wizardry/gitadoraSkillAnalyze#readme",
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "backbone": "^1.3.3",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-webpack": "^1.5.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "backbone": "^1.3.3",
+    "domready": "^1.0.8",
+    "jquery": "^3.1.1",
+    "jquery-transport-xdr": "^1.0.11",
+    "react-router": "^2.8.1"
+  }
+}
