@@ -76,8 +76,7 @@ module.exports = class ScrapingFormView extends React.Component {
 								<option value="http://tri.gfdm-skill.net/users/">
 									http://tri.gfdm-skill.net - TriBoost
 								</option>
-								<option value="http://gitadora.info/targetskill50?gtype=">GITADORA info</option>
-								// <option value="./data/user.html">develop</option>
+								<option value="http://gitadora.info/targetskill50/">GITADORA info</option>
 							</select>
 						</p>
 						<p className="formHeadline">

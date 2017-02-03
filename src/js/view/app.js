@@ -64,10 +64,15 @@ module.exports = class MainWrapper extends React.Component {
 							<HowtoGuide />
 							<LinkList />
 							<Updates />
-							<a href="http://www.amazon.co.jp/gp/product/B00I3LHM6S/ref=as_li_tf_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=B00I3LHM6S&amp;linkCode=as2&amp;tag=dcskillsim-22">
+							<a href="http://www.amazon.co.jp/gp/product/B00I3LHM6S/ref=as_li_tf_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=B00I3LHM6S&amp;linkCode=as2&amp;tag=dcskillsim-22" style={{margin:'0 10px'}}>
 								<img src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B00I3LHM6S&amp;Format=_SL250_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=dcskillsim-22" />
 							</a>
 							<img alt="" src="http://ir-jp.amazon-adsystem.com/e/ir?t=dcskillsim-22&amp;l=as2&amp;o=9&amp;a=B00I3LHM6S" style={{border:'none !important', margin:'0px !important', width:'1px',height:'0px'}} />
+							<a href="http://www.amazon.co.jp/gp/product/B01EM3WFDA/ref=as_li_tf_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=B01EM3WFDA&amp;linkCode=as2&amp;tag=dcskillsim-22" style={{margin:'0 10px'}}>
+								<img src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B01EM3WFDA&amp;Format=_SL250_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=dcskillsim-22" />
+							</a>
+							<img alt="" src="http://ir-jp.amazon-adsystem.com/e/ir?t=dcskillsim-22&amp;l=as2&amp;o=9&amp;a=B01EM3WFDA" style={{border:'none !important', margin:'0px !important', width:'1px',height:'0px'}} />
+
 						</div>
 					</div>
 				</div>

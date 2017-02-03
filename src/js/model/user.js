@@ -174,13 +174,12 @@ var UserModel = Backbone.Model.extend({
 			}
 		}
 		if(webType.indexOf('gitadora.info') != -1){
-			url = webType;
+			url = webType+userId+'/';
 			if(idType == 'g'){
 				url = url+'gf';
 			}else{
 				url = url+'dm';
 			}
-			url = url+'&id='+userId;
 		}
 		if(webType.indexOf('data/user.html') != -1){
 			url = webType;
